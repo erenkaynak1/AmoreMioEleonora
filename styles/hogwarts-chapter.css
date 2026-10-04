@@ -1,0 +1,71 @@
+/* Hogwarts interactive chapter: spell class, library, moving stairs */
+.chapter-scene{position:absolute;inset:0;z-index:38;display:none;overflow:hidden;color:#f7ecd9;background:#070709}
+.chapter-scene.show{display:block}
+.chapter-shade{position:absolute;inset:0;background:linear-gradient(to bottom,#03040655,transparent 30%,#020305b8);pointer-events:none}
+.chapter-title{position:absolute;z-index:8;top:calc(var(--safe-t) + 18px);left:50%;transform:translateX(-50%);width:min(92%,560px);text-align:center;text-shadow:0 3px 18px #000}
+.chapter-title b{display:block;font:500 clamp(1.55rem,7vw,2.45rem)/1.05 Georgia,serif;color:#f0d59a}
+.chapter-title span{display:block;margin-top:7px;color:#e7dcc9;font-size:.9rem;line-height:1.4}
+.chapter-panel{position:absolute;z-index:12;left:6%;right:6%;bottom:calc(var(--safe-b) + 18px);padding:13px 14px;border:1px solid #d9b56f55;border-radius:14px;background:#07080bd9;backdrop-filter:blur(12px);text-align:center;color:#f0e5d3;font:500 .92rem/1.42 Georgia,serif}
+.chapter-btn{min-height:48px;padding:0 20px;border:1px solid #d9b56f66;border-radius:999px;background:#15110dde;color:#f3e3c7;font-weight:700}
+.chapter-btn:disabled{opacity:.35}
+
+/* Spell class */
+.spell-class{background:linear-gradient(#05070a33,#05070a44),url("assets/hogwarts/spell-class-hq.png") center/cover no-repeat}
+.spell-stage{position:absolute;inset:0;z-index:6}
+.spell-feather{position:absolute;right:18%;top:47%;width:34px;height:110px;transform:rotate(17deg);transition:transform .8s ease,filter .4s ease}
+.spell-feather::before{content:"";position:absolute;left:15px;top:0;width:4px;height:110px;background:#eadbbd;border-radius:50%;transform:rotate(5deg)}
+.spell-feather::after{content:"";position:absolute;left:0;top:8px;width:33px;height:88px;background:linear-gradient(90deg,#f4ead6,#b9aa8f);clip-path:polygon(50% 0,100% 20%,65% 44%,100% 58%,60% 72%,88% 100%,47% 89%,10% 100%,38% 72%,0 57%,38% 43%,0 22%);filter:drop-shadow(0 5px 7px #0008)}
+.spell-feather.lift{transform:translate(-35px,-150px) rotate(-12deg) scale(1.08);filter:drop-shadow(0 0 18px #f0d594)}
+.spell-wand{position:absolute;z-index:10;left:12%;bottom:10%;width:24px;height:190px;touch-action:none;transform:rotate(24deg);filter:drop-shadow(0 8px 10px #000b)}
+.spell-wand::before{content:"";position:absolute;left:8px;top:0;width:8px;height:145px;border-radius:80% 80% 30% 30%;background:linear-gradient(90deg,#1b0f09,#8a5c37 50%,#25120a)}
+.spell-wand::after{content:"";position:absolute;left:4px;bottom:0;width:16px;height:55px;border-radius:10px;background:repeating-linear-gradient(170deg,#2c150c 0 7px,#724326 7px 12px)}
+.spell-wand.active{filter:drop-shadow(0 0 14px #efd083)}
+.spell-orbit{position:absolute;z-index:7;left:24%;right:24%;top:39%;height:24%;pointer-events:none;opacity:.75}
+.spell-orbit svg{width:100%;height:100%;overflow:visible}
+.spell-orbit path{fill:none;stroke:#f0d69f;stroke-width:2;stroke-dasharray:6 10;filter:drop-shadow(0 0 6px #d9b56f88)}
+.spell-trail{position:absolute;inset:0;z-index:9;pointer-events:none;width:100%;height:100%}
+.voice-card{position:absolute;z-index:13;left:6%;right:6%;bottom:calc(var(--safe-b) + 18px);padding:15px;border:1px solid #d9b56f55;border-radius:16px;background:#07080be6;backdrop-filter:blur(12px);text-align:center}
+.voice-card b{display:block;font:600 1.02rem Georgia,serif;color:#f1d497;margin-bottom:8px}
+.voice-actions{display:flex;gap:9px;justify-content:center;flex-wrap:wrap}
+.mic-btn{width:62px;height:62px;border-radius:50%;border:1px solid #d9b56f77;background:#201510;color:#f4d99e;font-size:1.5rem;box-shadow:0 0 0 0 #d9b56f66}
+.mic-btn.listening{animation:micPulse 1s ease infinite}
+.spell-feedback{margin:9px 0 0;color:#d9cbb6;font-size:.86rem}
+.spell-continue{display:none;margin:12px auto 0}.spell-continue.show{display:block}
+
+/* Library */
+.library-scene{background:linear-gradient(#04060944,#04060955),url("assets/hogwarts/library-hq.png") center/cover no-repeat}
+.library-light{position:absolute;z-index:9;width:96px;height:96px;border-radius:50%;left:12%;top:55%;touch-action:none;background:radial-gradient(circle,#fff3b899 0 8%,#f4d27c42 32%,transparent 70%);box-shadow:0 0 32px #f1cf7866;cursor:grab}
+.library-light::after{content:"";position:absolute;left:45px;top:38px;width:7px;height:150px;border-radius:5px;background:linear-gradient(#6a4527,#211109);transform-origin:top;transform:rotate(23deg)}
+.hidden-book{position:absolute;z-index:8;right:15%;top:37%;width:58px;height:92px;background:linear-gradient(90deg,#351821,#8b4555 50%,#30151d);border:2px solid #c3926a;border-radius:4px;transform:rotate(3deg);opacity:.22;filter:brightness(.45);touch-action:none;pointer-events:none;transition:opacity .35s,filter .35s,box-shadow .35s}
+.hidden-book.found{opacity:1;filter:brightness(1);box-shadow:0 0 24px #d9b56f88;pointer-events:auto}
+.hidden-book::before{content:"✦";position:absolute;left:50%;top:35%;transform:translate(-50%,-50%);color:#e8c982;font-size:1.5rem}
+.library-desk{position:absolute;z-index:7;left:10%;right:10%;bottom:8%;height:20%;border:1px dashed #d9b56f66;border-radius:18px;background:#15100cd6;display:grid;place-items:end center;padding-bottom:12px;font:500 .78rem Georgia,serif;color:#d9c8aa}
+.library-desk.ready{background:#d9b56f18;border-style:solid}
+.clue-card{position:absolute;inset:0;z-index:15;display:none;place-items:center;padding:24px;background:#030407e8;backdrop-filter:blur(10px);text-align:center}
+.clue-card.show{display:grid}
+.clue-card h2{margin:0 0 10px;font:500 clamp(1.8rem,8vw,3rem) Georgia,serif;color:#f0d59a}
+.clue-card p{margin:0 0 18px;color:#e1d7c7;line-height:1.55}
+
+/* Moving stairs */
+.stairs-scene{background:linear-gradient(#04060a55,#04060a44),url("assets/hogwarts/stairs-hq.png") center/cover no-repeat}
+.stairs-game{position:absolute;z-index:9;left:7%;right:7%;bottom:12%;height:36%;border:1px solid #d9b56f44;border-radius:18px;background:#05070abc;backdrop-filter:blur(8px);padding:20px 14px}
+.stairs-track{position:relative;height:90px;margin-top:26px;border-radius:14px;background:linear-gradient(90deg,#16120f,#302216,#16120f);border:1px solid #8c6b47;overflow:hidden}
+.stairs-zone{position:absolute;left:66%;top:0;bottom:0;width:18%;background:linear-gradient(#7cb38944,#7cb38966);border-left:1px solid #a2d5ad;border-right:1px solid #a2d5ad}
+.stairs-marker{position:absolute;left:2%;top:13px;width:62px;height:62px;border-radius:12px;background:linear-gradient(#aa7b4c,#53351f);border:1px solid #d2a66f;box-shadow:0 9px 17px #0008;animation:stairsSweep 2s linear infinite alternate}
+.stairs-marker::before{content:"";position:absolute;left:8px;right:8px;top:20px;height:7px;background:#e2c18d;box-shadow:0 12px 0 #cba871,-8px 24px 0 #b58e5d}
+.stairs-game.shake{animation:stairsShake .35s ease}
+.stairs-progress{display:flex;justify-content:center;gap:9px;margin:0 0 8px}
+.stairs-progress i{width:10px;height:10px;border-radius:50%;background:#5f5549;border:1px solid #bca37b}
+.stairs-progress i.done{background:#bfe0ad;box-shadow:0 0 10px #a8d593}
+.stairs-action{display:block;margin:14px auto 0}
+.stairs-result{position:absolute;inset:0;z-index:15;display:none;place-items:center;padding:25px;text-align:center;background:#030407e8;backdrop-filter:blur(10px)}
+.stairs-result.show{display:grid}
+.stairs-result h2{margin:0 0 10px;font:500 clamp(1.9rem,8vw,3rem) Georgia,serif;color:#f0d59a}
+.stairs-result p{margin:0 0 18px;color:#e1d7c7;line-height:1.5}
+
+#mysteryContinue{margin-top:16px}
+@keyframes micPulse{0%{box-shadow:0 0 0 0 #d9b56f66}70%{box-shadow:0 0 0 18px #d9b56f00}100%{box-shadow:0 0 0 0 #d9b56f00}}
+@keyframes stairsSweep{from{left:2%}to{left:88%}}
+@keyframes stairsShake{0%,100%{transform:translateX(0)}25%{transform:translateX(-7px)}75%{transform:translateX(7px)}}
+@keyframes bookFloat{0%,100%{transform:rotate(3deg) translateY(0)}50%{transform:rotate(-2deg) translateY(-7px)}}
+.hidden-book.found{animation:bookFloat 2s ease-in-out infinite}
