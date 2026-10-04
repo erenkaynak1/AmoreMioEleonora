@@ -556,6 +556,7 @@ letterContinue.addEventListener("click",()=>{
   wandShop.classList.add("show");
 });
 
+const wandRack=document.querySelector(".wand-rack");
 document.querySelectorAll(".wand-card").forEach(card=>{
   card.addEventListener("pointerdown",e=>{
     e.preventDefault();
@@ -585,8 +586,23 @@ document.querySelectorAll(".wand-card").forEach(card=>{
       wandChosenText.textContent="Una luce calda percorre il legno. Per la prima volta, Eleonora sente la magia rispondere davvero.";
       wandChosen.classList.add("show");
     }else{
-      location.reload();
+      card.classList.remove("dragging");
+      card.style.left="";
+      card.style.top="";
+      card.style.width="";
+      card.style.height="";
+      wandRack.appendChild(card);
     }
+  });
+  card.addEventListener("pointercancel",()=>{
+    if(wandDragging!==card)return;
+    wandDragging=null;
+    card.classList.remove("dragging");
+    card.style.left="";
+    card.style.top="";
+    card.style.width="";
+    card.style.height="";
+    wandRack.appendChild(card);
   });
 });
 
