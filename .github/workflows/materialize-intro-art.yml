@@ -1,0 +1,32 @@
+name: Materialize cinematic intro artwork
+on:
+  workflow_dispatch:
+  push:
+    branches: ["main"]
+    paths:
+      - ".github/workflows/materialize-intro-art.yml"
+permissions:
+  contents: write
+jobs:
+  materialize:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: Download intro artwork
+        env:
+          SOURCE_B64: aHR0cHM6Ly9waWthc28uY2RucGsubmV0L3ByaXZhdGUvcHJvZHVjdGlvbi81NjMyMTQ3MzU4LzM2ODA3NjcwNTUucG5nP3Rva2VuPWV4cD0xNzkxMzMxMjAwfmhtYWM9YWQ4OTRkNDU4MTliNWYxNzcyMDg2N2UxYjA0OTgxMDE0ZTI5YzIwYjhmNWRmNWVmNTUzNWE0OWE0MDE4ZWFmOQ==
+        run: |
+          set -e
+          mkdir -p assets/intro
+          URL="$(printf '%s' "$SOURCE_B64" | base64 -d)"
+          curl -L --fail "$URL" -o assets/intro/eleonora-opening.png
+          test "$(wc -c < assets/intro/eleonora-opening.png)" -gt 100000
+      - name: Commit intro artwork
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/intro/eleonora-opening.png
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "Add cinematic Eleonora intro artwork"
+          git push
