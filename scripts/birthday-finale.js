@@ -120,7 +120,7 @@ function ensure(){
         '<button id="bfLastMagic" class="bf-btn bf-last-magic" type="button">C’è ancora un’ultima magia…</button>'+
       '</article>'+
       '<div id="bfCoupleReveal" class="bf-couple-reveal" aria-hidden="true">'+
-        '<img src="assets/finale/eren-eleonora-magic.webp" alt="Eren ed Eleonora insieme nel mondo magico">'+
+        '<img src="assets/finale/eren-eleonora-magic.png" alt="Eren ed Eleonora insieme nel mondo magico">'+
         '<div class="bf-couple-shade"></div>'+
         '<button id="bfCoupleClose" class="bf-couple-close" type="button" aria-label="Torna alla lettera">×</button>'+
         '<div class="bf-couple-caption">E in ogni universo, sceglierei sempre te. ♥</div>'+
