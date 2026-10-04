@@ -96,14 +96,26 @@ function ensure(){
       '<img class="bf-bg" src="'+A.adult+'" alt="">'+
       '<div class="bf-shade"></div>'+
       '<div id="bfCrown" class="bf-crown"></div>'+
-      '<div class="bf-copy">'+
+      '<div id="bfFinalGate" class="bf-final-gate">'+
+        '<div class="bf-kicker">4 OTTOBRE 2026</div>'+
+        '<div id="bfFinalEnvelope" class="bf-final-envelope" aria-hidden="true"><i>30</i></div>'+
+        '<h2>Un’ultima lettera.</h2>'+
+        '<p>Per aprirla devi usare le parole magiche.</p>'+
+        '<div class="bf-magic-phrase">Deep Purple</div>'+
+        '<button id="bfFinalMic" class="bf-final-mic" type="button"><span class="bf-mic-icon">🎙</span><span>Pronuncia le parole magiche</span></button>'+
+        '<div id="bfFinalVoiceStatus" class="bf-final-voice-status">Tocca il microfono e pronuncia “Deep Purple”.</div>'+
+        '<button id="bfFinalFallback" class="bf-btn bf-final-fallback" type="button" hidden>Apri comunque la lettera</button>'+
+      '</div>'+
+      '<article id="bfFinalLetter" class="bf-final-letter">'+
         '<div class="bf-kicker">4 OTTOBRE 2026</div>'+
         '<h2>Buon 30° compleanno, Eleonora.</h2>'+
         '<p id="bfMemorySummary" class="bf-memory-summary"></p>'+
-        '<p class="bf-final-line">La magia ti ha accompagnata per trent’anni. Io spero di accompagnarti in tutti quelli che verranno.</p>'+
-        '<span class="bf-signature">Con tutto il mio amore, Eren ♥</span>'+
-        '<button id="bfReplayFinale" class="bf-btn" type="button" style="margin-top:18px">Rivedi questo momento</button>'+
-      '</div>'+
+        '<p>Cara Eleonora,</p>'+
+        '<p>la magia ti ha accompagnata per trent’anni. Ha attraversato con te ogni porta, ogni scelta, ogni piccola meraviglia.</p>'+
+        '<p class="bf-final-line">Io spero di accompagnarti in tutti quelli che verranno.</p>'+
+        '<p class="bf-signature">Con tutto il mio amore,<br>Eren ♥</p>'+
+        '<button id="bfReplayFinale" class="bf-btn" type="button">Rivedi questo momento</button>'+
+      '</article>'+
     '</div>';
 
   app.appendChild(root);
@@ -124,6 +136,7 @@ function ensure(){
   root.querySelector("#bfGoChamber").addEventListener("click",showChamber);
   root.querySelector("#bfReplayFinale").addEventListener("click",start);
   setupWand();
+  setupFinalLetter();
   return root;
 }
 
@@ -145,6 +158,7 @@ function start(){
   el.querySelector("#bfLetterPaper").classList.remove("show");
   el.querySelector("#bfEnvelope").classList.remove("open");
   el.querySelector("#bfLetterHint").style.display="";
+  resetFinalLetterGate();
   phase("#bfMontage");
 
   const ys=[].slice.call(el.querySelectorAll(".bf-year"));
@@ -250,10 +264,160 @@ function setupWand(){
   });
 }
 
+let finalRecognition=null;
+let finalFallbackTimer=null;
+let finalUnlocked=false;
+
+function normalizeMagicWords(s){
+  return (s||"")
+    .toLowerCase()
+    .normalize("NFD").replace(/[\u0300-\u036f]/g,"")
+    .replace(/[^a-z ]/g," ")
+    .replace(/\s+/g," ")
+    .trim();
+}
+
+function finalEditDistance(a,b){
+  a=normalizeMagicWords(a);b=normalizeMagicWords(b);
+  const n=b.length,dp=new Array(n+1);
+  for(let j=0;j<=n;j++)dp[j]=j;
+  for(let i=1;i<=a.length;i++){
+    let prev=dp[0];dp[0]=i;
+    for(let j=1;j<=n;j++){
+      const tmp=dp[j];
+      dp[j]=Math.min(dp[j]+1,dp[j-1]+1,prev+(a[i-1]===b[j-1]?0:1));
+      prev=tmp;
+    }
+  }
+  return dp[n];
+}
+
+function isDeepPurple(text){
+  const s=normalizeMagicWords(text);
+  if(!s)return false;
+  if((/deep|dip|deeb|diip/.test(s))&&(/purple|purpl|perple|people/.test(s)))return true;
+  const target="deep purple";
+  return finalEditDistance(s,target)/Math.max(s.length,target.length)<=0.46;
+}
+
+function resetFinalLetterGate(){
+  if(!root)return;
+  finalUnlocked=false;
+  clearTimeout(finalFallbackTimer);
+  const gate=root.querySelector("#bfFinalGate");
+  const env=root.querySelector("#bfFinalEnvelope");
+  const letter=root.querySelector("#bfFinalLetter");
+  const mic=root.querySelector("#bfFinalMic");
+  const status=root.querySelector("#bfFinalVoiceStatus");
+  const fallback=root.querySelector("#bfFinalFallback");
+  if(gate)gate.classList.remove("unlocking","hidden");
+  if(env)env.classList.remove("unlocked","open");
+  if(letter)letter.classList.remove("show");
+  if(mic){mic.disabled=false;mic.classList.remove("listening");}
+  if(status)status.textContent='Tocca il microfono e pronuncia “Deep Purple”.';
+  if(fallback)fallback.hidden=true;
+  try{finalRecognition?.abort?.()}catch(e){}
+}
+
+function unlockFinalLetter(){
+  if(finalUnlocked)return;
+  finalUnlocked=true;
+  clearTimeout(finalFallbackTimer);
+  const gate=root.querySelector("#bfFinalGate");
+  const env=root.querySelector("#bfFinalEnvelope");
+  const letter=root.querySelector("#bfFinalLetter");
+  const mic=root.querySelector("#bfFinalMic");
+  const status=root.querySelector("#bfFinalVoiceStatus");
+  const fallback=root.querySelector("#bfFinalFallback");
+
+  if(mic){mic.disabled=true;mic.classList.remove("listening");}
+  if(fallback)fallback.hidden=true;
+  if(status)status.textContent="Parole magiche riconosciute.";
+  env?.classList.add("unlocked");
+
+  later(function(){env?.classList.add("open");gate?.classList.add("unlocking");},420);
+  later(function(){
+    gate?.classList.add("hidden");
+    letter?.classList.add("show");
+  },1050);
+}
+
+function setupFinalLetter(){
+  const el=ensure();
+  const mic=el.querySelector("#bfFinalMic");
+  const fallback=el.querySelector("#bfFinalFallback");
+  const status=el.querySelector("#bfFinalVoiceStatus");
+  const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+
+  if(SR){
+    finalRecognition=new SR();
+    finalRecognition.lang="en-GB";
+    finalRecognition.interimResults=true;
+    finalRecognition.continuous=false;
+    finalRecognition.maxAlternatives=5;
+
+    finalRecognition.onresult=function(e){
+      const heard=[];
+      for(let i=e.resultIndex;i<e.results.length;i++){
+        for(let j=0;j<e.results[i].length;j++)heard.push(e.results[i][j].transcript);
+      }
+      const text=heard.join(" ");
+      if(isDeepPurple(text)){
+        try{finalRecognition.stop()}catch(err){}
+        unlockFinalLetter();
+      }else if(e.results[e.results.length-1]?.isFinal){
+        status.textContent='Ho sentito «'+text+'». Riprova: “Deep Purple”.';
+        fallback.hidden=false;
+      }else{
+        status.textContent="Ti sto ascoltando…";
+      }
+    };
+
+    finalRecognition.onerror=function(){
+      mic?.classList.remove("listening");
+      status.textContent="Il microfono non riesce a capire bene le parole magiche.";
+      fallback.hidden=false;
+    };
+    finalRecognition.onend=function(){
+      mic?.classList.remove("listening");
+      if(!finalUnlocked)fallback.hidden=false;
+    };
+  }else{
+    status.textContent="Il riconoscimento vocale non è disponibile su questo browser.";
+    fallback.hidden=false;
+  }
+
+  mic?.addEventListener("click",function(){
+    if(finalUnlocked)return;
+    if(!finalRecognition){
+      fallback.hidden=false;
+      return;
+    }
+    clearTimeout(finalFallbackTimer);
+    try{
+      mic.classList.add("listening");
+      status.textContent='Sto ascoltando… “Deep Purple”.';
+      finalRecognition.start();
+      finalFallbackTimer=setTimeout(function(){
+        if(!finalUnlocked){
+          fallback.hidden=false;
+          status.textContent='Pronuncia “Deep Purple”. Se il browser non collabora, puoi aprire comunque la lettera.';
+        }
+      },4200);
+    }catch(e){
+      fallback.hidden=false;
+      try{finalRecognition.stop()}catch(err){}
+    }
+  });
+
+  fallback?.addEventListener("click",unlockFinalLetter);
+}
+
 function showReveal(){
   const el=ensure();
   el.querySelector("#bfChamber").classList.remove("complete");
   el.querySelector("#bfMemorySummary").textContent=memorySummary();
+  resetFinalLetterGate();
   phase("#bfReveal");
 }
 
