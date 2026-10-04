@@ -91,10 +91,90 @@ linear-gradient(160deg,#071019,#030406 66%)}
 .ghost{min-height:46px;border:1px solid #d9b56f66;background:#11100dcc;color:#f3e8d0;border-radius:999px;padding:0 21px}
 
 
+
+/* OWL LETTER CHAPTER */
+.owl-chapter{position:absolute;inset:0;z-index:16;display:none;overflow:hidden;background:linear-gradient(#07111b,#030507)}
+.owl-chapter.show{display:block}
+.owl-room{position:absolute;inset:0;background:
+radial-gradient(circle at 72% 20%,rgba(190,210,235,.16),transparent 23%),
+linear-gradient(110deg,#16131a 0 30%,#090c12 30% 61%,#151017 61% 100%)}
+.owl-window{position:absolute;right:7%;top:12%;width:58%;height:48%;border:9px solid #18141a;border-radius:48% 48% 10px 10px / 14% 14% 10px 10px;background:
+linear-gradient(90deg,transparent 48.5%,#111017 49% 51%,transparent 51.5%),
+linear-gradient(0deg,transparent 53%,#111017 53.5% 55%,transparent 55.5%),
+radial-gradient(circle at 70% 18%,#d5d9df 0 7%,#8e98a8 8% 10%,transparent 11%),
+linear-gradient(#172537,#070b12 68%);box-shadow:0 0 55px #8ba4c622;overflow:hidden}
+.owl-window::before{content:"";position:absolute;inset:-15%;opacity:.36;background:repeating-linear-gradient(112deg,transparent 0 16px,#d4e3f044 17px 18px,transparent 19px 33px);animation:owlRain 1.4s linear infinite}
+.window-pane{position:absolute;inset:0;transform-origin:left center;transition:transform .9s cubic-bezier(.22,.8,.2,1);border-left:3px solid #211b22}
+.owl-window.open .window-pane{transform:perspective(500px) rotateY(-67deg)}
+.owl-desk{position:absolute;left:-8%;right:-8%;bottom:-3%;height:28%;background:linear-gradient(180deg,#392319,#1a100c);clip-path:polygon(0 25%,100% 8%,100% 100%,0 100%);box-shadow:0 -16px 45px #000a}
+.owl-caption{position:absolute;left:50%;bottom:calc(var(--safe-b) + 38px);transform:translateX(-50%);z-index:8;width:min(88%,560px);text-align:center;font:500 clamp(1.08rem,5vw,1.55rem)/1.4 Georgia,serif;text-shadow:0 3px 18px #000;color:#f3eadc}
+.owl-date{position:absolute;left:18px;top:calc(var(--safe-t) + 18px);z-index:9;font:500 .78rem Georgia,serif;letter-spacing:.16em;color:#e6d5b5;text-transform:uppercase}
+.owl-svg{position:absolute;z-index:6;width:38%;max-width:190px;right:-45%;top:27%;filter:drop-shadow(0 20px 20px #0009);transition:none}
+.owl-svg.fly{animation:owlArrival 3s cubic-bezier(.18,.78,.2,1) forwards}
+.owl-svg .wing-a,.owl-svg .wing-b{transform-origin:50% 50%;animation:wingbeat .34s ease-in-out infinite alternate}
+.owl-svg .wing-b{animation-delay:.17s}
+.open-window-btn{position:absolute;z-index:9;left:50%;top:57%;transform:translateX(-50%);min-width:190px;min-height:50px;border:1px solid #d9b56f66;border-radius:999px;background:#0a0b0edb;color:#f4e8d0;backdrop-filter:blur(10px);opacity:0;pointer-events:none;transition:opacity .4s}
+.open-window-btn.show{opacity:1;pointer-events:auto}
+.owl-letter{position:absolute;z-index:10;width:118px;height:76px;right:22%;top:47%;border:1px solid #8b6d45;background:linear-gradient(145deg,#eadbbd,#cdb88e);border-radius:5px;box-shadow:0 9px 24px #0008;transform:rotate(-7deg);touch-action:none;cursor:grab;opacity:0;pointer-events:none;transition:opacity .35s}
+.owl-letter.show{opacity:1;pointer-events:auto}
+.owl-letter::before{content:"";position:absolute;inset:0;clip-path:polygon(0 0,100% 0,50% 56%);background:#f0dfbd;border-bottom:1px solid #8c704c55}
+.owl-letter::after{content:"";position:absolute;width:28px;height:28px;border-radius:50%;left:50%;top:53%;transform:translate(-50%,-50%);background:radial-gradient(circle at 35% 30%,#a9313f,#5e1018 70%);box-shadow:0 0 0 2px #54101755}
+.letter-drop{position:absolute;z-index:7;left:18%;bottom:15%;width:44%;height:20%;border:1px dashed #d9b56f66;border-radius:18px;background:#d9b56f0a;display:grid;place-items:center;color:#dfcfb1;font:500 .82rem Georgia,serif;opacity:0;transition:opacity .35s}
+.letter-drop.show{opacity:1}
+.letter-drop.ready{border-style:solid;background:#d9b56f16}
+.seal-scene{position:absolute;inset:0;z-index:20;display:none;place-items:center;padding:24px;background:#050507e8;backdrop-filter:blur(9px)}
+.seal-scene.show{display:grid}
+.envelope-large{position:relative;width:min(88vw,420px);aspect-ratio:1.48;background:#dfcba6;border:1px solid #856943;border-radius:8px;box-shadow:0 26px 70px #000c}
+.envelope-large::before{content:"";position:absolute;inset:0;clip-path:polygon(0 0,100% 0,50% 61%);background:#eddcba;border-bottom:1px solid #866b4655}
+.seal-button{position:absolute;left:50%;top:58%;transform:translate(-50%,-50%);width:82px;height:82px;border-radius:50%;border:2px solid #4f0b13;background:radial-gradient(circle at 33% 28%,#b33a48,#721521 65%,#3c0910);color:#f4d79b;font:700 1rem Georgia,serif;box-shadow:0 0 0 0 #d9b56f55;touch-action:none}
+.seal-button.holding{animation:sealHold 1s linear forwards}
+.seal-help{position:absolute;left:50%;bottom:10%;transform:translateX(-50%);width:88%;text-align:center;color:#e9decc;font:500 .95rem Georgia,serif}
+.letter-reveal{position:absolute;inset:0;z-index:22;display:none;place-items:center;padding:calc(var(--safe-t) + 24px) 22px calc(var(--safe-b) + 24px);background:linear-gradient(#100d10f0,#060608f4)}
+.letter-reveal.show{display:grid}
+.letter-paper{width:min(100%,520px);max-height:86%;overflow:auto;padding:28px 24px;border-radius:10px;background:linear-gradient(180deg,#f0dfbd,#d9c395);color:#2b2117;box-shadow:0 24px 65px #000b;border:1px solid #806742}
+.letter-paper .crest{font-size:2.1rem;text-align:center;margin-bottom:8px}
+.letter-paper h2{margin:0 0 18px;text-align:center;font:600 clamp(1.35rem,6vw,2rem) Georgia,serif}
+.letter-paper p{font:500 1rem/1.55 Georgia,serif;margin:0 0 13px}
+.letter-paper .signature{text-align:right;margin-top:22px}
+.letter-paper button{width:100%;min-height:50px;margin-top:18px;border:1px solid #5f482b;border-radius:999px;background:#2a2015;color:#f5e6c8}
+
+/* WAND SHOP */
+.wand-shop{position:absolute;inset:0;z-index:24;display:none;overflow:hidden;background:
+radial-gradient(circle at 50% 30%,#6b4a2a44,transparent 32%),
+linear-gradient(#17100c,#070605 72%)}
+.wand-shop.show{display:block}
+.shop-shelves{position:absolute;inset:8% 0 24%;background:
+repeating-linear-gradient(0deg,transparent 0 72px,#4b2c1a 73px 81px),
+repeating-linear-gradient(90deg,#25160f 0 28%,#3b2417 28% 31%,#25160f 31% 62%,#3b2417 62% 65%,#25160f 65% 100%);opacity:.9;box-shadow:inset 0 0 70px #000}
+.shop-dust{position:absolute;inset:0;pointer-events:none;background-image:radial-gradient(circle,#f3d89d99 0 1px,transparent 1.3px);background-size:57px 63px;opacity:.15;animation:shopDust 7s linear infinite}
+.shop-counter{position:absolute;left:-4%;right:-4%;bottom:-2%;height:30%;background:linear-gradient(#4a2d1d,#1f120c);clip-path:polygon(0 20%,100% 8%,100% 100%,0 100%);box-shadow:0 -16px 35px #000b}
+.shop-title{position:absolute;z-index:3;top:calc(var(--safe-t) + 22px);left:50%;transform:translateX(-50%);width:90%;text-align:center;text-shadow:0 3px 15px #000}
+.shop-title b{display:block;font:500 clamp(1.55rem,7vw,2.35rem) Georgia,serif;color:#f2d79a}
+.shop-title span{display:block;margin-top:7px;color:#d9cdbb;font-size:.9rem}
+.wand-rack{position:absolute;z-index:5;left:7%;right:7%;top:39%;display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.wand-card{position:relative;height:150px;border:1px solid #8b6842;border-radius:12px;background:linear-gradient(#3c281b,#17100c);box-shadow:0 8px 20px #0008;touch-action:none}
+.wand-card::before{content:"";position:absolute;left:50%;top:18px;width:8px;height:102px;border-radius:8px;transform:translateX(-50%) rotate(3deg);background:linear-gradient(90deg,#2a140b,#8a5937 50%,#251109);box-shadow:0 3px 8px #000}
+.wand-card:nth-child(2)::before{background:linear-gradient(90deg,#20130c,#a67a4e 50%,#2c160c);transform:translateX(-50%) rotate(-2deg)}
+.wand-card:nth-child(3)::before{background:linear-gradient(90deg,#100d0b,#594031 50%,#160f0b);transform:translateX(-50%) rotate(5deg)}
+.wand-card span{position:absolute;left:0;right:0;bottom:8px;text-align:center;font:500 .78rem Georgia,serif;color:#d8c6a8}
+.hand-target{position:absolute;z-index:4;left:50%;bottom:12%;transform:translateX(-50%);width:170px;height:84px;border:1px dashed #d9b56f77;border-radius:50%;display:grid;place-items:center;text-align:center;color:#e5d5b8;font:500 .83rem Georgia,serif;background:#d9b56f0c}
+.wand-card.dragging{z-index:10;position:absolute;width:88px;height:150px;opacity:.95}
+.wand-chosen{position:absolute;inset:0;z-index:12;display:none;place-items:center;text-align:center;padding:24px;background:#060506d9;backdrop-filter:blur(9px)}
+.wand-chosen.show{display:grid}
+.wand-chosen h2{font:500 clamp(2rem,8vw,3rem) Georgia,serif;color:#f1d293;margin:0 0 10px}
+.wand-chosen p{color:#dfd4c3;line-height:1.5;margin:0 0 18px}
+.wand-chosen button{min-height:50px;padding:0 24px;border-radius:999px;border:1px solid #d9b56f66;background:#17110dcc;color:#f5e6cc}
+
+@keyframes owlRain{from{background-position:0 0}to{background-position:-36px 66px}}
+@keyframes owlArrival{0%{right:-45%;top:18%;transform:rotate(-10deg) scale(.7);opacity:0}15%{opacity:1}72%{right:18%;top:31%;transform:rotate(2deg) scale(1)}100%{right:20%;top:34%;transform:rotate(0) scale(1)}}
+@keyframes wingbeat{from{transform:rotate(9deg)}to{transform:rotate(-13deg)}}
+@keyframes sealHold{0%{box-shadow:0 0 0 0 #d9b56f99;transform:translate(-50%,-50%) scale(1)}100%{box-shadow:0 0 0 26px #d9b56f00;transform:translate(-50%,-50%) scale(.92)}}
+@keyframes shopDust{from{background-position:0 0}to{background-position:18px -28px}}
+
 /* FIRST MAGIC MINI GAME */
 .magic-game{position:absolute;inset:0;z-index:15;display:none;overflow:hidden;background:#08070a}
 .magic-game.show{display:block}
-.magic-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 44%;filter:saturate(.92) brightness(.72);transform:scale(1.04);animation:roomDrift 10s ease-in-out infinite alternate}
+.magic-bg{position:absolute;inset:0;background:radial-gradient(circle at 46% 28%,#a97b3a33,transparent 30%),repeating-linear-gradient(0deg,transparent 0 82px,#492b19 83px 90px),linear-gradient(90deg,#21140e,#0a0807 48%,#24160f);filter:brightness(.82);transform:scale(1.04);animation:roomDrift 10s ease-in-out infinite alternate}
 .magic-game::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(to bottom,rgba(0,0,0,.18),transparent 35%,rgba(0,0,0,.54)),radial-gradient(circle at 50% 52%,transparent 40%,rgba(0,0,0,.35))}
 .magic-ui{position:absolute;inset:0;z-index:4;pointer-events:none}
 .magic-title{position:absolute;top:calc(var(--safe-t) + 22px);left:50%;transform:translateX(-50%);width:min(90%,520px);text-align:center;text-shadow:0 3px 18px #000}
@@ -200,8 +280,70 @@ linear-gradient(160deg,#071019,#030406 66%)}
   </div>
 
   
+
+  <div id="owlChapter" class="owl-chapter" aria-label="La lettera">
+    <div class="owl-room"></div>
+    <div id="owlWindow" class="owl-window"><div class="window-pane"></div></div>
+    <div class="owl-desk"></div>
+    <div class="owl-date">Estate 2008</div>
+    <svg id="owlSvg" class="owl-svg" viewBox="0 0 260 220" aria-hidden="true">
+      <g class="wing-a"><path d="M98 94C47 71 13 87 4 137c32-16 58-7 88 30z" fill="#80786d"/></g>
+      <g class="wing-b"><path d="M162 94c51-23 85-7 94 43-32-16-58-7-88 30z" fill="#80786d"/></g>
+      <ellipse cx="130" cy="136" rx="48" ry="69" fill="#a49c90"/>
+      <circle cx="130" cy="71" r="47" fill="#b7afa2"/>
+      <path d="M93 52l17-34 12 38zM167 52l-17-34-12 38z" fill="#66625d"/>
+      <circle cx="112" cy="72" r="14" fill="#d4bf69"/><circle cx="148" cy="72" r="14" fill="#d4bf69"/>
+      <circle cx="112" cy="72" r="6" fill="#090909"/><circle cx="148" cy="72" r="6" fill="#090909"/>
+      <path d="M124 91h12l-6 12z" fill="#b88a43"/>
+    </svg>
+    <div id="owlCaption" class="owl-caption">Quell’estate, una notte diversa da tutte le altre bussò alla finestra di Eleonora.</div>
+    <button id="openWindowBtn" class="open-window-btn" type="button">Apri la finestra</button>
+    <div id="owlLetter" class="owl-letter" role="button" tabindex="0" aria-label="Trascina la lettera"></div>
+    <div id="letterDrop" class="letter-drop">Porta qui la lettera</div>
+  </div>
+
+  <div id="sealScene" class="seal-scene">
+    <div class="envelope-large">
+      <button id="sealButton" class="seal-button" type="button">H</button>
+      <div class="seal-help">Tieni premuto il sigillo.</div>
+    </div>
+  </div>
+
+  <div id="letterReveal" class="letter-reveal">
+    <div class="letter-paper">
+      <div class="crest">✦</div>
+      <h2>Scuola di Magia e Stregoneria di Hogwarts</h2>
+      <p><strong>Cara Eleonora,</strong></p>
+      <p>siamo lieti di informarti che sei stata ammessa a Hogwarts.</p>
+      <p>Il tuo primo anno avrà inizio il <strong>1 settembre 2008</strong>. Prima della partenza dovrai procurarti tutto il necessario per la scuola.</p>
+      <p>Da questo momento, molte delle cose inspiegabili della tua infanzia inizieranno finalmente ad avere un senso.</p>
+      <p class="signature">Con i migliori auguri,<br><strong>Hogwarts</strong></p>
+      <button id="letterContinue" type="button">Entra nel mondo magico</button>
+    </div>
+  </div>
+
+  <div id="wandShop" class="wand-shop" aria-label="La bottega delle bacchette">
+    <div class="shop-shelves"></div>
+    <div class="shop-dust"></div>
+    <div class="shop-counter"></div>
+    <div class="shop-title"><b>La bottega delle bacchette</b><span>Non sei tu a scegliere la bacchetta. È la bacchetta a scegliere te.</span></div>
+    <div class="wand-rack">
+      <button class="wand-card" data-wand="nocciolo" type="button"><span>Nocciolo</span></button>
+      <button class="wand-card" data-wand="quercia" type="button"><span>Quercia</span></button>
+      <button class="wand-card" data-wand="ebano" type="button"><span>Ebano</span></button>
+    </div>
+    <div id="handTarget" class="hand-target">Trascina qui una bacchetta</div>
+    <div id="wandChosen" class="wand-chosen">
+      <div>
+        <h2>La bacchetta ha risposto.</h2>
+        <p id="wandChosenText">Una luce calda percorre il legno. Per la prima volta, Eleonora sente la magia rispondere davvero.</p>
+        <button id="testWandBtn" type="button">Prova la bacchetta</button>
+      </div>
+    </div>
+  </div>
+
   <div id="magicGame" class="magic-game" aria-label="Il primo incantesimo di Eleonora">
-    <img class="magic-bg" src="assets/prologue/child-9x16.png" alt="">
+    <div class="magic-bg" aria-hidden="true"></div>
     <div class="desk-surface"></div>
     <div id="glass" class="glass" aria-hidden="true"><div class="cup"></div><div class="water"></div></div>
     <canvas id="trail"></canvas>
@@ -212,8 +354,8 @@ linear-gradient(160deg,#071019,#030406 66%)}
     </div>
     <div id="wand" class="wand" role="button" tabindex="0" aria-label="Trascina la bacchetta lungo il gesto luminoso"><span class="wand-tip"></span></div>
     <div class="magic-ui">
-      <div class="magic-title"><b>Il primo incantesimo</b><span>Trascina la bacchetta seguendo il movimento luminoso.</span></div>
-      <div id="magicFeedback" class="magic-feedback">Prendi la bacchetta e prova a far cadere il bicchiere.</div>
+      <div class="magic-title"><b>Prova la tua bacchetta</b><span>Segui il movimento luminoso e lascia che sia la bacchetta a rispondere.</span></div>
+      <div id="magicFeedback" class="magic-feedback">Muovi la bacchetta verso il bicchiere.</div>
     </div>
     <div id="magicSuccess" class="magic-success" aria-live="polite">
       <div class="magic-success-card">
@@ -226,8 +368,8 @@ linear-gradient(160deg,#071019,#030406 66%)}
 
   <div id="end" class="end">
     <div>
-      <h2>I primi segni della magia…</h2>
-      <p>La storia di Eleonora è appena cominciata.</p>
+      <h2>Il mondo magico ti aspetta.</h2>
+      <p>La prossima fermata sarà Hogwarts.</p>
       <button id="replay" class="ghost" type="button">Rivedi il prologo</button>
     </div>
   </div>
@@ -243,7 +385,7 @@ const ASSETS={
   child:"assets/prologue/child-9x16.png"
 };
 
-const intro=document.getElementById("intro"),pro=document.getElementById("prologue"),play=document.getElementById("play"),skip=document.getElementById("skip"),cap=document.getElementById("caption"),bar=document.getElementById("bar"),a=document.getElementById("shotA"),b=document.getElementById("shotB"),titleCard=document.getElementById("titleCard"),nameCard=document.getElementById("nameCard"),inter=document.getElementById("interaction"),flash=document.getElementById("flash"),traits=document.getElementById("traits"),end=document.getElementById("end"),replay=document.getElementById("replay"),magic=document.getElementById("magic"),magicGame=document.getElementById("magicGame"),wand=document.getElementById("wand"),glass=document.getElementById("glass"),trail=document.getElementById("trail"),magicFeedback=document.getElementById("magicFeedback"),magicSuccess=document.getElementById("magicSuccess"),magicContinue=document.getElementById("magicContinue");
+const intro=document.getElementById("intro"),pro=document.getElementById("prologue"),play=document.getElementById("play"),skip=document.getElementById("skip"),cap=document.getElementById("caption"),bar=document.getElementById("bar"),a=document.getElementById("shotA"),b=document.getElementById("shotB"),titleCard=document.getElementById("titleCard"),nameCard=document.getElementById("nameCard"),inter=document.getElementById("interaction"),flash=document.getElementById("flash"),traits=document.getElementById("traits"),end=document.getElementById("end"),replay=document.getElementById("replay"),magic=document.getElementById("magic"),owlChapter=document.getElementById("owlChapter"),owlWindow=document.getElementById("owlWindow"),owlSvg=document.getElementById("owlSvg"),owlCaption=document.getElementById("owlCaption"),openWindowBtn=document.getElementById("openWindowBtn"),owlLetter=document.getElementById("owlLetter"),letterDrop=document.getElementById("letterDrop"),sealScene=document.getElementById("sealScene"),sealButton=document.getElementById("sealButton"),letterReveal=document.getElementById("letterReveal"),letterContinue=document.getElementById("letterContinue"),wandShop=document.getElementById("wandShop"),handTarget=document.getElementById("handTarget"),wandChosen=document.getElementById("wandChosen"),wandChosenText=document.getElementById("wandChosenText"),testWandBtn=document.getElementById("testWandBtn"),magicGame=document.getElementById("magicGame"),wand=document.getElementById("wand"),glass=document.getElementById("glass"),trail=document.getElementById("trail"),magicFeedback=document.getElementById("magicFeedback"),magicSuccess=document.getElementById("magicSuccess"),magicContinue=document.getElementById("magicContinue");
 
 let active=a,timers=[],audio=null;
 const frames={
@@ -308,20 +450,153 @@ function continueAfterChoice(obj){
 }
 document.querySelectorAll(".hotspot").forEach(btn=>btn.addEventListener("click",()=>continueAfterChoice(btn.dataset.object)));
 
-function startMagicMiniGame(){
+function startOwlChapter(){
   showFrame("child");
+  cap.textContent="Gli anni passarono. Le cose strane continuarono ad accadere…";
+  cap.classList.add("show");
   later(()=>{
-    magicGame.classList.add("show");
-    setupMagicCanvas();
-    resetMagicGame();
-  },1800);
+    cap.classList.remove("show");
+    owlChapter.classList.add("show");
+    owlSvg.classList.add("fly");
+    later(()=>openWindowBtn.classList.add("show"),3100);
+  },2600);
 }
 
 document.querySelectorAll(".trait").forEach(btn=>btn.addEventListener("click",()=>{
   localStorage.setItem("amoremio.firstTrait",btn.dataset.trait);
   traits.classList.remove("show");
-  startMagicMiniGame();
+  startOwlChapter();
 }));
+
+
+let letterDragging=false,letterOffsetX=0,letterOffsetY=0,sealTimer=null,sealDone=false,wandDragging=null,wandOffsetX=0,wandOffsetY=0;
+
+openWindowBtn.addEventListener("click",()=>{
+  owlWindow.classList.add("open");
+  openWindowBtn.classList.remove("show");
+  owlCaption.textContent="Un gufo attendeva sul davanzale. Alla zampa portava una lettera con il suo nome.";
+  later(()=>{
+    owlLetter.classList.add("show");
+    letterDrop.classList.add("show");
+  },650);
+});
+
+function beginLetterDrag(e){
+  if(!owlLetter.classList.contains("show"))return;
+  e.preventDefault();
+  const r=owlLetter.getBoundingClientRect();
+  letterDragging=true;
+  letterOffsetX=e.clientX-r.left;
+  letterOffsetY=e.clientY-r.top;
+  owlLetter.setPointerCapture?.(e.pointerId);
+}
+function moveLetterDrag(e){
+  if(!letterDragging)return;
+  const r=owlChapter.getBoundingClientRect();
+  owlLetter.style.right="auto";
+  owlLetter.style.left=(e.clientX-r.left-letterOffsetX)+"px";
+  owlLetter.style.top=(e.clientY-r.top-letterOffsetY)+"px";
+  const d=letterDrop.getBoundingClientRect();
+  const hit=e.clientX>d.left&&e.clientX<d.right&&e.clientY>d.top&&e.clientY<d.bottom;
+  letterDrop.classList.toggle("ready",hit);
+}
+function endLetterDrag(e){
+  if(!letterDragging)return;
+  letterDragging=false;
+  const d=letterDrop.getBoundingClientRect();
+  const hit=e.clientX>d.left&&e.clientX<d.right&&e.clientY>d.top&&e.clientY<d.bottom;
+  if(hit){
+    owlLetter.classList.remove("show");
+    letterDrop.classList.remove("show","ready");
+    owlCaption.textContent="La busta era pesante, ruvida… e sigillata con ceralacca.";
+    later(()=>sealScene.classList.add("show"),600);
+  }else{
+    owlLetter.style.left="";
+    owlLetter.style.top="47%";
+    owlLetter.style.right="22%";
+    letterDrop.classList.remove("ready");
+  }
+}
+owlLetter.addEventListener("pointerdown",beginLetterDrag);
+owlLetter.addEventListener("pointermove",moveLetterDrag);
+owlLetter.addEventListener("pointerup",endLetterDrag);
+owlLetter.addEventListener("pointercancel",()=>{letterDragging=false});
+owlLetter.addEventListener("keydown",e=>{
+  if(e.key==="Enter"||e.key===" "){
+    e.preventDefault();
+    owlLetter.classList.remove("show");
+    letterDrop.classList.remove("show");
+    sealScene.classList.add("show");
+  }
+});
+
+function beginSeal(){
+  if(sealDone)return;
+  sealButton.classList.add("holding");
+  sealTimer=setTimeout(()=>{
+    sealDone=true;
+    sealButton.classList.remove("holding");
+    sealScene.classList.remove("show");
+    letterReveal.classList.add("show");
+  },950);
+}
+function cancelSeal(){
+  if(sealDone)return;
+  clearTimeout(sealTimer);
+  sealButton.classList.remove("holding");
+}
+sealButton.addEventListener("pointerdown",beginSeal);
+sealButton.addEventListener("pointerup",cancelSeal);
+sealButton.addEventListener("pointercancel",cancelSeal);
+sealButton.addEventListener("pointerleave",cancelSeal);
+
+letterContinue.addEventListener("click",()=>{
+  letterReveal.classList.remove("show");
+  owlChapter.classList.remove("show");
+  wandShop.classList.add("show");
+});
+
+document.querySelectorAll(".wand-card").forEach(card=>{
+  card.addEventListener("pointerdown",e=>{
+    e.preventDefault();
+    wandDragging=card;
+    const r=card.getBoundingClientRect();
+    wandOffsetX=e.clientX-r.left;
+    wandOffsetY=e.clientY-r.top;
+    card.classList.add("dragging");
+    document.body.appendChild(card);
+    card.style.left=(e.clientX-wandOffsetX)+"px";
+    card.style.top=(e.clientY-wandOffsetY)+"px";
+    card.setPointerCapture?.(e.pointerId);
+  });
+  card.addEventListener("pointermove",e=>{
+    if(wandDragging!==card)return;
+    card.style.left=(e.clientX-wandOffsetX)+"px";
+    card.style.top=(e.clientY-wandOffsetY)+"px";
+  });
+  card.addEventListener("pointerup",e=>{
+    if(wandDragging!==card)return;
+    const t=handTarget.getBoundingClientRect();
+    const hit=e.clientX>t.left&&e.clientX<t.right&&e.clientY>t.top&&e.clientY<t.bottom;
+    wandDragging=null;
+    if(hit){
+      localStorage.setItem("amoremio.wand",card.dataset.wand);
+      card.remove();
+      wandChosenText.textContent="Una luce calda percorre il legno. Per la prima volta, Eleonora sente la magia rispondere davvero.";
+      wandChosen.classList.add("show");
+    }else{
+      location.reload();
+    }
+  });
+});
+
+testWandBtn.addEventListener("click",()=>{
+  wandChosen.classList.remove("show");
+  wandShop.classList.remove("show");
+  magicGame.classList.add("show");
+  setupMagicCanvas();
+  resetMagicGame();
+});
 
 let dragging=false,gestureDistance=0,lastPoint=null,ctx=null,trailFadeTimer=null;
 
@@ -349,7 +624,7 @@ function resetMagicGame(){
   wand.style.transform="rotate(26deg)";
   glass.classList.remove("fall");
   magicSuccess.classList.remove("show");
-  magicFeedback.textContent="Prendi la bacchetta e prova a far cadere il bicchiere.";
+  magicFeedback.textContent="Muovi la bacchetta verso il bicchiere.";
   clearTrail();
 }
 function wandTipPoint(){
