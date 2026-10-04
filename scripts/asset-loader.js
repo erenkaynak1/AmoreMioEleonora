@@ -3,6 +3,7 @@
 const cache=new Map();
 
 const critical=[
+  "assets/intro/eleonora-opening.png",
   "assets/characters/eleonora-adult-hero.png",
   "assets/prologue/city-9x16.png",
   "assets/prologue/window-9x16.png",
