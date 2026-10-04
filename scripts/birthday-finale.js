@@ -108,14 +108,23 @@ function ensure(){
       '</div>'+
       '<article id="bfFinalLetter" class="bf-final-letter">'+
         '<div class="bf-kicker">4 OTTOBRE 2026</div>'+
-        '<h2>Buon 30° compleanno, Eleonora.</h2>'+
-        '<p id="bfMemorySummary" class="bf-memory-summary"></p>'+
-        '<p>Cara Eleonora,</p>'+
-        '<p>la magia ti ha accompagnata per trent’anni. Ha attraversato con te ogni porta, ogni scelta, ogni piccola meraviglia.</p>'+
-        '<p class="bf-final-line">Io spero di accompagnarti in tutti quelli che verranno.</p>'+
-        '<p class="bf-signature">Con tutto il mio amore,<br>Eren ♥</p>'+
-        '<button id="bfReplayFinale" class="bf-btn" type="button">Rivedi questo momento</button>'+
+        '<h2>Buon 30° compleanno, amore mio.</h2>'+
+        '<div class="bf-love-letter">'+
+          '<p><strong>Al mio amore, alla mia vita, al mio tutto,</strong></p>'+
+          '<p>Amore mio, Eleonora, sei la cosa più preziosa che ho in questa vita. Anche se forse non riesco sempre a fartelo sentire abbastanza, voglio che tu mi creda quando ti dico che non ho mai visto niente di più bello e dolce di te.</p>'+
+          '<p>La tua mente, la tua bellezza, il tuo cuore così puro… sei talmente meravigliosa da sembrare quasi irreale. E questo mondo è incredibilmente fortunato ad aver potuto assistere alla tua meraviglia per trent’anni.</p>'+
+          '<p>Sono sempre stato così orgoglioso di te e continuerò ad esserlo sempre, amore mio, la persona più preziosa che ho.</p>'+
+          '<p class="bf-final-line">Ti amo davvero tantissimo, più di quanto riesca a spiegare con le parole.</p>'+
+          '<p class="bf-signature">Il tuo Eren, che ti ama tantissimo ♥</p>'+
+        '</div>'+
+        '<button id="bfLastMagic" class="bf-btn bf-last-magic" type="button">C’è ancora un’ultima magia…</button>'+
       '</article>'+
+      '<div id="bfCoupleReveal" class="bf-couple-reveal" aria-hidden="true">'+
+        '<img src="assets/finale/eren-eleonora-magic.webp" alt="Eren ed Eleonora insieme nel mondo magico">'+
+        '<div class="bf-couple-shade"></div>'+
+        '<button id="bfCoupleClose" class="bf-couple-close" type="button" aria-label="Torna alla lettera">×</button>'+
+        '<div class="bf-couple-caption">E in ogni universo, sceglierei sempre te. ♥</div>'+
+      '</div>'+
     '</div>';
 
   app.appendChild(root);
@@ -134,7 +143,8 @@ function ensure(){
   root.querySelector("#bfOpenEnvelope").addEventListener("click",openLetter);
   root.querySelector("#bfEnvelope").addEventListener("click",openLetter);
   root.querySelector("#bfGoChamber").addEventListener("click",showChamber);
-  root.querySelector("#bfReplayFinale").addEventListener("click",start);
+  root.querySelector("#bfLastMagic").addEventListener("click",showCoupleReveal);
+  root.querySelector("#bfCoupleClose").addEventListener("click",hideCoupleReveal);
   setupWand();
   setupFinalLetter();
   return root;
@@ -158,6 +168,7 @@ function start(){
   el.querySelector("#bfLetterPaper").classList.remove("show");
   el.querySelector("#bfEnvelope").classList.remove("open");
   el.querySelector("#bfLetterHint").style.display="";
+  hideCoupleReveal();
   resetFinalLetterGate();
   phase("#bfMontage");
 
@@ -411,6 +422,30 @@ function setupFinalLetter(){
   });
 
   fallback?.addEventListener("click",unlockFinalLetter);
+}
+
+function showCoupleReveal(){
+  const el=ensure();
+  const reveal=el.querySelector("#bfCoupleReveal");
+  const img=reveal?.querySelector("img");
+  const open=()=>{
+    reveal?.classList.add("show");
+    reveal?.setAttribute("aria-hidden","false");
+  };
+  if(img&&window.preloadAsset){
+    window.showAssetCurtain?.();
+    window.preloadAsset(img.getAttribute("src"),"high").finally(()=>{
+      window.hideAssetCurtain?.();
+      requestAnimationFrame(open);
+    });
+  }else open();
+}
+
+function hideCoupleReveal(){
+  if(!root)return;
+  const reveal=root.querySelector("#bfCoupleReveal");
+  reveal?.classList.remove("show");
+  reveal?.setAttribute("aria-hidden","true");
 }
 
 function showReveal(){
