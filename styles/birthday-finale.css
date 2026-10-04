@@ -80,3 +80,214 @@ url("../assets/hogwarts/great-hall-hq.png") center/cover no-repeat}
   .bf-letter-paper{top:8%;bottom:5%;padding:20px}
   .bf-chamber-title span{display:none}
 }
+
+
+/* Final magic-word letter */
+.bf-final-gate{
+  position:absolute;
+  z-index:12;
+  inset:0;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:flex-end;
+  padding:calc(env(safe-area-inset-top,0px) + 18px) 7% calc(env(safe-area-inset-bottom,0px) + 7%);
+  text-align:center;
+  text-shadow:0 3px 18px #000;
+  transition:opacity .5s ease,transform .6s ease;
+}
+.bf-final-gate.hidden{
+  opacity:0;
+  pointer-events:none;
+  transform:translateY(18px);
+}
+.bf-final-gate h2{
+  margin:12px 0 8px;
+  font:500 clamp(1.8rem,8vw,3.1rem)/1 Georgia,serif;
+  color:#f0d69a;
+}
+.bf-final-gate p{
+  margin:0 0 10px;
+  font:500 clamp(.98rem,4.4vw,1.18rem)/1.45 Georgia,serif;
+  color:#eee0cb;
+}
+.bf-magic-phrase{
+  margin:2px 0 14px;
+  padding:7px 15px;
+  border:1px solid #d9b56f55;
+  border-radius:999px;
+  background:#0b0a0bd0;
+  color:#f0d69a;
+  font:600 clamp(1.05rem,5vw,1.35rem) Georgia,serif;
+  letter-spacing:.08em;
+  box-shadow:0 8px 24px #0008;
+}
+.bf-final-envelope{
+  position:absolute;
+  z-index:-1;
+  left:50%;
+  top:31%;
+  transform:translate(-50%,-50%) rotate(-3deg);
+  width:min(63vw,280px);
+  aspect-ratio:1.5;
+  border:1px solid #80633e;
+  border-radius:9px;
+  background:linear-gradient(145deg,#f0dfbe,#cdb78b);
+  box-shadow:0 22px 55px #000c;
+  transition:transform .65s cubic-bezier(.22,.8,.2,1),filter .45s ease,opacity .45s ease;
+}
+.bf-final-envelope::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  clip-path:polygon(0 0,100% 0,50% 59%);
+  background:#f5e5c4;
+  border-bottom:1px solid #80633e55;
+  transform-origin:top center;
+  transition:transform .65s ease;
+}
+.bf-final-envelope i{
+  position:absolute;
+  z-index:3;
+  left:50%;
+  top:56%;
+  transform:translate(-50%,-50%);
+  width:58px;
+  height:58px;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  background:radial-gradient(circle at 35% 30%,#b43b4a,#67131d 68%);
+  color:#f0d49a;
+  font:700 1rem Georgia,serif;
+  box-shadow:0 0 0 2px #58101955;
+  transition:transform .45s ease,box-shadow .45s ease,opacity .35s ease;
+}
+.bf-final-envelope.unlocked{
+  filter:drop-shadow(0 0 18px #f2cd73aa);
+}
+.bf-final-envelope.unlocked i{
+  transform:translate(-50%,-50%) scale(1.12);
+  box-shadow:0 0 0 2px #58101955,0 0 28px #f3cf75aa;
+}
+.bf-final-envelope.open{
+  transform:translate(-50%,-54%) rotate(0deg) scale(.93);
+}
+.bf-final-envelope.open::before{
+  transform:perspective(500px) rotateX(165deg);
+}
+.bf-final-envelope.open i{
+  opacity:0;
+  transform:translate(-50%,-50%) scale(.65);
+}
+.bf-final-mic{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  min-height:52px;
+  padding:0 20px;
+  border-radius:999px;
+  border:1px solid #d9b56f77;
+  background:#15110de8;
+  color:#f6e8cf;
+  font-weight:750;
+  box-shadow:0 12px 28px #0008;
+  backdrop-filter:blur(10px);
+}
+.bf-final-mic:disabled{opacity:.55}
+.bf-final-mic.listening{
+  box-shadow:0 0 0 0 #d9b56f77,0 12px 28px #0008;
+  animation:bfMicPulse 1s ease-in-out infinite;
+}
+.bf-mic-icon{font-size:1.25rem}
+.bf-final-voice-status{
+  min-height:20px;
+  margin-top:9px;
+  max-width:430px;
+  color:#d8c9b3;
+  font:500 .82rem/1.4 Georgia,serif;
+}
+.bf-final-fallback{
+  margin-top:10px;
+  min-height:42px;
+  font-size:.8rem;
+}
+.bf-final-fallback[hidden]{display:none!important}
+
+.bf-final-letter{
+  position:absolute;
+  z-index:18;
+  left:6%;
+  right:6%;
+  top:calc(env(safe-area-inset-top,0px) + 5%);
+  bottom:calc(env(safe-area-inset-bottom,0px) + 4%);
+  overflow:auto;
+  padding:28px 24px 24px;
+  border-radius:13px;
+  border:1px solid #876b43;
+  background:
+    linear-gradient(180deg,rgba(248,232,196,.98),rgba(216,192,143,.98));
+  color:#2d2116;
+  box-shadow:0 28px 80px #000d;
+  opacity:0;
+  visibility:hidden;
+  transform:translateY(24px) scale(.96);
+  pointer-events:none;
+  transition:opacity .65s ease,transform .65s ease,visibility .65s;
+  text-shadow:none;
+}
+.bf-final-letter.show{
+  opacity:1;
+  visibility:visible;
+  transform:none;
+  pointer-events:auto;
+}
+.bf-final-letter .bf-kicker{
+  text-align:center;
+  color:#725a37;
+}
+.bf-final-letter h2{
+  margin:3px 0 17px;
+  text-align:center;
+  font:600 clamp(1.8rem,8.5vw,3rem)/1.03 Georgia,serif;
+  color:#382617;
+}
+.bf-final-letter p{
+  margin:0 0 14px;
+  font:500 clamp(.98rem,4.2vw,1.15rem)/1.55 Georgia,serif;
+  color:#332519;
+}
+.bf-final-letter .bf-memory-summary{
+  padding:10px 12px;
+  border-top:1px solid #806a4d55;
+  border-bottom:1px solid #806a4d55;
+  color:#59452f!important;
+  text-align:center;
+  font-style:italic!important;
+}
+.bf-final-letter .bf-final-line{
+  margin-top:18px;
+  color:#5b321f!important;
+  font-weight:700;
+}
+.bf-final-letter .bf-signature{
+  display:block;
+  margin:20px 0 22px;
+  text-align:right;
+  color:#6d321f;
+  font:600 1.02rem/1.45 Georgia,serif;
+}
+.bf-final-letter .bf-btn{
+  display:block;
+  margin:0 auto;
+  border-color:#6c5134;
+  background:#2a2015;
+  color:#f5e6c8;
+}
+
+@keyframes bfMicPulse{
+  0%{box-shadow:0 0 0 0 #d9b56f66,0 12px 28px #0008}
+  70%{box-shadow:0 0 0 18px #d9b56f00,0 12px 28px #0008}
+  100%{box-shadow:0 0 0 0 #d9b56f00,0 12px 28px #0008}
+}
