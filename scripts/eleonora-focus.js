@@ -13,7 +13,7 @@ const moments={
     image:ASSETS.adult,
     kicker:"OGGI",
     title:"Eleonora",
-    text:"Nel mondo magico esistono mille modi per creare luce. Eleonora non ne ha mai avuto bisogno. A trent’anni, perfino un castello pieno d’incantesimi sembrava un po’ meno straordinario quando entrava lei. Per capire dove è cominciata la sua storia, dobbiamo tornare al 4 ottobre 1996.",
+    text:"In un mondo pieno di cose impossibili, la cosa più straordinaria restava lei. Quando Eleonora entrava in una stanza, la luce sembrava diventare più calda e perfino i ritratti parevano dimenticare per un istante le loro conversazioni. Per capire da dove viene quella luce, dobbiamo tornare al 4 ottobre 1996.",
     button:"Apri il ricordo",
     adult:true
   },
@@ -31,11 +31,39 @@ const moments={
     text:"Non si limitò a funzionare. Vibrò nella sua mano come se l’avesse aspettata. La luce si raccolse sul suo viso e, per un istante, perfino la bottega sembrò fermarsi.",
     button:"Prosegui"
   },
+  train:{
+    image:ASSETS.neutral,
+    kicker:"IL PRIMO VIAGGIO",
+    title:"Il mondo correva fuori dal finestrino.",
+    text:"Eleonora osservava tutto in silenzio. Non cercava di attirare l’attenzione, eppure aveva già qualcosa che si ricordava: uno sguardo curioso, una calma luminosa e quella sensazione strana che il castello la stesse aspettando.",
+    button:"Verso Hogwarts"
+  },
+  sorting:{
+    image:ASSETS.neutral,
+    kicker:"SOTTO CENTINAIA DI CANDELE",
+    title:"Per un istante, la Sala Grande si fece più silenziosa.",
+    text:"Non perché Eleonora cercasse di essere notata. Era il contrario. Sembrava semplicemente portare con sé una luce che rendeva il resto della sala un po’ meno importante.",
+    button:"Continua"
+  },
+  spell:{
+    image:ASSETS.wand,
+    kicker:"IL PRIMO VERO INCANTESIMO",
+    title:"La magia le risponde.",
+    text:"La piuma si solleva e una luce dorata corre lungo la bacchetta. Sul volto di Eleonora compare quel sorriso che nessun incantesimo potrebbe inventare.",
+    button:"Continua la lezione"
+  },
+  flight:{
+    image:ASSETS.neutral,
+    kicker:"SOPRA HOGWARTS",
+    title:"Per la prima volta, il castello è sotto di lei.",
+    text:"Il vento le sposta i capelli mentre ride sopra le torri. Per qualche secondo non ci sono cicatrici, misteri o profezie. C’è soltanto Eleonora, libera.",
+    button:"Continua"
+  },
   adultOutro:{
     image:ASSETS.adult,
     kicker:"MOLTI ANNI DOPO",
     title:"La magia non era la cosa più rara.",
-    text:"Il castello le avrebbe insegnato incantesimi, duelli e segreti. Ma nessuna magia avrebbe mai spiegato la cosa più semplice: per me, Eleonora era la donna più bella di ogni mondo possibile.",
+    text:"Hogwarts poteva riempire il cielo di candele, muovere scale e nascondere stanze impossibili. Ma per Eren nessun incantesimo avrebbe mai potuto creare qualcosa di più bello di Eleonora. In qualunque mondo, sarebbe stata sempre lei.",
     button:"Continua la storia",
     adult:true
   }
@@ -106,19 +134,39 @@ function interceptOnce(id,key){
 interceptOnce("play","adultIntro");
 interceptOnce("letterContinue","letter");
 interceptOnce("magicContinue","wand");
+interceptOnce("trainNext","train");
+interceptOnce("spellLessonContinue","spell");
+interceptOnce("flightContinue","flight");
+
+function interceptSelectorOnce(selector,key,momentKey=key){
+  document.addEventListener("click",e=>{
+    const el=e.target.closest?.(selector);
+    if(!el||seen.has(key))return;
+    seen.add(key);
+    e.preventDefault();
+    e.stopImmediatePropagation();
+    showMoment(momentKey,()=>el.click());
+  },true);
+}
+interceptSelectorOnce(".sort-values button","sorting","sorting");
 
 const presenceMap=[
   ["owlChapter","letter","left"],
   ["wandShop","neutral","right"],
   ["magicGame","wand","left"],
+  ["diagonScene","neutral","right"],
   ["stationScene","neutral","right"],
+  ["platformScene","neutral","left"],
   ["trainScene","neutral","left"],
   ["arrivalScene","neutral","right"],
   ["greatHallScene","neutral","left"],
+  ["potionsScene","neutral","right"],
+  ["corridorScene","neutral","right"],
   ["spellClassScene","wand","right"],
   ["libraryScene","neutral","left"],
-  ["corridorScene","neutral","right"],
-  ["stairsScene","neutral","left"]
+  ["stairsScene","neutral","left"],
+  ["duelScene","wand","left"],
+  ["flightScene","neutral","right"]
 ];
 
 function addPresence(sceneId,assetKey,side){
