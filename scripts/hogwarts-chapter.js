@@ -364,12 +364,124 @@ if(stairsAction)stairsAction.addEventListener("click",()=>{
     tinyMagicSound(160,.18);
   }
 });
-if(stairsContinue)stairsContinue.addEventListener("click",()=>{
+const duelScene=q("#duelScene");
+const duelBolt=q("#duelBolt");
+const duelZone=q(".duel-zone");
+const duelScore=q("#duelScore");
+const protegoBtn=q("#protegoBtn");
+const expelliarmusBtn=q("#expelliarmusBtn");
+const duelFeedback=q("#duelFeedback");
+const duelResult=q("#duelResult");
+const duelContinue=q("#duelContinue");
+const flightScene=q("#flightScene");
+const broom=q("#broom");
+const flightScore=q("#flightScore");
+const flightResult=q("#flightResult");
+const flightContinue=q("#flightContinue");
+
+let duelBlocks=0;
+function startDuel(){
   stairsResult.classList.remove("show");
   stairsScene.classList.remove("show");
+  duelScene.classList.add("show");
+  duelResult.classList.remove("show");
+  duelBlocks=0;
+  duelScore.textContent="Parate: 0 / 3";
+  duelFeedback.textContent="Aspetta che l’incantesimo entri nel cerchio luminoso.";
+  protegoBtn.disabled=false;
+  expelliarmusBtn.classList.remove("show");
+}
+if(stairsContinue)stairsContinue.addEventListener("click",startDuel);
+
+if(protegoBtn)protegoBtn.addEventListener("click",()=>{
+  const br=duelBolt.getBoundingClientRect(),zr=duelZone.getBoundingClientRect();
+  const overlap=Math.max(0,Math.min(br.right,zr.right)-Math.max(br.left,zr.left));
+  if(overlap>br.width*.55){
+    duelBlocks++;
+    duelScore.textContent="Parate: "+duelBlocks+" / 3";
+    tinyMagicSound(720+duelBlocks*80,.22);
+    if(duelBlocks>=3){
+      protegoBtn.disabled=true;
+      expelliarmusBtn.classList.add("show");
+      duelFeedback.textContent="La sua difesa è aperta. Ora!";
+    }else{
+      duelFeedback.textContent="Perfetto. Preparati al prossimo incantesimo.";
+    }
+  }else{
+    duelScene.classList.remove("hit");void duelScene.offsetWidth;duelScene.classList.add("hit");
+    duelFeedback.textContent="Troppo presto o troppo tardi. Riprova.";
+    tinyMagicSound(150,.16);
+  }
+});
+if(expelliarmusBtn)expelliarmusBtn.addEventListener("click",()=>{
+  localStorage.setItem("amoremio.firstDuel","won");
+  tinyMagicSound(960,.45);
+  duelResult.classList.add("show");
+});
+if(duelContinue)duelContinue.addEventListener("click",()=>{
+  duelResult.classList.remove("show");
+  duelScene.classList.remove("show");
+  startFlight();
+});
+
+let flightPassed=new Set(),flightDrag=false,flightDX=0,flightDY=0;
+function startFlight(){
+  flightScene.classList.add("show");
+  flightResult.classList.remove("show");
+  flightPassed.clear();
+  qa(".flight-hoop").forEach(h=>h.classList.remove("passed"));
+  flightScore.textContent="Cerchi: 0 / 5";
+  broom.style.left="10%";broom.style.bottom="9%";broom.style.top="";
+}
+function checkHoops(){
+  const b=broom.getBoundingClientRect();
+  const bx=b.left+b.width/2,by=b.top+b.height/2;
+  qa(".flight-hoop").forEach(h=>{
+    if(flightPassed.has(h.dataset.hoop))return;
+    const r=h.getBoundingClientRect();
+    if(bx>r.left&&bx<r.right&&by>r.top&&by<r.bottom){
+      flightPassed.add(h.dataset.hoop);
+      h.classList.add("passed");
+      flightScore.textContent="Cerchi: "+flightPassed.size+" / 5";
+      tinyMagicSound(620+flightPassed.size*45,.18);
+      if(flightPassed.size===5){
+        localStorage.setItem("amoremio.firstFlight","complete");
+        setTimeout(()=>flightResult.classList.add("show"),450);
+      }
+    }
+  });
+}
+if(broom){
+  broom.addEventListener("pointerdown",e=>{
+    e.preventDefault();flightDrag=true;broom.classList.add("flying");
+    const r=broom.getBoundingClientRect();flightDX=e.clientX-r.left;flightDY=e.clientY-r.top;
+    broom.setPointerCapture?.(e.pointerId);
+  });
+  broom.addEventListener("pointermove",e=>{
+    if(!flightDrag)return;
+    const r=flightScene.getBoundingClientRect();
+    const x=Math.max(0,Math.min(r.width-130,e.clientX-r.left-flightDX));
+    const y=Math.max(80,Math.min(r.height-80,e.clientY-r.top-flightDY));
+    broom.style.left=x+"px";broom.style.top=y+"px";broom.style.bottom="auto";
+    checkHoops();
+  });
+  broom.addEventListener("pointerup",()=>{flightDrag=false;broom.classList.remove("flying")});
+  broom.addEventListener("pointercancel",()=>{flightDrag=false;broom.classList.remove("flying")});
+  broom.addEventListener("keydown",e=>{
+    if(e.key==="Enter"||e.key===" "){
+      e.preventDefault();
+      const next=qa(".flight-hoop").find(h=>!flightPassed.has(h.dataset.hoop));
+      if(next){flightPassed.add(next.dataset.hoop);next.classList.add("passed");flightScore.textContent="Cerchi: "+flightPassed.size+" / 5";}
+      if(flightPassed.size===5)flightResult.classList.add("show");
+    }
+  });
+}
+if(flightContinue)flightContinue.addEventListener("click",()=>{
+  flightResult.classList.remove("show");
+  flightScene.classList.remove("show");
   if(finalEnd){
-    finalEnd.querySelector("h2").textContent="Il castello ti sta osservando.";
-    finalEnd.querySelector("p").textContent="La cicatrice, il libro e quella porta non sono una coincidenza. La vera avventura di Eleonora è appena iniziata.";
+    finalEnd.querySelector("h2").textContent="Il primo anno è cominciato.";
+    finalEnd.querySelector("p").textContent="Eleonora ha imparato a usare la bacchetta, ha scoperto un indizio sulla cicatrice, ha vinto il suo primo duello e ha volato sopra Hogwarts. Ma il castello non ha ancora rivelato il suo segreto.";
     finalEnd.classList.add("show");
   }
 });
