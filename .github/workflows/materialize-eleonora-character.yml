@@ -1,0 +1,31 @@
+name: Materialize Eleonora character assets
+on:
+  push:
+    branches: ["main"]
+    paths:
+      - ".github/workflows/materialize-eleonora-character.yml"
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  materialize:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: Download Eleonora character renders
+        run: |
+          set -e
+          mkdir -p assets/characters
+          curl -L --fail "https://pikaso.cdnpk.net/private/production/5631719615/render.png?token=exp=1791331200~hmac=f51009c46821fc1eea4167c47820bae451c5c9b71088a3f8f47e701ce249f309" -o assets/characters/eleonora-11-neutral.png
+          curl -L --fail "https://pikaso.cdnpk.net/private/production/5631719988/render.png?token=exp=1791331200~hmac=c98731e51adabaa42d36f949f7d05f13f8d18d84d823e98ca0c69a73a7f812e5" -o assets/characters/eleonora-11-letter.png
+          curl -L --fail "https://pikaso.cdnpk.net/private/production/5631720207/render.png?token=exp=1791331200~hmac=90f5a1a96a4e33cdc541a553f3ac5b68ffe74b11a4356f4250d786835854fded" -o assets/characters/eleonora-11-wand.png
+          curl -L --fail "https://pikaso.cdnpk.net/private/production/5631720406/render.png?token=exp=1791331200~hmac=adbbe9793840b19867603618a09e518b7269efdc6f477ccd4eb49e2ed7210e63" -o assets/characters/eleonora-adult-hero.png
+      - name: Commit assets
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/characters
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "Add canonical Eleonora character renders"
+          git push
