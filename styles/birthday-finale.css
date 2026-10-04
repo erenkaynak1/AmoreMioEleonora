@@ -41,8 +41,7 @@
 /* chamber */
 .bf-chamber{background:
 linear-gradient(#05060a88,#05060acc),
-url("../assets/hogwarts/great-hall-base.jpg") center/cover no-repeat,
-url("../assets/hogwarts/library-hq.png") center/cover no-repeat}
+url("../assets/hogwarts/great-hall-hq.png") center/cover no-repeat}
 .bf-chamber-title{position:absolute;z-index:7;top:calc(env(safe-area-inset-top,0px) + 18px);left:6%;right:6%;text-align:center;text-shadow:0 3px 18px #000}
 .bf-chamber-title b{display:block;font:500 clamp(1.7rem,8vw,2.9rem) Georgia,serif;color:#f0d69b}
 .bf-chamber-title span{display:block;margin-top:7px;color:#ded2c0;font:500 .9rem/1.4 Georgia,serif}
