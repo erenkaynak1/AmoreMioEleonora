@@ -281,7 +281,7 @@ repeating-linear-gradient(90deg,#25160f 0 28%,#3b2417 28% 31%,#25160f 31% 62%,#3
 <link rel="stylesheet" href="styles/eleonora-focus.css?v=3">
 <link rel="stylesheet" href="styles/birthday-finale.css?v=2">
 <link rel="stylesheet" href="styles/asset-loader.css?v=1">
-<script src="scripts/asset-loader.js?v=1"></script>
+<script src="scripts/asset-loader.js?v=2"></script>
 </head>
 <body>
 <main class="app">
@@ -540,7 +540,7 @@ repeating-linear-gradient(90deg,#25160f 0 28%,#3b2417 28% 31%,#25160f 31% 62%,#3
       <b>Pronuncia: “Wingardium Leviosa”</b>
       <div class="voice-actions">
         <button id="spellMicBtn" class="mic-btn" type="button" aria-label="Usa il microfono">🎙</button>
-        <button id="voiceFallback" class="chapter-btn" type="button" hidden>Ho pronunciato l’incantesimo</button>
+        <button id="voiceFallback" class="chapter-btn" type="button" hidden>Continua senza microfono</button>
       </div>
       <div id="voiceFeedback" class="spell-feedback">Tocca il microfono e pronuncia l’incantesimo.</div>
       <div id="spellGestureHint" class="spell-feedback" hidden>Ora trascina la bacchetta lungo l’arco luminoso e termina vicino alla piuma.</div>
@@ -1314,7 +1314,7 @@ replay.addEventListener("click",()=>{stopAudio();start()});
 window.addEventListener("pagehide",stopAudio);
 </script>
 <script src="scripts/hogwarts-chapter.js?v=3"></script>
-<script src="scripts/eleonora-focus.js?v=2"></script>
+<script src="scripts/eleonora-focus.js?v=3"></script>
 <script src="scripts/birthday-finale.js?v=1"></script>
 </body>
 </html>
