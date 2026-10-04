@@ -66,6 +66,8 @@ function hideCurtain(){curtain().classList.remove("show")}
 
 const criticalPromise=Promise.all(critical.map(x=>preload(x,"high")));
 window.preloadAsset=preload;
+window.showAssetCurtain=showCurtain;
+window.hideAssetCurtain=hideCurtain;
 window.waitForCriticalAssets=async function(){
   let timer=setTimeout(showCurtain,120);
   await criticalPromise;
