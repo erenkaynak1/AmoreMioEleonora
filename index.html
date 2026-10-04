@@ -276,7 +276,7 @@ repeating-linear-gradient(90deg,#25160f 0 28%,#3b2417 28% 31%,#25160f 31% 62%,#3
 
 </style>
 <link rel="stylesheet" href="hogwarts-extra.css?v=1">
-</head>
+<link rel="stylesheet" href="styles/hogwarts-chapter.css?v=1">\n</head>
 <body>
 <main class="app">
 <section id="intro" class="screen active">
@@ -512,11 +512,73 @@ repeating-linear-gradient(90deg,#25160f 0 28%,#3b2417 28% 31%,#25160f 31% 62%,#3
       <button class="mystery-door" data-door="3" type="button">Porta III</button>
     </div>
     <div id="mysteryMessage" class="mystery-message">
-      <div><h2>Qualcosa ti ha riconosciuta.</h2><p>Dietro la porta, un sussurro pronuncia il nome di Eleonora. La cicatrice si illumina per un istante. Il castello nasconde qualcosa che sembra aspettarla da molto tempo.</p></div>
+      <div>
+        <h2>Qualcosa ti ha riconosciuta.</h2>
+        <p>Dietro la porta, un sussurro pronuncia il nome di Eleonora. La cicatrice si illumina per un istante. Il castello nasconde qualcosa che sembra aspettarla da molto tempo.</p>
+        <button id="mysteryContinue" class="chapter-btn" type="button">Segui il sussurro</button>
+      </div>
     </div>
   </div>
 
-  <div id="end" class="end">
+
+  <div id="spellClassScene" class="chapter-scene spell-class">
+    <div class="chapter-shade"></div>
+    <div class="chapter-title"><b>Lezione di Incantesimi</b><span>La voce dà forma all’incantesimo. La bacchetta gli indica la strada.</span></div>
+    <div class="spell-stage">
+      <div id="spellFeather" class="spell-feather" aria-hidden="true"></div>
+      <div class="spell-orbit" aria-hidden="true"><svg viewBox="0 0 260 130" preserveAspectRatio="none"><path d="M15 105 C68 18, 158 15, 241 92"></path></svg></div>
+      <canvas id="spellLessonTrail" class="spell-trail"></canvas>
+      <div id="spellLessonWand" class="spell-wand" role="button" tabindex="0" aria-label="Muovi la bacchetta"></div>
+    </div>
+    <div id="voiceCard" class="voice-card">
+      <b>Pronuncia: “Wingardium Leviosa”</b>
+      <div class="voice-actions">
+        <button id="spellMicBtn" class="mic-btn" type="button" aria-label="Usa il microfono">🎙</button>
+        <button id="voiceFallback" class="chapter-btn" type="button" hidden>Ho pronunciato l’incantesimo</button>
+      </div>
+      <div id="voiceFeedback" class="spell-feedback">Tocca il microfono e pronuncia l’incantesimo.</div>
+      <div id="spellGestureHint" class="spell-feedback" hidden>Ora trascina la bacchetta lungo l’arco luminoso e termina vicino alla piuma.</div>
+      <button id="spellLessonContinue" class="chapter-btn spell-continue" type="button">Continua</button>
+    </div>
+  </div>
+
+  <div id="libraryScene" class="chapter-scene library-scene">
+    <div class="chapter-shade"></div>
+    <div class="chapter-title"><b>La Biblioteca</b><span>Tra migliaia di libri, uno solo reagisce alla cicatrice di Eleonora.</span></div>
+    <div id="libraryLight" class="library-light" role="button" tabindex="0" aria-label="Muovi la luce tra gli scaffali"></div>
+    <div id="hiddenBook" class="hidden-book" role="button" tabindex="0" aria-label="Libro misterioso"></div>
+    <div id="libraryDesk" class="library-desk">Porta qui il libro quando lo trovi.</div>
+    <div id="libraryFeedback" class="chapter-panel">Muovi la luce tra gli scaffali. Un libro reagirà alla cicatrice.</div>
+    <div id="clueCard" class="clue-card">
+      <div>
+        <h2>Lo stesso simbolo.</h2>
+        <p>Sulla pagina compare un segno identico a quello che Eleonora vede nei sogni. Accanto c’è una frase: «Il castello ricorda chi è stato scelto.»</p>
+        <button id="clueContinue" class="chapter-btn" type="button">Continua a cercare</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="stairsScene" class="chapter-scene stairs-scene">
+    <div class="chapter-shade"></div>
+    <div class="chapter-title"><b>Le Scale Mobili</b><span>Il castello cambia percorso quando meno te lo aspetti.</span></div>
+    <div id="stairsGame" class="stairs-game">
+      <div class="stairs-progress"><i></i><i></i><i></i></div>
+      <div class="stairs-track">
+        <div id="stairsZone" class="stairs-zone"></div>
+        <div id="stairsMarker" class="stairs-marker"></div>
+      </div>
+      <button id="stairsAction" class="chapter-btn stairs-action" type="button">Attraversa</button>
+      <div id="stairsFeedback" class="spell-feedback">Aspetta che la scala entri nella zona verde, poi attraversa.</div>
+    </div>
+    <div id="stairsResult" class="stairs-result">
+      <div>
+        <h2>Il castello ti lascia passare.</h2>
+        <p>La scala si ferma davanti a un corridoio che non compariva sulla mappa. In fondo, una porta antica si apre da sola.</p>
+        <button id="stairsContinue" class="chapter-btn" type="button">Entra nel corridoio</button>
+      </div>
+    </div>
+  </div>
+\n  <div id="end" class="end">
     <div>
       <h2>Il mondo magico ti aspetta.</h2>
       <p>La prossima fermata sarà Hogwarts.</p>
@@ -1153,5 +1215,5 @@ replay.addEventListener("click",()=>{stopAudio();start()});
 window.addEventListener("pagehide",stopAudio);
 </script>
 <script src="hogwarts-extra.js?v=1"></script>
-</body>
+<script src="scripts/hogwarts-chapter.js?v=1"></script>\n</body>
 </html>
