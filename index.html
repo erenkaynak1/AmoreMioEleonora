@@ -1,49 +1,363 @@
 <!doctype html>
-<html lang="it"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#07080c"><title>Per Eleonora</title>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#050608">
+<title>Per Eleonora</title>
 <style>
-:root{--gold:#d9b56f;--ink:#fff8ea;--rose:#e7a4b5;--muted:#d4c9bb}
-*{box-sizing:border-box}html,body{margin:0;background:#050608;color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;overflow:hidden}button{font:inherit}
-.app{height:100svh;position:relative;background:#050608;overflow:hidden}.screen{position:absolute;inset:0;opacity:0;pointer-events:none;transition:opacity .8s ease}.screen.active{opacity:1;pointer-events:auto}
-#intro{display:grid;place-items:center;padding:24px;background:radial-gradient(circle at 50% 26%,rgba(231,164,181,.16),transparent 38%),linear-gradient(155deg,#251119,#09080c 65%)}
-.intro{max-width:620px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:22px}.heart{width:42px;height:42px;border:1px solid #ffffff26;border-radius:50%;display:grid;place-items:center;color:var(--rose)}
-.eyebrow{font-size:.72rem;letter-spacing:.28em;text-transform:uppercase;color:var(--muted)}h1{font:500 clamp(2.2rem,9vw,4.4rem)/.98 Georgia,serif;margin:0;letter-spacing:-.035em}h1 em{display:block;color:var(--rose);margin-top:.25em}.sub{color:var(--muted)}
-.cta{min-height:56px;padding:0 32px;border:0;border-radius:999px;background:linear-gradient(135deg,#f2cad4,#df98aa);color:#241017;font-weight:800;box-shadow:0 14px 42px #df98aa22}
-#prologue{background:#030405}.stage{position:absolute;inset:0;overflow:hidden}.shot{position:absolute;inset:-3%;opacity:0;background-image:url("assets/prologue/prologue_sprite.jpg");background-size:300% 400%;background-repeat:no-repeat;filter:saturate(.96) contrast(1.04);transform:scale(1.03);transition:opacity 1.05s ease}.shot.show{opacity:1;animation:ken 5s linear forwards}
-.vignette{position:absolute;inset:0;box-shadow:inset 0 0 170px 55px #000c;pointer-events:none}.grain{position:absolute;inset:0;opacity:.1;pointer-events:none;background-image:radial-gradient(circle,#fff7 0 .55px,transparent .7px);background-size:5px 5px;mix-blend-mode:soft-light;animation:grain .25s steps(2) infinite}.bars:before,.bars:after{content:"";position:absolute;left:0;right:0;height:7.5%;background:#000;z-index:5}.bars:before{top:0}.bars:after{bottom:0}
-.hud{position:absolute;inset:0;z-index:7;pointer-events:none}.skip{position:absolute;right:18px;top:calc(8% + 12px);pointer-events:auto;border:1px solid #ffffff26;background:#0007;color:#eee;border-radius:999px;padding:9px 13px;font-size:.75rem;letter-spacing:.09em}.caption{position:absolute;left:50%;bottom:11%;transform:translateX(-50%);width:min(86%,720px);text-align:center;font:500 clamp(1.05rem,4vw,1.7rem)/1.35 Georgia,serif;text-shadow:0 3px 18px #000;opacity:0;transition:opacity .6s}.caption.show{opacity:1}.progress{position:absolute;left:5%;right:5%;bottom:8.1%;height:2px;background:#ffffff35}.progress i{display:block;height:100%;width:0;background:#f5e4b6;transition:width .35s linear}
-.interaction{position:absolute;inset:0;z-index:9;display:none}.interaction.show{display:block}.hint{position:absolute;top:13%;left:50%;transform:translateX(-50%);padding:10px 14px;border:1px solid #d9b56f55;border-radius:10px;background:#08080bc7;color:#f4e6c6;font:500 .9rem Georgia,serif;backdrop-filter:blur(10px);white-space:nowrap}
-.hotspot{position:absolute;border:1px solid #f3d89d99;background:#d9b56f12;border-radius:50%;width:88px;height:88px;box-shadow:0 0 0 0 #d9b56f66;animation:pulseRing 1.7s ease-out infinite}.hotspot.star{left:35%;top:43%}.hotspot.rabbit{right:24%;top:48%}.hotspot span{position:absolute;left:50%;top:calc(100% + 8px);transform:translateX(-50%);white-space:nowrap;color:#f8e8c9;font-size:.82rem;text-shadow:0 2px 8px #000}
-.flash{position:absolute;inset:0;background:radial-gradient(circle at 50% 50%,#fff7d6 0,#d9b56f55 16%,transparent 44%);opacity:0;pointer-events:none;z-index:11}.flash.on{animation:flash .9s ease}
-.traits{position:absolute;inset:0;z-index:12;display:none;place-items:center;padding:24px;background:#050608dc;backdrop-filter:blur(12px)}.traits.show{display:grid}.traitbox{width:min(100%,760px);text-align:center}.traitbox h2{font:500 clamp(1.55rem,6vw,2.4rem)/1.1 Georgia,serif;color:#f3d89d;margin:0 0 22px}.traitgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.trait{min-height:170px;border:1px solid #d9b56f55;background:linear-gradient(180deg,#1b1714e8,#0b0a0be8);color:#f7ecd8;border-radius:16px;padding:18px 14px;display:flex;flex-direction:column;justify-content:center;gap:8px}.trait b{font:600 1.05rem Georgia,serif}.trait small{color:#c9bda9;line-height:1.35}.orb{font-size:2rem}
-.end{position:absolute;inset:0;z-index:14;display:none;place-items:end center;padding:0 24px 12%;text-align:center;background:linear-gradient(transparent 20%,#050608dc)}.end.show{display:grid}.end h2{font:500 clamp(1.8rem,7vw,3rem) Georgia,serif;margin:0 0 8px;color:#f3d89d}.end p{color:#ddd0bd;margin:0 0 18px}.ghost{border:1px solid #d9b56f66;background:#11100dcc;color:#f3e8d0;border-radius:999px;padding:13px 22px}
-@keyframes ken{from{transform:scale(1.03)}to{transform:scale(1.11) translate3d(-.8%,-.4%,0)}}@keyframes grain{0%{transform:translate(0)}50%{transform:translate(1px,-1px)}100%{transform:translate(-1px,1px)}}@keyframes pulseRing{0%{box-shadow:0 0 0 0 #d9b56f66}70%{box-shadow:0 0 0 18px #d9b56f00}100%{box-shadow:0 0 0 0 #d9b56f00}}@keyframes flash{0%{opacity:0}35%{opacity:1}100%{opacity:0}}
-@media(max-width:640px){.traitgrid{grid-template-columns:1fr}.trait{min-height:112px}.hotspot{width:72px;height:72px}.hotspot.star{left:28%;top:42%}.hotspot.rabbit{right:16%;top:48%}.shot{inset:-10%;background-position:center}}
-@media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}
-</style></head><body><main class="app">
-<section id="intro" class="screen active"><div class="intro"><div class="heart">♥</div><div class="eyebrow">Per Eleonora</div><h1>Alla donna più bella e speciale del mondo…<em>vuoi giocare con me?</em></h1><p class="sub">Ho preparato qualcosa solo per te.</p><button id="play" class="cta" type="button">Giochiamo ♥</button></div></section>
-<section id="prologue" class="screen" aria-label="Prologo: la nascita di Eleonora"><div class="stage"><div id="shotA" class="shot"></div><div id="shotB" class="shot"></div><div class="vignette"></div><div class="grain"></div><div class="bars"></div></div><div class="hud"><button id="skip" class="skip" type="button">SALTA »</button><div id="caption" class="caption"></div><div class="progress"><i id="bar"></i></div></div>
-<div id="interaction" class="interaction"><div class="hint">✦ Tocca un oggetto per interagire</div><button class="hotspot star" data-object="stella" aria-label="Tocca la stella"><span>Tocca la stella</span></button><button class="hotspot rabbit" data-object="coniglietto" aria-label="Tocca il coniglietto"><span>Tocca il coniglietto</span></button></div><div id="flash" class="flash"></div>
-<div id="traits" class="traits"><div class="traitbox"><h2>Quale luce senti più vicina a lei?</h2><div class="traitgrid"><button class="trait" data-trait="curiosita"><span class="orb">✦</span><b>Curiosità</b><small>Scopre il mondo con meraviglia.</small></button><button class="trait" data-trait="dolcezza"><span class="orb">☾</span><b>Dolcezza</b><small>Vede la bellezza nelle piccole cose.</small></button><button class="trait" data-trait="determinazione"><span class="orb">✺</span><b>Determinazione</b><small>Seguirà sempre la sua strada.</small></button></div></div></div>
-<div id="end" class="end"><div><h2>I primi segni della magia…</h2><p>La storia di Eleonora è appena cominciata.</p><button id="replay" class="ghost" type="button">Rivedi il prologo</button></div></div></section></main>
+:root{
+  --gold:#d9b56f;--ink:#fff8ea;--rose:#e7a4b5;--muted:#d4c9bb;
+  --safe-t:env(safe-area-inset-top,0px);--safe-b:env(safe-area-inset-bottom,0px)
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;width:100%;height:100%;background:#050608;color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;overflow:hidden}
+button{font:inherit;color:inherit}
+.app{position:relative;width:100%;height:100vh;height:100dvh;background:#050608;overflow:hidden}
+.screen{position:absolute;inset:0;opacity:0;pointer-events:none;transition:opacity .7s ease}
+.screen.active{opacity:1;pointer-events:auto}
+
+/* INTRO */
+#intro{
+  display:grid;place-items:center;
+  padding:calc(22px + var(--safe-t)) 22px calc(22px + var(--safe-b));
+  background:
+    radial-gradient(circle at 50% 24%,rgba(231,164,181,.16),transparent 36%),
+    linear-gradient(155deg,#251119,#09080c 66%)
+}
+.intro-card{width:min(100%,560px);text-align:center;display:flex;flex-direction:column;align-items:center;gap:20px}
+.heart{width:44px;height:44px;border:1px solid #ffffff26;border-radius:50%;display:grid;place-items:center;color:var(--rose);background:#ffffff08}
+.eyebrow{font-size:.72rem;letter-spacing:.28em;text-transform:uppercase;color:var(--muted)}
+h1{font:500 clamp(2rem,9.5vw,4rem)/1.02 Georgia,serif;margin:0;letter-spacing:-.035em;text-wrap:balance}
+h1 em{display:block;color:var(--rose);font-weight:500;margin-top:.22em}
+.sub{margin:0;color:var(--muted);line-height:1.55}
+.cta{min-height:56px;padding:0 32px;border:0;border-radius:999px;background:linear-gradient(135deg,#f2cad4,#df98aa);color:#241017;font-weight:800;box-shadow:0 14px 42px #df98aa2b}
+
+/* MOBILE CINEMATIC */
+#prologue{background:#030405}
+.stage{position:absolute;inset:0;background:#030405;overflow:hidden}
+.shot{
+  position:absolute;inset:0;width:100%;height:100%;
+  object-fit:cover;object-position:center;
+  opacity:0;transform:scale(1.002);
+  transition:opacity .95s ease;
+  will-change:opacity,transform
+}
+.shot.show{opacity:1;animation:ken 5.4s linear forwards}
+.stage::after{
+  content:"";position:absolute;inset:0;z-index:2;pointer-events:none;
+  background:
+    linear-gradient(to bottom,rgba(0,0,0,.20),transparent 23%,transparent 64%,rgba(0,0,0,.62)),
+    radial-gradient(circle at 50% 44%,transparent 46%,rgba(0,0,0,.34) 100%)
+}
+.grain{
+  position:absolute;inset:0;z-index:3;pointer-events:none;opacity:.05;
+  background-image:radial-gradient(circle,#fff8 0 .55px,transparent .75px);
+  background-size:5px 5px;mix-blend-mode:soft-light;
+  animation:grain .26s steps(2) infinite
+}
+
+.title-card,.name-card{
+  position:absolute;inset:0;z-index:4;display:grid;place-items:center;text-align:center;
+  padding:calc(30px + var(--safe-t)) 28px calc(30px + var(--safe-b));
+  opacity:0;transition:opacity .9s ease;
+  background:
+    radial-gradient(circle at 50% 44%,rgba(217,181,111,.12),transparent 28%),
+    linear-gradient(160deg,#071019,#030406 66%)
+}
+.title-card.show,.name-card.show{opacity:1}
+.title-inner{max-width:640px}
+.date{font:500 clamp(2.3rem,12vw,4.9rem)/1 Georgia,serif;color:#f0d59a;letter-spacing:.035em;text-shadow:0 0 28px #d9b56f22}
+.title-copy{margin-top:18px;font:500 clamp(1rem,4.4vw,1.45rem)/1.45 Georgia,serif;color:#efe3ce}
+.name-card .name{font:500 clamp(3rem,16vw,6.3rem)/.95 Georgia,serif;letter-spacing:.14em;color:#f0d59a;text-indent:.14em}
+.name-card .under{margin-top:18px;font:500 clamp(1.1rem,5vw,1.65rem) Georgia,serif;color:#eee1c8}
+
+.hud{position:absolute;inset:0;z-index:8;pointer-events:none}
+.skip{
+  position:absolute;top:calc(var(--safe-t) + 12px);right:14px;pointer-events:auto;
+  min-height:42px;border:1px solid #ffffff25;background:#09090ca8;color:#f5eee4;
+  border-radius:999px;padding:0 14px;font-size:.73rem;letter-spacing:.09em;backdrop-filter:blur(9px)
+}
+.caption{
+  position:absolute;left:50%;bottom:calc(var(--safe-b) + 42px);transform:translateX(-50%);
+  width:min(88%,680px);text-align:center;
+  font:500 clamp(1.02rem,4.8vw,1.55rem)/1.38 Georgia,serif;
+  text-shadow:0 2px 18px #000,0 1px 4px #000;
+  opacity:0;transition:opacity .45s
+}
+.caption.show{opacity:1}
+.progress{position:absolute;left:5.5%;right:5.5%;bottom:calc(var(--safe-b) + 19px);height:2px;background:#ffffff2b;border-radius:2px;overflow:hidden}
+.progress i{display:block;height:100%;width:0;background:#f2dfb5;transition:width .4s ease}
+
+.interaction{position:absolute;inset:0;z-index:10;display:none}
+.interaction.show{display:block}
+.hint{
+  position:absolute;top:calc(var(--safe-t) + 62px);left:50%;transform:translateX(-50%);
+  max-width:86%;padding:10px 14px;border:1px solid #d9b56f5a;border-radius:12px;
+  background:#08080bc9;color:#f4e6c6;font:500 .9rem Georgia,serif;text-align:center;
+  backdrop-filter:blur(10px)
+}
+.hotspot{
+  position:absolute;width:78px;height:78px;border:1.5px solid #f5d99db0;
+  background:#d9b56f12;border-radius:50%;box-shadow:0 0 0 0 #d9b56f66;
+  animation:pulseRing 1.65s ease-out infinite
+}
+.hotspot.star{left:20%;top:50%}
+.hotspot.rabbit{right:14%;top:56%}
+.hotspot span{
+  position:absolute;left:50%;top:calc(100% + 8px);transform:translateX(-50%);
+  white-space:nowrap;padding:5px 8px;border-radius:8px;background:#05050699;
+  color:#f8e8c9;font-size:.76rem;text-shadow:0 2px 8px #000
+}
+.flash{position:absolute;inset:0;z-index:11;pointer-events:none;opacity:0;background:radial-gradient(circle at 50% 50%,#fff8d8 0,#d9b56f70 14%,transparent 46%)}
+.flash.on{animation:flash .9s ease}
+.magic-orbs{position:absolute;inset:0;z-index:6;pointer-events:none;opacity:0}
+.magic-orbs.show{opacity:1}
+.magic-orbs i{position:absolute;width:6px;height:6px;border-radius:50%;background:#ffeab5;box-shadow:0 0 13px #f5c96f;animation:floatUp 3.2s ease-in-out infinite}
+.magic-orbs i:nth-child(1){left:32%;top:64%}.magic-orbs i:nth-child(2){left:44%;top:57%;animation-delay:.5s}.magic-orbs i:nth-child(3){left:60%;top:62%;animation-delay:1s}.magic-orbs i:nth-child(4){left:70%;top:54%;animation-delay:1.5s}.magic-orbs i:nth-child(5){left:52%;top:70%;animation-delay:2s}
+
+.traits{
+  position:absolute;inset:0;z-index:13;display:none;
+  background:linear-gradient(180deg,#050608f0,#09070af2);
+  padding:calc(var(--safe-t) + 30px) 18px calc(var(--safe-b) + 24px);
+  overflow:auto
+}
+.traits.show{display:grid;place-items:center}
+.traitbox{width:min(100%,560px);text-align:center}
+.traitbox h2{font:500 clamp(1.55rem,7vw,2.25rem)/1.12 Georgia,serif;color:#f1d293;margin:0 0 18px}
+.traitgrid{display:grid;grid-template-columns:1fr;gap:10px}
+.trait{
+  min-height:94px;border:1px solid #d9b56f4f;
+  background:linear-gradient(135deg,#191510ed,#0c0b0ced);
+  border-radius:15px;padding:13px 15px;
+  display:grid;grid-template-columns:52px 1fr;grid-template-rows:auto auto;
+  text-align:left;align-items:center
+}
+.trait .orb{grid-row:1/3;font-size:2rem;text-align:center}
+.trait b{font:600 1.05rem Georgia,serif}
+.trait small{color:#c9bda9;line-height:1.32}
+
+.end{
+  position:absolute;inset:0;z-index:14;display:none;align-items:end;justify-items:center;
+  padding:0 24px calc(var(--safe-b) + 46px);text-align:center;
+  background:linear-gradient(transparent 32%,#050608e8)
+}
+.end.show{display:grid}
+.end h2{font:500 clamp(1.9rem,8vw,3.1rem)/1.05 Georgia,serif;margin:0 0 8px;color:#f3d89d;text-shadow:0 2px 18px #000}
+.end p{margin:0 0 18px;color:#ddd0bd}
+.ghost{min-height:46px;border:1px solid #d9b56f66;background:#11100dcc;color:#f3e8d0;border-radius:999px;padding:0 21px}
+
+@keyframes ken{from{transform:scale(1.002)}to{transform:scale(1.055)}}
+@keyframes grain{0%{transform:translate(0)}50%{transform:translate(1px,-1px)}100%{transform:translate(-1px,1px)}}
+@keyframes pulseRing{0%{box-shadow:0 0 0 0 #d9b56f70}70%{box-shadow:0 0 0 17px #d9b56f00}100%{box-shadow:0 0 0 0 #d9b56f00}}
+@keyframes flash{0%{opacity:0}32%{opacity:1}100%{opacity:0}}
+@keyframes floatUp{0%,100%{transform:translateY(10px) scale(.7);opacity:.1}45%{opacity:1}70%{transform:translateY(-25px) scale(1.05);opacity:.7}}
+
+@media(min-width:700px){
+  .shot{object-fit:contain;background:#050608}
+  .stage{background:radial-gradient(circle at 50% 50%,#171319,#050608 72%)}
+  .traitgrid{grid-template-columns:repeat(3,1fr)}
+  .trait{display:flex;min-height:160px;text-align:center;flex-direction:column;justify-content:center}
+}
+@media(max-height:650px){
+  .intro-card{gap:13px}
+  h1{font-size:clamp(1.8rem,8vw,2.8rem)}
+  .trait{min-height:78px}
+  .traitbox h2{margin-bottom:10px}
+  .hotspot{width:66px;height:66px}
+}
+@media(prefers-reduced-motion:reduce){
+  *{animation-duration:.01ms!important;transition-duration:.01ms!important}
+}
+</style>
+</head>
+<body>
+<main class="app">
+<section id="intro" class="screen active">
+  <div class="intro-card">
+    <div class="heart" aria-hidden="true">♥</div>
+    <div class="eyebrow">Per Eleonora</div>
+    <h1>Alla donna più bella e speciale del mondo…<em>vuoi giocare con me?</em></h1>
+    <p class="sub">Ho preparato qualcosa solo per te.</p>
+    <button id="play" class="cta" type="button">Giochiamo ♥</button>
+  </div>
+</section>
+
+<section id="prologue" class="screen" aria-label="Prologo: la nascita di Eleonora">
+  <div class="stage">
+    <img id="shotA" class="shot" alt="">
+    <img id="shotB" class="shot" alt="">
+    <div id="titleCard" class="title-card">
+      <div class="title-inner">
+        <div class="date">4 Ottobre 1996</div>
+        <div class="title-copy">In una notte d’autunno,<br>ebbe inizio una storia speciale.</div>
+      </div>
+    </div>
+    <div id="nameCard" class="name-card">
+      <div><div class="name">ELEONORA</div><div class="under">La sua storia comincia qui.</div></div>
+    </div>
+    <div class="grain"></div>
+    <div id="magic" class="magic-orbs"><i></i><i></i><i></i><i></i><i></i></div>
+  </div>
+
+  <div class="hud">
+    <button id="skip" class="skip" type="button">SALTA »</button>
+    <div id="caption" class="caption"></div>
+    <div class="progress"><i id="bar"></i></div>
+  </div>
+
+  <div id="interaction" class="interaction">
+    <div class="hint">✦ Tocca un oggetto per interagire</div>
+    <button class="hotspot star" data-object="stella" aria-label="Tocca la stella"><span>Tocca la stella</span></button>
+    <button class="hotspot rabbit" data-object="coniglietto" aria-label="Tocca il coniglietto"><span>Tocca il coniglietto</span></button>
+  </div>
+
+  <div id="flash" class="flash"></div>
+
+  <div id="traits" class="traits">
+    <div class="traitbox">
+      <h2>Quale luce senti più vicina a lei?</h2>
+      <div class="traitgrid">
+        <button class="trait" data-trait="curiosita"><span class="orb">✦</span><b>Curiosità</b><small>Scopre il mondo con meraviglia.</small></button>
+        <button class="trait" data-trait="dolcezza"><span class="orb">☾</span><b>Dolcezza</b><small>Vede la bellezza nelle piccole cose.</small></button>
+        <button class="trait" data-trait="determinazione"><span class="orb">✺</span><b>Determinazione</b><small>Seguirà sempre la sua strada.</small></button>
+      </div>
+    </div>
+  </div>
+
+  <div id="end" class="end">
+    <div>
+      <h2>I primi segni della magia…</h2>
+      <p>La storia di Eleonora è appena cominciata.</p>
+      <button id="replay" class="ghost" type="button">Rivedi il prologo</button>
+    </div>
+  </div>
+</section>
+</main>
+
 <script>
-const POSITIONS={
-  title:"0% 0%",city:"50% 0%",window:"100% 0%",
-  nursery:"0% 33.333%",baby:"50% 33.333%",interact:"100% 33.333%",
-  sparkles:"0% 66.666%",hand:"50% 66.666%",baby2:"100% 66.666%",
-  name:"0% 100%",traits:"50% 100%",child:"100% 100%"
+const ASSETS={
+  city:"assets/prologue/city-9x16.png",
+  window:"assets/prologue/window-9x16.png",
+  nursery:"assets/prologue/nursery-9x16.png",
+  baby:"assets/prologue/baby-9x16.png",
+  interaction:"assets/prologue/interaction-9x16.png",
+  child:"assets/prologue/child-9x16.png"
 };
-const intro=document.getElementById('intro'),pro=document.getElementById('prologue'),play=document.getElementById('play'),skip=document.getElementById('skip'),cap=document.getElementById('caption'),bar=document.getElementById('bar'),a=document.getElementById('shotA'),b=document.getElementById('shotB'),inter=document.getElementById('interaction'),flash=document.getElementById('flash'),traits=document.getElementById('traits'),end=document.getElementById('end'),replay=document.getElementById('replay');
-let active=a,timers=[],audio=null;
-const frames={title:['title','4 Ottobre 1996\nIn una notte d’autunno, ebbe inizio una storia speciale.'],city:['city','Una città addormentata. Ma quella notte, qualcosa cambiò.'],window:['window','Dietro quella finestra, si scriveva già un destino.'],nursery:['nursery','Alcune anime nascono nel silenzio. Altre arrivano al mondo con un po’ di magia nel destino.'],baby:['baby','Quella notte nacque Eleonora.'],interact:['interact',''],sparkles:['sparkles','Un piccolo segno… come se il mondo l’avesse già riconosciuta.'],hand:['hand','E con lei, una luce gentile che il mondo non aveva ancora conosciuto.'],name:['name','ELEONORA — La sua storia comincia qui.'],child:['child','I primi segni della magia…']};
-function preload(){const i=new Image();i.src="assets/prologue/prologue_sprite.jpg"}preload();
-function later(fn,ms){const t=setTimeout(fn,ms);timers.push(t)}function clearAll(){timers.forEach(clearTimeout);timers=[]}
-function showFrame(key){const [imgKey,text]=frames[key];const next=active===a?b:a;next.style.backgroundPosition=POSITIONS[imgKey]||"0% 0%";next.className='shot';void next.offsetWidth;next.classList.add('show');active.classList.remove('show');active=next;cap.textContent=text;cap.classList.toggle('show',!!text)}
-function ambience(){try{audio=new (window.AudioContext||window.webkitAudioContext)();const o=audio.createOscillator(),g=audio.createGain(),f=audio.createBiquadFilter();o.type='sine';o.frequency.value=68;g.gain.value=.018;f.type='lowpass';f.frequency.value=160;o.connect(f).connect(g).connect(audio.destination);o.start()}catch(e){}}
+
+const intro=document.getElementById("intro");
+const pro=document.getElementById("prologue");
+const play=document.getElementById("play");
+const skip=document.getElementById("skip");
+const cap=document.getElementById("caption");
+const bar=document.getElementById("bar");
+const a=document.getElementById("shotA");
+const b=document.getElementById("shotB");
+const titleCard=document.getElementById("titleCard");
+const nameCard=document.getElementById("nameCard");
+const inter=document.getElementById("interaction");
+const flash=document.getElementById("flash");
+const traits=document.getElementById("traits");
+const end=document.getElementById("end");
+const replay=document.getElementById("replay");
+const magic=document.getElementById("magic");
+
+let active=a;
+let timers=[];
+let audio=null;
+
+const frames={
+  city:[ASSETS.city,"Una città addormentata. Ma quella notte, qualcosa cambiò.","50% 50%"],
+  window:[ASSETS.window,"Dietro quella finestra, si scriveva già un destino.","50% 50%"],
+  nursery:[ASSETS.nursery,"Alcune anime nascono nel silenzio. Altre arrivano al mondo con un po’ di magia nel destino.","50% 50%"],
+  baby:[ASSETS.baby,"Quella notte nacque Eleonora.","50% 46%"],
+  interaction:[ASSETS.interaction,"","50% 50%"],
+  sparkles:[ASSETS.interaction,"Un piccolo segno… come se il mondo l’avesse già riconosciuta.","50% 50%"],
+  hand:[ASSETS.baby,"E con lei, una luce gentile che il mondo non aveva ancora conosciuto.","50% 50%"],
+  child:[ASSETS.child,"I primi segni della magia…","50% 44%"]
+};
+
+Object.values(ASSETS).forEach(src=>{const im=new Image();im.decoding="async";im.src=src});
+
+function later(fn,ms){const t=setTimeout(fn,ms);timers.push(t)}
+function clearAll(){timers.forEach(clearTimeout);timers=[]}
+function clearCards(){titleCard.classList.remove("show");nameCard.classList.remove("show")}
+function showTitle(){
+  clearCards();a.classList.remove("show");b.classList.remove("show");
+  cap.classList.remove("show");titleCard.classList.add("show");
+}
+function showName(){
+  a.classList.remove("show");b.classList.remove("show");cap.classList.remove("show");
+  titleCard.classList.remove("show");nameCard.classList.add("show");
+}
+function showFrame(key){
+  clearCards();
+  const [src,text,pos]=frames[key];
+  const next=active===a?b:a;
+  next.src=src;next.style.objectPosition=pos;
+  void next.offsetWidth;next.classList.add("show");
+  active.classList.remove("show");active=next;
+  cap.textContent=text;cap.classList.toggle("show",Boolean(text));
+}
+function ambience(){
+  try{
+    audio=new (window.AudioContext||window.webkitAudioContext)();
+    const o=audio.createOscillator(),g=audio.createGain(),f=audio.createBiquadFilter();
+    o.type="sine";o.frequency.value=62;g.gain.value=.012;f.type="lowpass";f.frequency.value=140;
+    o.connect(f).connect(g).connect(audio.destination);o.start();
+  }catch(e){}
+}
 function stopAudio(){try{audio&&audio.close()}catch(e){}audio=null}
-function start(){clearAll();inter.classList.remove('show');traits.classList.remove('show');end.classList.remove('show');intro.classList.remove('active');pro.classList.add('active');ambience();bar.style.width='0%';showFrame('title');later(()=>bar.style.width='20%',400);later(()=>showFrame('city'),3200);later(()=>bar.style.width='40%',3600);later(()=>showFrame('window'),7000);later(()=>bar.style.width='60%',7400);later(()=>showFrame('nursery'),10800);later(()=>bar.style.width='80%',11200);later(()=>showFrame('baby'),14600);later(()=>{bar.style.width='100%';showFrame('interact');cap.classList.remove('show');inter.classList.add('show')},18400)}
-function jumpToInteraction(){clearAll();bar.style.width='100%';showFrame('interact');cap.classList.remove('show');inter.classList.add('show')}
-function continueAfterChoice(obj){localStorage.setItem('amoremio.birthObject',obj);inter.classList.remove('show');flash.classList.remove('on');void flash.offsetWidth;flash.classList.add('on');showFrame('sparkles');bar.style.width='0%';later(()=>bar.style.width='35%',250);later(()=>showFrame('hand'),3000);later(()=>bar.style.width='70%',3250);later(()=>showFrame('name'),6100);later(()=>bar.style.width='100%',6350);later(()=>{traits.classList.add('show');cap.classList.remove('show')},9500)}
-document.querySelectorAll('.hotspot').forEach(x=>x.addEventListener('click',()=>continueAfterChoice(x.dataset.object)));
-document.querySelectorAll('.trait').forEach(x=>x.addEventListener('click',()=>{localStorage.setItem('amoremio.firstTrait',x.dataset.trait);traits.classList.remove('show');showFrame('child');later(()=>end.classList.add('show'),3200)}));
-play.addEventListener('click',start);skip.addEventListener('click',jumpToInteraction);replay.addEventListener('click',()=>{stopAudio();start()});window.addEventListener('pagehide',stopAudio);
-</script></body></html>
+function start(){
+  clearAll();inter.classList.remove("show");traits.classList.remove("show");
+  end.classList.remove("show");magic.classList.remove("show");
+  intro.classList.remove("active");pro.classList.add("active");
+  ambience();bar.style.width="0%";showTitle();
+  later(()=>bar.style.width="14%",350);
+  later(()=>showFrame("city"),3000);
+  later(()=>bar.style.width="32%",3400);
+  later(()=>showFrame("window"),6500);
+  later(()=>bar.style.width="50%",6900);
+  later(()=>showFrame("nursery"),10000);
+  later(()=>bar.style.width="68%",10400);
+  later(()=>showFrame("baby"),13700);
+  later(()=>bar.style.width="82%",14100);
+  later(()=>{
+    showFrame("interaction");cap.classList.remove("show");
+    inter.classList.add("show");bar.style.width="100%";
+  },17100);
+}
+function jumpToInteraction(){
+  clearAll();showFrame("interaction");cap.classList.remove("show");
+  inter.classList.add("show");bar.style.width="100%";
+}
+function continueAfterChoice(obj){
+  localStorage.setItem("amoremio.birthObject",obj);
+  inter.classList.remove("show");flash.classList.remove("on");
+  void flash.offsetWidth;flash.classList.add("on");magic.classList.add("show");
+  showFrame("sparkles");bar.style.width="0%";
+  later(()=>bar.style.width="38%",250);
+  later(()=>showFrame("hand"),3000);
+  later(()=>bar.style.width="72%",3300);
+  later(()=>showName(),6100);
+  later(()=>bar.style.width="100%",6400);
+  later(()=>{traits.classList.add("show");magic.classList.remove("show")},8800);
+}
+
+document.querySelectorAll(".hotspot").forEach(btn=>{
+  btn.addEventListener("click",()=>continueAfterChoice(btn.dataset.object));
+});
+document.querySelectorAll(".trait").forEach(btn=>{
+  btn.addEventListener("click",()=>{
+    localStorage.setItem("amoremio.firstTrait",btn.dataset.trait);
+    traits.classList.remove("show");showFrame("child");
+    later(()=>end.classList.add("show"),2800);
+  });
+});
+play.addEventListener("click",start);
+skip.addEventListener("click",jumpToInteraction);
+replay.addEventListener("click",()=>{stopAudio();start()});
+window.addEventListener("pagehide",stopAudio);
+</script>
+</body>
+</html>
