@@ -323,7 +323,7 @@ if(hiddenBook){
 if(clueContinue)clueContinue.addEventListener("click",()=>{
   clueCard.classList.remove("show");
   libraryScene.classList.remove("show");
-  startStairs();
+  startFlight();
 });
 
 /* Moving stairs */
@@ -479,12 +479,17 @@ if(broom){
 if(flightContinue)flightContinue.addEventListener("click",()=>{
   flightResult.classList.remove("show");
   flightScene.classList.remove("show");
-  if(finalEnd){
-    finalEnd.querySelector("h2").textContent="Il primo anno è cominciato.";
-    finalEnd.querySelector("p").textContent="Eleonora ha imparato a usare la bacchetta, ha scoperto un indizio sulla cicatrice, ha vinto il suo primo duello e ha volato sopra Hogwarts. Ma il castello non ha ancora rivelato il suo segreto.";
+  if(typeof window.startBirthdayFinale==="function"){
+    window.startBirthdayFinale();
+  }else if(finalEnd){
+    finalEnd.querySelector("h2").textContent="Trent’anni dopo…";
+    finalEnd.querySelector("p").textContent="La storia continua il 4 ottobre 2026.";
     finalEnd.classList.add("show");
   }
 });
+
+window.startSpellLesson=startSpellLesson;
+window.startHogwartsExtras=startPotions;
 
 window.addEventListener("resize",()=>{
   if(spellScene?.classList.contains("show"))resizeSpellCanvas();
