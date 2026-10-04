@@ -291,3 +291,98 @@ url("../assets/hogwarts/great-hall-hq.png") center/cover no-repeat}
   70%{box-shadow:0 0 0 18px #d9b56f00,0 12px 28px #0008}
   100%{box-shadow:0 0 0 0 #d9b56f00,0 12px 28px #0008}
 }
+
+/* Personal final letter + last magical reveal */
+.bf-love-letter p{
+  text-align:left;
+}
+.bf-love-letter p:first-child{
+  margin-bottom:18px;
+}
+.bf-last-magic{
+  display:block!important;
+  margin:18px auto 0!important;
+  min-width:min(86%,340px);
+  position:relative;
+  overflow:hidden;
+}
+.bf-last-magic::after{
+  content:"";
+  position:absolute;
+  inset:-40% -30%;
+  background:linear-gradient(110deg,transparent 38%,rgba(255,237,190,.22) 49%,transparent 60%);
+  transform:translateX(-80%);
+  animation:bfLastMagicShine 3.4s ease-in-out infinite;
+}
+
+.bf-couple-reveal{
+  position:absolute;
+  inset:0;
+  z-index:40;
+  background:#020304;
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
+  transition:opacity .75s ease,visibility .75s;
+  overflow:hidden;
+}
+.bf-couple-reveal.show{
+  opacity:1;
+  visibility:visible;
+  pointer-events:auto;
+}
+.bf-couple-reveal img{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:center 42%;
+  transform:scale(1.02);
+}
+.bf-couple-reveal.show img{
+  animation:bfCoupleDrift 13s ease-in-out forwards;
+}
+.bf-couple-shade{
+  position:absolute;
+  inset:0;
+  z-index:2;
+  pointer-events:none;
+  background:
+    linear-gradient(to top,rgba(2,3,4,.94) 0%,rgba(2,3,4,.3) 28%,transparent 56%),
+    radial-gradient(circle at 50% 44%,transparent 42%,rgba(0,0,0,.22) 100%);
+}
+.bf-couple-caption{
+  position:absolute;
+  z-index:4;
+  left:7%;
+  right:7%;
+  bottom:calc(env(safe-area-inset-bottom,0px) + 7%);
+  text-align:center;
+  color:#f3d99c;
+  font:500 clamp(1.35rem,6vw,2.15rem)/1.28 Georgia,serif;
+  text-shadow:0 4px 24px #000;
+}
+.bf-couple-close{
+  position:absolute;
+  z-index:5;
+  top:calc(env(safe-area-inset-top,0px) + 16px);
+  right:16px;
+  width:46px;
+  height:46px;
+  border-radius:50%;
+  border:1px solid rgba(244,222,174,.45);
+  background:rgba(5,5,7,.55);
+  color:#f5e8cf;
+  font-size:1.75rem;
+  line-height:1;
+  backdrop-filter:blur(10px);
+}
+@keyframes bfLastMagicShine{
+  0%,42%{transform:translateX(-90%)}
+  70%,100%{transform:translateX(90%)}
+}
+@keyframes bfCoupleDrift{
+  from{transform:scale(1.02)}
+  to{transform:scale(1.075) translateY(-.5%)}
+}
