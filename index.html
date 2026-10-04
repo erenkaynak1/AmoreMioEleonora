@@ -171,6 +171,114 @@ repeating-linear-gradient(90deg,#25160f 0 28%,#3b2417 28% 31%,#25160f 31% 62%,#3
 @keyframes sealHold{0%{box-shadow:0 0 0 0 #d9b56f99;transform:translate(-50%,-50%) scale(1)}100%{box-shadow:0 0 0 26px #d9b56f00;transform:translate(-50%,-50%) scale(.92)}}
 @keyframes shopDust{from{background-position:0 0}to{background-position:18px -28px}}
 
+
+/* JOURNEY TO HOGWARTS */
+.journey-scene{position:absolute;inset:0;z-index:30;display:none;overflow:hidden;background:#070707;color:#f7eddc}
+.journey-scene.show{display:block}
+.scene-head{position:absolute;z-index:8;top:calc(var(--safe-t) + 18px);left:50%;transform:translateX(-50%);width:min(92%,560px);text-align:center;text-shadow:0 3px 16px #000}
+.scene-head b{display:block;font:500 clamp(1.55rem,7vw,2.45rem)/1.05 Georgia,serif;color:#f0d59a}
+.scene-head span{display:block;margin-top:7px;color:#e2d6c5;font-size:.9rem;line-height:1.35}
+
+/* DIAGON ALLEY */
+.diagon-bg{position:absolute;inset:0;background:
+linear-gradient(110deg,transparent 0 48%,#0005 49% 51%,transparent 52%),
+repeating-linear-gradient(90deg,#2a1e19 0 13%,#3a2a21 13% 24%,#201713 24% 38%);
+animation:streetPan 14s ease-in-out infinite alternate}
+.diagon-bg::before{content:"";position:absolute;inset:0;background:
+radial-gradient(circle at 18% 32%,#c47d3040 0 5%,transparent 6%),
+radial-gradient(circle at 68% 25%,#c47d3040 0 4%,transparent 5%),
+linear-gradient(to bottom,#15121a 0 19%,transparent 42%,#120c08 100%)}
+.shop-signs{position:absolute;inset:15% 5% 34%;display:grid;grid-template-columns:repeat(3,1fr);gap:10px;align-items:start}
+.shop-sign{min-height:74px;border:1px solid #987044;background:#24170fdd;color:#d7bc8d;border-radius:7px;display:grid;place-items:center;text-align:center;font:600 .76rem Georgia,serif;transform:rotate(-2deg);box-shadow:0 9px 20px #0008}
+.shop-sign:nth-child(2){transform:translateY(38px) rotate(1deg)}
+.shop-sign:nth-child(3){transform:translateY(12px) rotate(2deg)}
+.pack-zone{position:absolute;z-index:6;left:8%;right:8%;bottom:7%;height:23%;border:1px dashed #d9b56f66;border-radius:18px;background:#17100dcc;display:grid;place-items:end center;padding-bottom:14px;color:#d9c9ac;font:500 .82rem Georgia,serif}
+.trunk{position:absolute;left:50%;bottom:30px;transform:translateX(-50%);width:150px;height:82px;border-radius:7px 7px 14px 14px;background:linear-gradient(#5b3924,#2c1a12);border:2px solid #8f623f;box-shadow:0 12px 28px #000b}
+.trunk::before{content:"";position:absolute;left:0;right:0;top:22px;height:6px;background:#b28858}
+.trunk::after{content:"";position:absolute;left:50%;top:25px;width:24px;height:25px;transform:translateX(-50%);background:#b48b55;border-radius:2px}
+.pack-items{position:absolute;z-index:7;left:7%;right:7%;top:42%;display:flex;justify-content:space-between;align-items:center}
+.pack-item{position:relative;width:84px;height:84px;border-radius:15px;border:1px solid #d9b56f55;background:#0d0b0bcc;color:#f0dfc0;touch-action:none;box-shadow:0 10px 22px #0008;display:grid;place-items:center;font-size:2rem}
+.pack-item small{position:absolute;left:0;right:0;bottom:6px;font:500 .7rem Georgia,serif;text-align:center;color:#cfbea1}
+.pack-item.packed{opacity:.18;pointer-events:none;transform:scale(.82)}
+.diagon-next{position:absolute;z-index:9;right:18px;bottom:calc(var(--safe-b) + 20px);min-height:46px;padding:0 20px;border-radius:999px;border:1px solid #d9b56f66;background:#100d0bdc;color:#f3e5cc;opacity:0;pointer-events:none;transition:opacity .35s}
+.diagon-next.show{opacity:1;pointer-events:auto}
+
+/* KING'S CROSS */
+.station{background:
+linear-gradient(to bottom,#272a2f 0 18%,#4c4a46 18% 19%,#7f7060 19% 70%,#2d2b2b 70%);
+perspective:700px}
+.station-arches{position:absolute;inset:8% -8% 30%;background:
+repeating-linear-gradient(90deg,transparent 0 17%,#322b29 17% 20%,transparent 20% 37%);
+opacity:.8}
+.station-clock{position:absolute;top:17%;left:50%;transform:translateX(-50%);width:72px;height:72px;border:5px solid #312723;border-radius:50%;background:#d7cfc0;box-shadow:0 8px 18px #0007}
+.station-clock::before{content:"";position:absolute;width:3px;height:22px;background:#2b2522;left:50%;top:14px;transform-origin:bottom;transform:translateX(-50%) rotate(22deg)}
+.station-clock::after{content:"";position:absolute;width:2px;height:27px;background:#2b2522;left:50%;top:10px;transform-origin:bottom;transform:translateX(-50%) rotate(112deg)}
+.platform-num{position:absolute;top:30%;font:700 1.1rem Georgia,serif;background:#171717;color:#eee;padding:8px 13px;border-radius:5px}
+.platform-num.p9{left:18%}.platform-num.p10{right:18%}
+.barrier{position:absolute;right:0;top:34%;width:23%;height:47%;background:
+repeating-linear-gradient(0deg,#8b5a42 0 18px,#714632 18px 22px);box-shadow:inset 8px 0 18px #0005}
+.trolley{position:absolute;z-index:8;left:8%;bottom:12%;width:115px;height:112px;touch-action:none}
+.trolley .case{position:absolute;left:17px;top:0;width:78px;height:60px;border-radius:7px;background:#5b3925;border:2px solid #8d6849}
+.trolley .frame{position:absolute;left:10px;top:46px;width:86px;height:48px;border-left:4px solid #c7c7c7;border-bottom:4px solid #c7c7c7;transform:skewX(-12deg)}
+.trolley .wheel{position:absolute;bottom:0;width:18px;height:18px;background:#191919;border-radius:50%;border:3px solid #777}
+.trolley .w1{left:18px}.trolley .w2{right:10px}
+.station-hint{position:absolute;z-index:7;left:50%;bottom:calc(var(--safe-b) + 28px);transform:translateX(-50%);width:88%;text-align:center;font:500 .95rem Georgia,serif;text-shadow:0 2px 12px #000}
+
+/* PLATFORM + TRAIN */
+.platform-scene{background:linear-gradient(#1a1f27 0 33%,#5d5147 33% 72%,#272220 72%)}
+.platform-scene::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(90deg,transparent 0 28%,#17191c 28% 31%,transparent 31% 59%);opacity:.35}
+.steam-cloud{position:absolute;width:100px;height:100px;border-radius:50%;background:#e8e7e0aa;filter:blur(7px);animation:steam 3.2s ease-in-out infinite}
+.steam-cloud.s1{left:8%;bottom:27%}.steam-cloud.s2{left:26%;bottom:33%;animation-delay:1s}.steam-cloud.s3{right:9%;bottom:29%;animation-delay:1.8s}
+.train{position:absolute;left:-14%;right:-10%;bottom:16%;height:31%;background:linear-gradient(#601923,#3d0e16 58%,#1a090c);border-top:4px solid #b48a4e;border-bottom:7px solid #1a1412;animation:trainIdle 2.3s ease-in-out infinite alternate}
+.train::before{content:"";position:absolute;left:5%;top:-28px;width:58px;height:42px;border-radius:40px 40px 0 0;background:#171717}
+.train-windows{position:absolute;left:18%;right:6%;top:22%;height:38%;display:grid;grid-template-columns:repeat(5,1fr);gap:16px}
+.train-windows i{background:linear-gradient(#d7a44d,#402b22);border:5px solid #2b1617;box-shadow:inset 0 0 14px #0007}
+.board-train{position:absolute;z-index:8;left:50%;bottom:calc(var(--safe-b) + 30px);transform:translateX(-50%);min-width:180px;min-height:50px;border-radius:999px;border:1px solid #d9b56f66;background:#0c0b0ddd;color:#f5e7cf}
+
+/* TRAIN COMPARTMENT */
+.compartment{background:#1a100d}
+.comp-window{position:absolute;left:10%;right:10%;top:17%;height:37%;border:10px solid #4a2d21;border-radius:12px;overflow:hidden;background:#9bb5c5}
+.landscape{position:absolute;inset:-8% -50%;background:
+radial-gradient(circle at 20% 38%,#405a3d 0 11%,transparent 12%),
+radial-gradient(circle at 55% 42%,#34533d 0 13%,transparent 14%),
+linear-gradient(#8daab9 0 47%,#556c52 48% 66%,#2f4938 67%);animation:landscapeMove 4s linear infinite}
+.landscape::after{content:"";position:absolute;left:0;right:0;bottom:7%;height:6px;background:#3b3028;box-shadow:0 13px 0 #3b3028}
+.comp-seats{position:absolute;left:8%;right:8%;bottom:10%;display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.seat{min-height:125px;border-radius:14px 14px 8px 8px;border:1px solid #75402d;background:linear-gradient(#6e2430,#351016);color:#eddcca;font:500 .8rem Georgia,serif;padding:12px 7px;display:flex;align-items:end;justify-content:center;box-shadow:inset 0 9px 15px #a14c5522}
+.seat.selected{outline:2px solid #e4c77d;box-shadow:0 0 24px #d9b56f44}
+.train-next{position:absolute;z-index:8;left:50%;bottom:calc(var(--safe-b) + 18px);transform:translateX(-50%);min-width:170px;min-height:46px;border-radius:999px;border:1px solid #d9b56f66;background:#100c0cdd;color:#f4e4c9;opacity:0;pointer-events:none}
+.train-next.show{opacity:1;pointer-events:auto}
+
+/* HOGWARTS ARRIVAL */
+.arrival{background:linear-gradient(#09101e 0 60%,#03060a 60%)}
+.stars{position:absolute;inset:0;background-image:radial-gradient(circle,#ffffff 0 1px,transparent 1.2px);background-size:37px 41px;opacity:.45;animation:starsDrift 9s linear infinite}
+.mountains{position:absolute;left:-10%;right:-10%;bottom:31%;height:31%;background:#101726;clip-path:polygon(0 100%,12% 48%,20% 70%,32% 22%,45% 76%,56% 31%,66% 63%,80% 16%,91% 58%,100% 35%,100% 100%)}
+.castle{position:absolute;left:50%;bottom:35%;width:210px;height:170px;transform:translateX(-50%);opacity:.08;transition:opacity .8s;filter:drop-shadow(0 0 15px #d8b46a55)}
+.castle.revealed{opacity:1}
+.castle .keep{position:absolute;left:54px;bottom:0;width:102px;height:92px;background:#26252a}
+.castle .tower{position:absolute;bottom:0;width:42px;background:#29292e}
+.castle .t1{left:18px;height:118px}.castle .t2{right:12px;height:132px}.castle .t3{left:92px;height:154px;width:38px}
+.castle .tower::before,.castle .keep::before{content:"";position:absolute;left:-5px;right:-5px;top:-34px;border-left:26px solid transparent;border-right:26px solid transparent;border-bottom:36px solid #1a1a20}
+.castle .keep::before{left:19px;right:auto;border-left-width:34px;border-right-width:34px}
+.castle i{position:absolute;width:5px;height:8px;background:#f0c66d;box-shadow:0 0 8px #e6b34d}
+.castle i:nth-child(1){left:43px;top:73px}.castle i:nth-child(2){left:113px;top:90px}.castle i:nth-child(3){left:98px;top:35px}
+.lake{position:absolute;left:0;right:0;bottom:0;height:38%;background:linear-gradient(#071018,#020407);overflow:hidden}
+.lake::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent 0 16px,#90a9bd12 17px 18px);animation:water 3s linear infinite}
+.boat{position:absolute;left:-18%;bottom:18%;width:120px;height:44px;border-radius:0 0 60px 60px;background:#351f13;animation:boatGlide 8s ease-in-out forwards}
+.lantern{position:absolute;z-index:8;left:12%;bottom:16%;width:52px;height:82px;touch-action:none;cursor:grab}
+.lantern::before{content:"";position:absolute;left:6px;right:6px;top:17px;bottom:7px;border:3px solid #6b5235;border-radius:8px;background:radial-gradient(circle,#ffe7a0 0 18%,#cf913a 34%,#4a301d 70%);box-shadow:0 0 28px #e9b44b88}
+.lantern::after{content:"";position:absolute;left:12px;right:12px;top:0;height:21px;border:3px solid #6b5235;border-bottom:0;border-radius:14px 14px 0 0}
+.lantern-light{position:absolute;z-index:4;width:320px;height:320px;border-radius:50%;background:radial-gradient(circle,#f7d8862e 0 15%,#f0c45b14 35%,transparent 69%);pointer-events:none;transform:translate(-50%,-50%);left:40%;top:58%;mix-blend-mode:screen}
+.arrival-msg{position:absolute;z-index:9;left:50%;top:calc(var(--safe-t) + 24px);transform:translateX(-50%);width:88%;text-align:center;font:500 clamp(1.15rem,5vw,1.65rem)/1.35 Georgia,serif;text-shadow:0 3px 18px #000}
+
+@keyframes streetPan{from{transform:scale(1.04) translateX(-1%)}to{transform:scale(1.09) translateX(1.2%)}}
+@keyframes steam{0%,100%{transform:translate(0,8px) scale(.75);opacity:.15}50%{transform:translate(12px,-28px) scale(1.3);opacity:.52}}
+@keyframes trainIdle{from{transform:translateY(0)}to{transform:translateY(2px)}}
+@keyframes landscapeMove{from{transform:translateX(0)}to{transform:translateX(-34%)}}
+@keyframes starsDrift{from{background-position:0 0}to{background-position:18px 34px}}
+@keyframes water{from{background-position:0 0}to{background-position:0 22px}}
+@keyframes boatGlide{0%{left:-18%}100%{left:42%}}
+
 /* FIRST MAGIC MINI GAME */
 .magic-game{position:absolute;inset:0;z-index:15;display:none;overflow:hidden;background:#08070a}
 .magic-game.show{display:block}
@@ -366,6 +474,60 @@ repeating-linear-gradient(90deg,#25160f 0 28%,#3b2417 28% 31%,#25160f 31% 62%,#3
     </div>
   </div>
 
+
+  <div id="diagonScene" class="journey-scene">
+    <div class="diagon-bg"></div>
+    <div class="scene-head"><b>Diagon Alley</b><span>Prima di partire, Eleonora deve preparare il suo baule.</span></div>
+    <div class="shop-signs"><div class="shop-sign">LIBRI<br>DI MAGIA</div><div class="shop-sign">ABITI<br>DA SCUOLA</div><div class="shop-sign">CALDERONI<br>&amp; POZIONI</div></div>
+    <div class="pack-items">
+      <button class="pack-item" data-item="libri" type="button" aria-label="Metti i libri nel baule">📚<small>Libri</small></button>
+      <button class="pack-item" data-item="divisa" type="button" aria-label="Metti la divisa nel baule">🧥<small>Divisa</small></button>
+      <button class="pack-item" data-item="calderone" type="button" aria-label="Metti il calderone nel baule">⚗️<small>Calderone</small></button>
+    </div>
+    <div id="packZone" class="pack-zone"><div class="trunk"></div><span>Trascina gli oggetti nel baule</span></div>
+    <button id="diagonNext" class="diagon-next" type="button">Verso King’s Cross →</button>
+  </div>
+
+  <div id="stationScene" class="journey-scene station">
+    <div class="station-arches"></div>
+    <div class="station-clock"></div>
+    <div class="platform-num p9">9</div>
+    <div class="platform-num p10">10</div>
+    <div class="barrier"></div>
+    <div class="scene-head"><b>King’s Cross</b><span>Il binario indicato sul biglietto non sembra esistere.</span></div>
+    <div id="trolley" class="trolley" role="button" tabindex="0" aria-label="Spingi il carrello verso la barriera"><div class="case"></div><div class="frame"></div><i class="wheel w1"></i><i class="wheel w2"></i></div>
+    <div id="stationHint" class="station-hint">Spingi il carrello verso la barriera tra i binari 9 e 10.</div>
+  </div>
+
+  <div id="platformScene" class="journey-scene platform-scene">
+    <div class="steam-cloud s1"></div><div class="steam-cloud s2"></div><div class="steam-cloud s3"></div>
+    <div class="scene-head"><b>Binario 9¾</b><span>Dall’altra parte della barriera, il mondo è cambiato.</span></div>
+    <div class="train"><div class="train-windows"><i></i><i></i><i></i><i></i><i></i></div></div>
+    <button id="boardTrain" class="board-train" type="button">Sali sull’Hogwarts Express</button>
+  </div>
+
+  <div id="trainScene" class="journey-scene compartment">
+    <div class="scene-head"><b>Hogwarts Express</b><span>Scegli un posto per il tuo primo viaggio verso Hogwarts.</span></div>
+    <div class="comp-window"><div class="landscape"></div></div>
+    <div class="comp-seats">
+      <button class="seat" data-seat="finestrino" type="button">Vicino al finestrino</button>
+      <button class="seat" data-seat="centro" type="button">Al centro</button>
+      <button class="seat" data-seat="corridoio" type="button">Vicino al corridoio</button>
+    </div>
+    <button id="trainNext" class="train-next" type="button">Continua il viaggio</button>
+  </div>
+
+  <div id="arrivalScene" class="journey-scene arrival">
+    <div class="stars"></div>
+    <div class="mountains"></div>
+    <div id="castle" class="castle"><div class="keep"></div><div class="tower t1"></div><div class="tower t2"></div><div class="tower t3"></div><i></i><i></i><i></i></div>
+    <div class="lake"></div>
+    <div class="boat"></div>
+    <div id="lanternLight" class="lantern-light"></div>
+    <div id="lantern" class="lantern" role="button" tabindex="0" aria-label="Muovi la lanterna per illuminare il castello"></div>
+    <div id="arrivalMsg" class="arrival-msg">Muovi la lanterna nell’oscurità.</div>
+  </div>
+
   <div id="end" class="end">
     <div>
       <h2>Il mondo magico ti aspetta.</h2>
@@ -387,6 +549,7 @@ const ASSETS={
 
 const intro=document.getElementById("intro"),pro=document.getElementById("prologue"),play=document.getElementById("play"),skip=document.getElementById("skip"),cap=document.getElementById("caption"),bar=document.getElementById("bar"),a=document.getElementById("shotA"),b=document.getElementById("shotB"),titleCard=document.getElementById("titleCard"),nameCard=document.getElementById("nameCard"),inter=document.getElementById("interaction"),flash=document.getElementById("flash"),traits=document.getElementById("traits"),end=document.getElementById("end"),replay=document.getElementById("replay"),magic=document.getElementById("magic"),owlChapter=document.getElementById("owlChapter"),owlWindow=document.getElementById("owlWindow"),owlSvg=document.getElementById("owlSvg"),owlCaption=document.getElementById("owlCaption"),openWindowBtn=document.getElementById("openWindowBtn"),owlLetter=document.getElementById("owlLetter"),letterDrop=document.getElementById("letterDrop"),sealScene=document.getElementById("sealScene"),sealButton=document.getElementById("sealButton"),letterReveal=document.getElementById("letterReveal"),letterContinue=document.getElementById("letterContinue"),wandShop=document.getElementById("wandShop"),handTarget=document.getElementById("handTarget"),wandChosen=document.getElementById("wandChosen"),wandChosenText=document.getElementById("wandChosenText"),testWandBtn=document.getElementById("testWandBtn"),magicGame=document.getElementById("magicGame"),wand=document.getElementById("wand"),glass=document.getElementById("glass"),trail=document.getElementById("trail"),magicFeedback=document.getElementById("magicFeedback"),magicSuccess=document.getElementById("magicSuccess"),magicContinue=document.getElementById("magicContinue");
 
+const diagonScene=document.getElementById("diagonScene"),packZone=document.getElementById("packZone"),diagonNext=document.getElementById("diagonNext"),stationScene=document.getElementById("stationScene"),trolley=document.getElementById("trolley"),stationHint=document.getElementById("stationHint"),platformScene=document.getElementById("platformScene"),boardTrain=document.getElementById("boardTrain"),trainScene=document.getElementById("trainScene"),trainNext=document.getElementById("trainNext"),arrivalScene=document.getElementById("arrivalScene"),lantern=document.getElementById("lantern"),lanternLight=document.getElementById("lanternLight"),castle=document.getElementById("castle"),arrivalMsg=document.getElementById("arrivalMsg");
 let active=a,timers=[],audio=null;
 const frames={
   city:[ASSETS.city,"Una città addormentata. Ma quella notte, qualcosa cambiò.","50% 50%"],
@@ -730,10 +893,163 @@ wand.addEventListener("keydown",e=>{
     magicSuccess.classList.add("show");
   }
 });
+
+function startDiagonAlley(){
+  end.classList.remove("show");
+  diagonScene.classList.add("show");
+  packedItems.clear();
+  diagonNext.classList.remove("show");
+  document.querySelectorAll(".pack-item").forEach(x=>x.classList.remove("packed"));
+}
+
+const packedItems=new Set();
+let packDrag=null,packDX=0,packDY=0;
+document.querySelectorAll(".pack-item").forEach(item=>{
+  const packByClick=()=>{
+    packedItems.add(item.dataset.item);
+    item.classList.add("packed");
+    if(packedItems.size===3)diagonNext.classList.add("show");
+  };
+  item.addEventListener("click",packByClick);
+  item.addEventListener("pointerdown",e=>{
+    if(item.classList.contains("packed"))return;
+    e.preventDefault();
+    const r=item.getBoundingClientRect();
+    packDrag=item;packDX=e.clientX-r.left;packDY=e.clientY-r.top;
+    item.style.position="fixed";item.style.zIndex="40";
+    item.style.left=(e.clientX-packDX)+"px";item.style.top=(e.clientY-packDY)+"px";
+    item.setPointerCapture?.(e.pointerId);
+  });
+  item.addEventListener("pointermove",e=>{
+    if(packDrag!==item)return;
+    item.style.left=(e.clientX-packDX)+"px";item.style.top=(e.clientY-packDY)+"px";
+  });
+  item.addEventListener("pointerup",e=>{
+    if(packDrag!==item)return;
+    packDrag=null;
+    const z=packZone.getBoundingClientRect();
+    const hit=e.clientX>z.left&&e.clientX<z.right&&e.clientY>z.top&&e.clientY<z.bottom;
+    item.style.position="";item.style.zIndex="";item.style.left="";item.style.top="";
+    if(hit)packByClick();
+  });
+});
+diagonNext.addEventListener("click",()=>{
+  diagonScene.classList.remove("show");
+  stationScene.classList.add("show");
+  resetTrolley();
+});
+
+let trolleyDrag=false,trolleyStartX=0,trolleyBaseLeft=0;
+function resetTrolley(){
+  trolley.style.left="8%";
+  trolley.style.transform="";
+  stationHint.textContent="Spingi il carrello verso la barriera tra i binari 9 e 10.";
+}
+function finishBarrier(){
+  trolleyDrag=false;
+  trolley.style.transition="left .45s ease, opacity .35s ease";
+  trolley.style.left="84%";
+  trolley.style.opacity="0";
+  stationHint.textContent="Non fermarti…";
+  flash.classList.remove("on");void flash.offsetWidth;flash.classList.add("on");
+  later(()=>{
+    stationScene.classList.remove("show");
+    platformScene.classList.add("show");
+  },700);
+}
+trolley.addEventListener("pointerdown",e=>{
+  e.preventDefault();trolleyDrag=true;trolleyStartX=e.clientX;trolleyBaseLeft=trolley.offsetLeft;
+  trolley.setPointerCapture?.(e.pointerId);
+});
+trolley.addEventListener("pointermove",e=>{
+  if(!trolleyDrag)return;
+  const r=stationScene.getBoundingClientRect();
+  const dx=e.clientX-trolleyStartX;
+  const left=Math.max(0,Math.min(r.width-80,trolleyBaseLeft+dx));
+  trolley.style.left=left+"px";
+  if(left>r.width*.67)stationHint.textContent="Continua!";
+});
+trolley.addEventListener("pointerup",()=>{
+  if(!trolleyDrag)return;
+  const r=stationScene.getBoundingClientRect();
+  if(trolley.offsetLeft>r.width*.67)finishBarrier();
+  else{trolleyDrag=false;resetTrolley();}
+});
+trolley.addEventListener("keydown",e=>{
+  if(e.key==="Enter"||e.key===" "){e.preventDefault();finishBarrier();}
+});
+
+boardTrain.addEventListener("click",()=>{
+  platformScene.classList.remove("show");
+  trainScene.classList.add("show");
+});
+
+document.querySelectorAll(".seat").forEach(seat=>{
+  seat.addEventListener("click",()=>{
+    document.querySelectorAll(".seat").forEach(s=>s.classList.remove("selected"));
+    seat.classList.add("selected");
+    localStorage.setItem("amoremio.trainSeat",seat.dataset.seat);
+    trainNext.classList.add("show");
+  });
+});
+trainNext.addEventListener("click",()=>{
+  trainScene.classList.remove("show");
+  arrivalScene.classList.add("show");
+  castle.classList.remove("revealed");
+  arrivalMsg.textContent="Muovi la lanterna nell’oscurità.";
+});
+
+let lanternDrag=false,lanternDX=0,lanternDY=0,lanternTravel=0,lastLanternX=0;
+function moveLanternTo(x,y){
+  const r=arrivalScene.getBoundingClientRect();
+  const lx=Math.max(10,Math.min(r.width-62,x));
+  const ly=Math.max(60,Math.min(r.height-100,y));
+  lantern.style.left=lx+"px";
+  lantern.style.top=ly+"px";
+  lantern.style.bottom="auto";
+  lanternLight.style.left=(lx+26)+"px";
+  lanternLight.style.top=(ly+42)+"px";
+  if(lastLanternX){lanternTravel+=Math.abs(lx-lastLanternX)}
+  lastLanternX=lx;
+  if(lanternTravel>r.width*.72 && !castle.classList.contains("revealed")){
+    castle.classList.add("revealed");
+    arrivalMsg.textContent="Hogwarts.";
+    later(()=>{
+      arrivalScene.classList.remove("show");
+      end.classList.add("show");
+      end.querySelector("h2").textContent="Benvenuta a Hogwarts.";
+      end.querySelector("p").textContent="Il castello è davanti a te. Ora la vera storia può cominciare.";
+    },2200);
+  }
+}
+lantern.addEventListener("pointerdown",e=>{
+  e.preventDefault();lanternDrag=true;
+  const r=lantern.getBoundingClientRect();lanternDX=e.clientX-r.left;lanternDY=e.clientY-r.top;
+  lantern.setPointerCapture?.(e.pointerId);
+});
+lantern.addEventListener("pointermove",e=>{
+  if(!lanternDrag)return;
+  const r=arrivalScene.getBoundingClientRect();
+  moveLanternTo(e.clientX-r.left-lanternDX,e.clientY-r.top-lanternDY);
+});
+lantern.addEventListener("pointerup",()=>{lanternDrag=false});
+lantern.addEventListener("pointercancel",()=>{lanternDrag=false});
+lantern.addEventListener("keydown",e=>{
+  if(e.key==="Enter"||e.key===" "){
+    e.preventDefault();castle.classList.add("revealed");arrivalMsg.textContent="Hogwarts.";
+    later(()=>{
+      arrivalScene.classList.remove("show");
+      end.classList.add("show");
+      end.querySelector("h2").textContent="Benvenuta a Hogwarts.";
+      end.querySelector("p").textContent="Il castello è davanti a te. Ora la vera storia può cominciare.";
+    },1600);
+  }
+});
+
 magicContinue.addEventListener("click",()=>{
   magicSuccess.classList.remove("show");
   magicGame.classList.remove("show");
-  end.classList.add("show");
+  startDiagonAlley();
 });
 window.addEventListener("resize",()=>{if(magicGame.classList.contains("show"))setupMagicCanvas()});
 
