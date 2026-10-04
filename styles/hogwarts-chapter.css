@@ -69,3 +69,29 @@
 @keyframes stairsShake{0%,100%{transform:translateX(0)}25%{transform:translateX(-7px)}75%{transform:translateX(7px)}}
 @keyframes bookFloat{0%,100%{transform:rotate(3deg) translateY(0)}50%{transform:rotate(-2deg) translateY(-7px)}}
 .hidden-book.found{animation:bookFloat 2s ease-in-out infinite}
+
+
+/* Duel club */
+.duel-scene{background:linear-gradient(#04060a44,#04060a55),url("assets/hogwarts/duel-hq.png") center/cover no-repeat}
+.duel-arena{position:absolute;z-index:9;left:7%;right:7%;bottom:11%;height:38%;border:1px solid #d9b56f44;border-radius:18px;background:#05070ac4;backdrop-filter:blur(8px);padding:20px 14px}
+.duel-track{position:relative;height:96px;margin-top:20px;border-radius:14px;border:1px solid #735d49;background:linear-gradient(90deg,#121018,#271b28,#121018);overflow:hidden}
+.duel-zone{position:absolute;left:44%;top:0;bottom:0;width:16%;background:linear-gradient(#8db9ff44,#8db9ff66);border-left:1px solid #b9d2ff;border-right:1px solid #b9d2ff}
+.duel-bolt{position:absolute;left:2%;top:20px;width:54px;height:54px;border-radius:50%;background:radial-gradient(circle,#fff 0 10%,#85b4ff 28%,#3963c4 58%,transparent 72%);filter:drop-shadow(0 0 14px #72a2ff);animation:duelSweep 1.65s linear infinite alternate}
+.duel-score,.flight-score{text-align:center;margin-top:11px;color:#f1ddba;font:600 .92rem Georgia,serif}
+.duel-btn{display:block;margin:12px auto 0}
+.duel-btn.attack{display:none}.duel-btn.attack.show{display:block}
+.duel-scene.hit .duel-arena{animation:duelShake .35s ease}
+@keyframes duelSweep{from{left:2%}to{left:86%}}
+@keyframes duelShake{0%,100%{transform:translateX(0)}25%{transform:translateX(-7px)}75%{transform:translateX(7px)}}
+
+/* First flight */
+.flight-scene{background:linear-gradient(#04070a22,#04070a44),url("assets/hogwarts/flight-hq.png") center/cover no-repeat}
+.flight-field{position:absolute;inset:0;z-index:7;overflow:hidden}
+.flight-hoop{position:absolute;width:82px;height:82px;border-radius:50%;border:7px solid #d7b56b;box-shadow:0 0 0 2px #523e23,0 0 24px #e4bd6655;transition:opacity .25s,transform .25s}
+.flight-hoop.passed{opacity:.28;transform:scale(.8)}
+.flight-hoop.h1{left:12%;top:31%}.flight-hoop.h2{right:13%;top:39%;width:72px;height:72px}.flight-hoop.h3{left:28%;top:54%;width:68px;height:68px}.flight-hoop.h4{right:24%;top:63%;width:62px;height:62px}.flight-hoop.h5{left:47%;top:22%;width:74px;height:74px}
+.broom{position:absolute;z-index:11;left:10%;bottom:9%;width:130px;height:42px;touch-action:none;cursor:grab;filter:drop-shadow(0 10px 11px #0009)}
+.broom::before{content:"";position:absolute;left:32px;top:18px;width:98px;height:7px;border-radius:8px;background:linear-gradient(#8a613d,#3b2415)}
+.broom::after{content:"";position:absolute;left:0;top:6px;width:54px;height:32px;background:linear-gradient(90deg,#b98b53,#5e4025);clip-path:polygon(0 18%,100% 0,100% 100%,0 80%,18% 50%);transform:rotate(-5deg)}
+.broom.flying{filter:drop-shadow(0 0 14px #d9b56f88)}
+.flight-score{position:absolute;left:50%;bottom:calc(var(--safe-b) + 24px);transform:translateX(-50%);z-index:12;padding:9px 14px;border:1px solid #d9b56f55;border-radius:999px;background:#07080bcc;backdrop-filter:blur(10px)}
