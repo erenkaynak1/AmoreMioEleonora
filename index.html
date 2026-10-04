@@ -276,7 +276,13 @@ repeating-linear-gradient(90deg,#25160f 0 28%,#3b2417 28% 31%,#25160f 31% 62%,#3
 
 </style>
 <link rel="stylesheet" href="hogwarts-extra.css?v=1">
-<link rel="stylesheet" href="styles/hogwarts-chapter.css?v=1">\n<link rel="stylesheet" href="styles/wand-test.css?v=2">\n<link rel="stylesheet" href="styles/eleonora-focus.css?v=2">\n<link rel="stylesheet" href="styles/birthday-finale.css?v=2">\n</head>
+<link rel="stylesheet" href="styles/hogwarts-chapter.css?v=1">
+<link rel="stylesheet" href="styles/wand-test.css?v=2">
+<link rel="stylesheet" href="styles/eleonora-focus.css?v=3">
+<link rel="stylesheet" href="styles/birthday-finale.css?v=2">
+<link rel="stylesheet" href="styles/asset-loader.css?v=1">
+<script src="scripts/asset-loader.js?v=1"></script>
+</head>
 <body>
 <main class="app">
 <section id="intro" class="screen active">
@@ -472,9 +478,9 @@ repeating-linear-gradient(90deg,#25160f 0 28%,#3b2417 28% 31%,#25160f 31% 62%,#3
 
   <div id="greatHallScene" class="hogwarts-scene great-hall">
     <div class="hogwarts-overlay"></div>
-    <div class="hogwarts-title"><b>La Sala Grande</b><span>Il brusio si spegne quando arriva il turno di Eleonora.</span></div>
+    <div class="hogwarts-title"><b>La Sala Grande</b><span>Trascina il Cappello sulla sedia. Se preferisci, puoi anche toccarlo.</span></div>
     <div class="sort-stage">
-      <div id="sortTarget" class="sort-target">Porta qui<br>il Cappello</div>
+      <div id="sortTarget" class="sort-target">Appoggia qui<br>il Cappello</div>
       <div id="sortingHat" class="sort-hat" role="button" tabindex="0" aria-label="Trascina il Cappello Parlante"><div class="cone"></div><div class="brim"></div><div class="face"></div></div>
     </div>
     <div id="sortDialog" class="sort-dialog">
@@ -578,7 +584,8 @@ repeating-linear-gradient(90deg,#25160f 0 28%,#3b2417 28% 31%,#25160f 31% 62%,#3
       </div>
     </div>
   </div>
-\n  <div id="duelScene" class="chapter-scene duel-scene">
+
+  <div id="duelScene" class="chapter-scene duel-scene">
     <div class="chapter-shade"></div>
     <div class="chapter-title"><b>Club dei Duellanti</b><span>Difenditi al momento giusto. Tre parate perfette apriranno l’occasione per contrattaccare.</span></div>
     <div id="duelArena" class="duel-arena">
@@ -605,7 +612,8 @@ repeating-linear-gradient(90deg,#25160f 0 28%,#3b2417 28% 31%,#25160f 31% 62%,#3
       <div><h2>In aria.</h2><p>Il castello si allontana sotto di lei. Eleonora ride mentre la scopa accelera sopra le torri.</p><button id="flightContinue" class="chapter-btn" type="button">Continua la storia</button></div>
     </div>
   </div>
-\n  <div id="end" class="end">
+
+  <div id="end" class="end">
     <div>
       <h2>Il mondo magico ti aspetta.</h2>
       <p>La prossima fermata sarà Hogwarts.</p>
@@ -637,7 +645,8 @@ const frames={
   child:[ASSETS.child,"I primi segni della magia…","50% 44%"]
 };
 
-Object.values(ASSETS).forEach(src=>{const im=new Image();im.decoding="async";im.src=src});
+Object.values(ASSETS).forEach(src=>{ if(window.preloadAsset) window.preloadAsset(src,"high"); else {const im=new Image();im.decoding="async";im.src=src;} });
+let frameSeq=0;
 
 function later(fn,ms){const t=setTimeout(fn,ms);timers.push(t)}
 function clearAll(){timers.forEach(clearTimeout);timers=[]}
@@ -648,14 +657,37 @@ function showFrame(key){
   clearCards();
   const [src,text,pos]=frames[key];
   const next=active===a?b:a;
-  next.src=src;
-  next.style.objectPosition=pos;
-  void next.offsetWidth;
-  next.classList.add("show");
-  active.classList.remove("show");
-  active=next;
-  cap.textContent=text;
-  cap.classList.toggle("show",Boolean(text));
+  const previous=active;
+  const stage=next.closest(".stage");
+  const seq=++frameSeq;
+
+  previous.classList.remove("show");
+  next.classList.remove("show");
+  cap.classList.remove("show");
+  if(stage)stage.classList.add("frame-loading");
+
+  const reveal=()=>{
+    if(seq!==frameSeq)return;
+    next.src=src;
+    next.style.objectPosition=pos;
+    requestAnimationFrame(()=>{
+      if(seq!==frameSeq)return;
+      next.classList.add("show");
+      active=next;
+      if(stage)stage.classList.remove("frame-loading");
+      cap.textContent=text;
+      cap.classList.toggle("show",Boolean(text));
+    });
+  };
+
+  if(window.preloadAsset){
+    window.preloadAsset(src,"high").then(reveal).catch(reveal);
+  }else{
+    const im=new Image();
+    im.onload=reveal;
+    im.onerror=reveal;
+    im.src=src;
+  }
 }
 function ambience(){
   try{
@@ -666,7 +698,8 @@ function ambience(){
   }catch(e){}
 }
 function stopAudio(){try{audio&&audio.close()}catch(e){}audio=null}
-function start(){
+async function start(){
+  if(window.waitForCriticalAssets) await window.waitForCriticalAssets();
   clearAll();inter.classList.remove("show");traits.classList.remove("show");end.classList.remove("show");magic.classList.remove("show");
   intro.classList.remove("active");pro.classList.add("active");ambience();bar.style.width="0%";showTitle();
   later(()=>bar.style.width="16%",350);
@@ -1122,44 +1155,80 @@ function startGreatHall(){
   arrivalScene.classList.remove("show","revealed");
   greatHallScene.classList.add("show");
   sortDialog.classList.remove("show");
+  resetSortingHat();
+}
+
+let hatDrag=false,hatDX=0,hatDY=0,hatMoved=false,hatStartX=0,hatStartY=0;
+
+function resetSortingHat(){
+  hatDrag=false;
+  hatMoved=false;
+  sortingHat.classList.remove("dragging");
+  sortTarget.classList.remove("ready");
   sortingHat.style.left="50%";
   sortingHat.style.top="4%";
   sortingHat.style.transform="translateX(-50%)";
 }
 
-let hatDrag=false,hatDX=0,hatDY=0;
 function finishSortingHat(){
   hatDrag=false;
+  hatMoved=false;
   sortingHat.classList.remove("dragging");
+  sortTarget.classList.remove("ready");
   sortingHat.style.left="50%";
-  sortingHat.style.top="calc(100% - 148px)";
+  sortingHat.style.top="calc(100% - 132px)";
   sortingHat.style.transform="translateX(-50%) scale(.86)";
   sortDialog.classList.add("show");
 }
+
+function hatNearTarget(){
+  const h=sortingHat.getBoundingClientRect();
+  const t=sortTarget.getBoundingClientRect();
+  const ex={left:t.left-55,right:t.right+55,top:t.top-70,bottom:t.bottom+45};
+  const ox=Math.max(0,Math.min(h.right,ex.right)-Math.max(h.left,ex.left));
+  const oy=Math.max(0,Math.min(h.bottom,ex.bottom)-Math.max(h.top,ex.top));
+  return ox*oy>(h.width*h.height*.10);
+}
+
 sortingHat.addEventListener("pointerdown",e=>{
-  e.preventDefault();hatDrag=true;
-  const r=sortingHat.getBoundingClientRect();hatDX=e.clientX-r.left;hatDY=e.clientY-r.top;
-  sortingHat.classList.add("dragging");sortingHat.setPointerCapture?.(e.pointerId);
+  e.preventDefault();
+  hatDrag=true;
+  hatMoved=false;
+  hatStartX=e.clientX;
+  hatStartY=e.clientY;
+  const r=sortingHat.getBoundingClientRect();
+  hatDX=e.clientX-r.left;
+  hatDY=e.clientY-r.top;
+  sortingHat.classList.add("dragging");
+  sortingHat.setPointerCapture?.(e.pointerId);
 });
+
 sortingHat.addEventListener("pointermove",e=>{
   if(!hatDrag)return;
   const r=greatHallScene.getBoundingClientRect();
+  if(Math.hypot(e.clientX-hatStartX,e.clientY-hatStartY)>8)hatMoved=true;
   sortingHat.style.left=(e.clientX-r.left-hatDX)+"px";
   sortingHat.style.top=(e.clientY-r.top-hatDY)+"px";
   sortingHat.style.transform="none";
+  sortTarget.classList.toggle("ready",hatNearTarget());
 });
+
 sortingHat.addEventListener("pointerup",e=>{
   if(!hatDrag)return;
-  const t=sortTarget.getBoundingClientRect();
-  const hit=e.clientX>t.left&&e.clientX<t.right&&e.clientY>t.top&&e.clientY<t.bottom;
-  if(hit)finishSortingHat();
-  else{
-    hatDrag=false;sortingHat.classList.remove("dragging");
-    sortingHat.style.left="50%";sortingHat.style.top="4%";sortingHat.style.transform="translateX(-50%)";
+  if(!hatMoved || hatNearTarget()){
+    finishSortingHat();
+  }else{
+    resetSortingHat();
   }
 });
-sortingHat.addEventListener("pointercancel",()=>{hatDrag=false;sortingHat.classList.remove("dragging")});
-sortingHat.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();finishSortingHat()}});
+
+sortingHat.addEventListener("pointercancel",resetSortingHat);
+sortingHat.addEventListener("keydown",e=>{
+  if(e.key==="Enter"||e.key===" "){
+    e.preventDefault();
+    finishSortingHat();
+  }
+});
 
 document.querySelectorAll(".sort-values button").forEach(btn=>btn.addEventListener("click",()=>{
   localStorage.setItem("amoremio.sortingValue",btn.dataset.sort);
@@ -1244,5 +1313,8 @@ skip.addEventListener("click",jumpToInteraction);
 replay.addEventListener("click",()=>{stopAudio();start()});
 window.addEventListener("pagehide",stopAudio);
 </script>
-<script src="scripts/hogwarts-chapter.js?v=2"></script>\n<script src="scripts/eleonora-focus.js?v=2"></script>\n<script src="scripts/birthday-finale.js?v=1"></script>\n</body>
+<script src="scripts/hogwarts-chapter.js?v=3"></script>
+<script src="scripts/eleonora-focus.js?v=2"></script>
+<script src="scripts/birthday-finale.js?v=1"></script>
+</body>
 </html>
