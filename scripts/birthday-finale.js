@@ -4,7 +4,7 @@ const app=document.querySelector(".app");
 if(!app)return;
 
 const A={adult:"assets/characters/eleonora-adult-hero.png"};
-let root=null,timers=[],activeZones=new Set(),dragging=false,dragDX=0,dragDY=0;
+let root=null,timers=[],activeZones=new Set(),dragging=false,dragDX=0,dragDY=0,finalTransitionStarted=false;
 const years=["1996","2008","2015","2020","4 OTTOBRE 2026"];
 
 function later(fn,ms){const t=setTimeout(fn,ms);timers.push(t);return t}
@@ -147,6 +147,20 @@ function ensure(){
   root.querySelector("#bfCoupleClose").addEventListener("click",hideCoupleReveal);
   setupWand();
   setupFinalLetter();
+  const counter=root.querySelector("#bfCounter");
+  if(counter){
+    counter.setAttribute("role","button");
+    counter.setAttribute("tabindex","0");
+    counter.addEventListener("click",function(){
+      if(activeZones.size===3)goToFinalLetterGate();
+    });
+    counter.addEventListener("keydown",function(e){
+      if((e.key==="Enter"||e.key===" ")&&activeZones.size===3){
+        e.preventDefault();
+        goToFinalLetterGate();
+      }
+    });
+  }
   return root;
 }
 
@@ -162,6 +176,7 @@ function start(){
   const el=ensure();
   el.classList.add("show");
   activeZones.clear();
+  finalTransitionStarted=false;
   el.querySelectorAll(".bf-memory-zone").forEach(function(x){x.classList.remove("done");});
   el.querySelectorAll("#bfLights .bf-light").forEach(function(x){x.classList.remove("on");});
   el.querySelector("#bfCounter").textContent="Luci: 0 / 30";
@@ -187,12 +202,59 @@ function openLetter(){
 
 function showChamber(){
   activeZones.clear();
+  finalTransitionStarted=false;
   phase("#bfChamber");
   const wand=ensure().querySelector("#bfWandLight");
   wand.style.left="50%";
   wand.style.top="";
   wand.style.bottom="9%";
   wand.style.transform="translateX(-50%)";
+}
+
+function goToFinalLetterGate(){
+  if(finalTransitionStarted)return;
+  finalTransitionStarted=true;
+
+  const el=ensure();
+  const chamber=el.querySelector("#bfChamber");
+  const reveal=el.querySelector("#bfReveal");
+  const summary=el.querySelector("#bfMemorySummary");
+  const counter=el.querySelector("#bfCounter");
+
+  if(counter)counter.textContent="Luci: 30 / 30 · Aprendo la lettera…";
+  if(summary)summary.textContent=memorySummary();
+
+  resetFinalLetterGate();
+
+  // Do not rely on the shared timer queue here. iOS Safari can suspend a
+  // delayed callback while the pointer gesture is ending.
+  window.setTimeout(function(){
+    try{
+      el.querySelectorAll(".bf-phase").forEach(function(x){
+        x.classList.remove("active");
+      });
+      if(reveal){
+        reveal.classList.add("active");
+        reveal.style.opacity="1";
+        reveal.style.visibility="visible";
+        reveal.style.pointerEvents="auto";
+      }
+      if(chamber){
+        chamber.classList.remove("active","complete");
+        chamber.style.pointerEvents="none";
+      }
+    }catch(err){
+      phase("#bfReveal");
+    }
+  },520);
+
+  // Hard fallback: if the first transition somehow did not visually land,
+  // force the final phase again.
+  window.setTimeout(function(){
+    if(!reveal || !reveal.classList.contains("active")){
+      phase("#bfReveal");
+    }
+  },1400);
 }
 
 function activateZone(n){
@@ -220,8 +282,13 @@ function activateZone(n){
   if(activeZones.size===3){
     localStorage.setItem("amoremio.birthday30","revealed");
     const chamber=el.querySelector("#bfChamber");
-    chamber.classList.add("complete");
-    later(showReveal,1250);
+    if(chamber)chamber.classList.add("complete");
+    const counter=el.querySelector("#bfCounter");
+    if(counter){
+      counter.textContent="Luci: 30 / 30 · La lettera ti aspetta";
+      counter.classList.add("ready");
+    }
+    window.setTimeout(goToFinalLetterGate,420);
   }
 }
 
@@ -449,11 +516,8 @@ function hideCoupleReveal(){
 }
 
 function showReveal(){
-  const el=ensure();
-  el.querySelector("#bfChamber").classList.remove("complete");
-  el.querySelector("#bfMemorySummary").textContent=memorySummary();
-  resetFinalLetterGate();
-  phase("#bfReveal");
+  finalTransitionStarted=false;
+  goToFinalLetterGate();
 }
 
 window.startBirthdayFinale=start;
