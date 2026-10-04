@@ -1,0 +1,167 @@
+/* Cinematic intro redesign */
+#intro{
+  position:absolute;
+  inset:0;
+  display:block;
+  padding:0;
+  overflow:hidden;
+  background:#050608;
+  isolation:isolate;
+}
+#intro .intro-hero{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:center 28%;
+  transform:scale(1.015);
+  animation:introHeroDrift 12s ease-in-out infinite alternate;
+  filter:saturate(.93) contrast(1.02) brightness(.9);
+}
+#intro::before{
+  content:"";
+  position:absolute;
+  z-index:1;
+  inset:0;
+  pointer-events:none;
+  background:
+    linear-gradient(to bottom,rgba(3,4,7,.12) 0%,rgba(3,4,7,.02) 24%,rgba(3,4,7,.18) 52%,rgba(3,4,7,.82) 79%,rgba(3,4,7,.98) 100%),
+    radial-gradient(circle at 50% 31%,transparent 31%,rgba(3,4,7,.2) 72%);
+}
+#intro::after{
+  content:"";
+  position:absolute;
+  z-index:2;
+  inset:0;
+  pointer-events:none;
+  opacity:.28;
+  background:
+    radial-gradient(circle at 18% 18%,rgba(245,209,127,.7) 0 1.5px,transparent 2px),
+    radial-gradient(circle at 77% 22%,rgba(245,209,127,.6) 0 1px,transparent 2px),
+    radial-gradient(circle at 67% 47%,rgba(245,209,127,.55) 0 1px,transparent 2px),
+    radial-gradient(circle at 27% 57%,rgba(245,209,127,.6) 0 1px,transparent 2px);
+  background-size:96px 112px,130px 148px,170px 126px,118px 155px;
+  animation:introDust 8s linear infinite;
+}
+.intro-mark{
+  position:absolute;
+  z-index:4;
+  top:calc(var(--safe-t) + 22px);
+  left:50%;
+  transform:translateX(-50%);
+  display:flex;
+  align-items:center;
+  gap:9px;
+  color:#f0d59a;
+  font:600 .7rem Georgia,serif;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  text-shadow:0 2px 14px #000;
+}
+.intro-mark::before,
+.intro-mark::after{
+  content:"";
+  width:28px;
+  height:1px;
+  background:linear-gradient(90deg,transparent,#d9b56f);
+}
+.intro-mark::after{
+  background:linear-gradient(90deg,#d9b56f,transparent);
+}
+.intro-card{
+  position:absolute;
+  z-index:5;
+  left:0;
+  right:0;
+  bottom:0;
+  width:100%;
+  max-width:none;
+  padding:36px 26px calc(var(--safe-b) + 30px);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:12px;
+  text-align:center;
+  background:linear-gradient(to top,rgba(3,4,7,.97) 0%,rgba(3,4,7,.85) 52%,rgba(3,4,7,0) 100%);
+}
+#intro .heart{
+  width:38px;
+  height:38px;
+  border:1px solid rgba(240,213,154,.38);
+  color:#e6c77f;
+  background:rgba(7,7,9,.38);
+  box-shadow:0 0 24px rgba(217,181,111,.12);
+  backdrop-filter:blur(8px);
+}
+#intro .eyebrow{
+  font-family:Georgia,serif;
+  font-size:.68rem;
+  letter-spacing:.28em;
+  color:#d9c39e;
+}
+#intro h1{
+  max-width:600px;
+  margin:0;
+  font:500 clamp(2rem,9.2vw,3.85rem)/1.02 Georgia,serif;
+  letter-spacing:-.035em;
+  color:#fff4df;
+  text-shadow:0 3px 22px #000;
+}
+#intro h1 em{
+  margin-top:.18em;
+  color:#f0d49a;
+  font-style:normal;
+}
+#intro .sub{
+  max-width:430px;
+  color:#d9cdbc;
+  font:500 .95rem/1.5 Georgia,serif;
+  text-shadow:0 2px 12px #000;
+}
+#intro .cta{
+  min-width:min(86vw,330px);
+  min-height:54px;
+  margin-top:4px;
+  border:1px solid rgba(240,213,154,.55);
+  border-radius:999px;
+  background:linear-gradient(180deg,rgba(38,29,20,.92),rgba(17,13,11,.95));
+  color:#f5e4c4;
+  font-weight:800;
+  box-shadow:0 14px 42px #000a,0 0 28px rgba(217,181,111,.08);
+  backdrop-filter:blur(10px);
+  position:relative;
+  overflow:hidden;
+}
+#intro .cta::after{
+  content:"";
+  position:absolute;
+  inset:-50%;
+  background:linear-gradient(105deg,transparent 40%,rgba(255,238,197,.2) 50%,transparent 60%);
+  transform:translateX(-78%);
+  animation:introButtonShine 3.8s ease-in-out infinite;
+}
+.intro-whisper{
+  margin-top:2px;
+  color:#b7a98f;
+  font:500 .72rem Georgia,serif;
+  letter-spacing:.06em;
+}
+@keyframes introHeroDrift{
+  from{transform:scale(1.015) translate3d(0,0,0)}
+  to{transform:scale(1.065) translate3d(0,-.7%,0)}
+}
+@keyframes introDust{
+  from{background-position:0 0,0 0,0 0,0 0}
+  to{background-position:15px -28px,-18px -33px,11px -24px,-13px -31px}
+}
+@keyframes introButtonShine{
+  0%,45%{transform:translateX(-78%)}
+  72%,100%{transform:translateX(78%)}
+}
+@media(max-height:680px){
+  .intro-card{padding-bottom:calc(var(--safe-b) + 18px);gap:9px}
+  #intro h1{font-size:clamp(1.8rem,8.2vw,3.2rem)}
+  #intro .sub{font-size:.87rem}
+  #intro .cta{min-height:50px}
+}
