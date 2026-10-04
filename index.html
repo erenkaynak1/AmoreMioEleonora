@@ -90,6 +90,40 @@ linear-gradient(160deg,#071019,#030406 66%)}
 .end p{margin:0 0 18px;color:#ddd0bd}
 .ghost{min-height:46px;border:1px solid #d9b56f66;background:#11100dcc;color:#f3e8d0;border-radius:999px;padding:0 21px}
 
+
+/* FIRST MAGIC MINI GAME */
+.magic-game{position:absolute;inset:0;z-index:15;display:none;overflow:hidden;background:#08070a}
+.magic-game.show{display:block}
+.magic-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 44%;filter:saturate(.92) brightness(.72);transform:scale(1.04);animation:roomDrift 10s ease-in-out infinite alternate}
+.magic-game::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(to bottom,rgba(0,0,0,.18),transparent 35%,rgba(0,0,0,.54)),radial-gradient(circle at 50% 52%,transparent 40%,rgba(0,0,0,.35))}
+.magic-ui{position:absolute;inset:0;z-index:4;pointer-events:none}
+.magic-title{position:absolute;top:calc(var(--safe-t) + 22px);left:50%;transform:translateX(-50%);width:min(90%,520px);text-align:center;text-shadow:0 3px 18px #000}
+.magic-title b{display:block;font:500 clamp(1.35rem,6vw,2rem)/1.1 Georgia,serif;color:#f1d293;margin-bottom:6px}
+.magic-title span{font-size:.9rem;color:#e7dcc9}
+.gesture-guide{position:absolute;left:17%;right:17%;top:40%;height:22%;opacity:.78}
+.gesture-guide svg{width:100%;height:100%;overflow:visible}
+.gesture-guide path{fill:none;stroke:#f0d69f;stroke-width:2;stroke-dasharray:7 10;filter:drop-shadow(0 0 6px #d9b56f88)}
+.desk-surface{position:absolute;left:-4%;right:-4%;bottom:-1%;height:28%;z-index:2;background:linear-gradient(180deg,#39251b,#1d120d 70%);clip-path:polygon(0 22%,100% 7%,100% 100%,0 100%);box-shadow:0 -14px 30px #0008}
+.glass{position:absolute;z-index:5;width:54px;height:82px;right:19%;bottom:21%;transform-origin:50% 100%;transition:transform .55s cubic-bezier(.18,.8,.2,1),bottom .55s ease,right .55s ease;filter:drop-shadow(0 7px 8px #0008)}
+.glass .cup{position:absolute;inset:0;border:2px solid #dceaf0aa;border-top:1px solid #ffffffdd;border-radius:8px 8px 14px 14px;background:linear-gradient(90deg,#ffffff1a,#9bd8f02c 45%,#ffffff0d);box-shadow:inset 0 -14px 18px #7fc5dc1a}
+.glass .water{position:absolute;left:5px;right:5px;bottom:6px;height:42%;border-radius:3px 3px 9px 9px;background:linear-gradient(#cceef144,#8bd5e955)}
+.glass.fall{transform:rotate(78deg) translate(10px,6px);right:15%;bottom:17%}
+.wand{position:absolute;z-index:8;width:22px;height:190px;left:17%;bottom:5%;touch-action:none;cursor:grab;transform:rotate(26deg);transform-origin:50% 90%;filter:drop-shadow(0 6px 8px #000b)}
+.wand:active{cursor:grabbing}
+.wand::before{content:"";position:absolute;left:7px;top:0;width:8px;height:144px;border-radius:60% 60% 30% 30%;background:linear-gradient(90deg,#2c160d,#815333 48%,#231109);box-shadow:inset 0 0 0 1px #b9805240}
+.wand::after{content:"";position:absolute;left:4px;bottom:0;width:14px;height:54px;border-radius:8px;background:repeating-linear-gradient(170deg,#3a1d10 0 7px,#754223 7px 12px);box-shadow:0 0 0 1px #120904}
+.wand-tip{position:absolute;left:9px;top:-3px;width:4px;height:4px;border-radius:50%;background:#fff1bb;box-shadow:0 0 12px 4px #f1ca70;opacity:0;transition:opacity .15s}
+.wand.dragging .wand-tip{opacity:1}
+#trail{position:absolute;inset:0;z-index:7;pointer-events:none;width:100%;height:100%}
+.magic-feedback{position:absolute;left:50%;bottom:calc(var(--safe-b) + 26px);transform:translateX(-50%);z-index:9;width:min(88%,480px);text-align:center;padding:11px 14px;border:1px solid #d9b56f50;border-radius:12px;background:#09090bb8;color:#f5e9d5;font:500 .95rem Georgia,serif;backdrop-filter:blur(10px);transition:opacity .3s}
+.magic-success{position:absolute;inset:0;z-index:12;display:grid;place-items:center;text-align:center;padding:24px;background:#040507cc;backdrop-filter:blur(8px);opacity:0;pointer-events:none;transition:opacity .55s}
+.magic-success.show{opacity:1;pointer-events:auto}
+.magic-success-card{width:min(100%,480px)}
+.magic-success h2{margin:0 0 8px;font:500 clamp(2rem,9vw,3.4rem)/1 Georgia,serif;color:#f2d594}
+.magic-success p{margin:0 0 18px;color:#ded2c0;line-height:1.5}
+.magic-success button{min-height:48px;padding:0 22px;border-radius:999px;border:1px solid #d9b56f66;background:#15110edb;color:#f7ead2}
+@keyframes roomDrift{from{transform:scale(1.04) translate3d(-.5%,0,0)}to{transform:scale(1.08) translate3d(.7%,-.5%,0)}}
+
 @keyframes ken{from{transform:scale(1.002)}to{transform:scale(1.05)}}
 @keyframes grain{0%{transform:translate(0)}50%{transform:translate(1px,-1px)}100%{transform:translate(-1px,1px)}}
 @keyframes pulseRing{0%{box-shadow:0 0 0 0 #d9b56f70}70%{box-shadow:0 0 0 17px #d9b56f00}100%{box-shadow:0 0 0 0 #d9b56f00}}
@@ -165,6 +199,31 @@ linear-gradient(160deg,#071019,#030406 66%)}
     </div>
   </div>
 
+  
+  <div id="magicGame" class="magic-game" aria-label="Il primo incantesimo di Eleonora">
+    <img class="magic-bg" src="assets/prologue/child-9x16.png" alt="">
+    <div class="desk-surface"></div>
+    <div id="glass" class="glass" aria-hidden="true"><div class="cup"></div><div class="water"></div></div>
+    <canvas id="trail"></canvas>
+    <div class="gesture-guide" aria-hidden="true">
+      <svg viewBox="0 0 260 120" preserveAspectRatio="none">
+        <path d="M18 94 C76 18, 152 18, 236 86"></path>
+      </svg>
+    </div>
+    <div id="wand" class="wand" role="button" tabindex="0" aria-label="Trascina la bacchetta lungo il gesto luminoso"><span class="wand-tip"></span></div>
+    <div class="magic-ui">
+      <div class="magic-title"><b>Il primo incantesimo</b><span>Trascina la bacchetta seguendo il movimento luminoso.</span></div>
+      <div id="magicFeedback" class="magic-feedback">Prendi la bacchetta e prova a far cadere il bicchiere.</div>
+    </div>
+    <div id="magicSuccess" class="magic-success" aria-live="polite">
+      <div class="magic-success-card">
+        <h2>È magia.</h2>
+        <p>Per un istante, Eleonora rimase immobile. Il bicchiere era caduto senza che nessuno lo avesse toccato.</p>
+        <button id="magicContinue" type="button">Continua</button>
+      </div>
+    </div>
+  </div>
+
   <div id="end" class="end">
     <div>
       <h2>I primi segni della magia…</h2>
@@ -184,7 +243,7 @@ const ASSETS={
   child:"assets/prologue/child-9x16.png"
 };
 
-const intro=document.getElementById("intro"),pro=document.getElementById("prologue"),play=document.getElementById("play"),skip=document.getElementById("skip"),cap=document.getElementById("caption"),bar=document.getElementById("bar"),a=document.getElementById("shotA"),b=document.getElementById("shotB"),titleCard=document.getElementById("titleCard"),nameCard=document.getElementById("nameCard"),inter=document.getElementById("interaction"),flash=document.getElementById("flash"),traits=document.getElementById("traits"),end=document.getElementById("end"),replay=document.getElementById("replay"),magic=document.getElementById("magic");
+const intro=document.getElementById("intro"),pro=document.getElementById("prologue"),play=document.getElementById("play"),skip=document.getElementById("skip"),cap=document.getElementById("caption"),bar=document.getElementById("bar"),a=document.getElementById("shotA"),b=document.getElementById("shotB"),titleCard=document.getElementById("titleCard"),nameCard=document.getElementById("nameCard"),inter=document.getElementById("interaction"),flash=document.getElementById("flash"),traits=document.getElementById("traits"),end=document.getElementById("end"),replay=document.getElementById("replay"),magic=document.getElementById("magic"),magicGame=document.getElementById("magicGame"),wand=document.getElementById("wand"),glass=document.getElementById("glass"),trail=document.getElementById("trail"),magicFeedback=document.getElementById("magicFeedback"),magicSuccess=document.getElementById("magicSuccess"),magicContinue=document.getElementById("magicContinue");
 
 let active=a,timers=[],audio=null;
 const frames={
@@ -248,12 +307,145 @@ function continueAfterChoice(obj){
   later(()=>{traits.classList.add("show");magic.classList.remove("show")},6200);
 }
 document.querySelectorAll(".hotspot").forEach(btn=>btn.addEventListener("click",()=>continueAfterChoice(btn.dataset.object)));
+
+function startMagicMiniGame(){
+  showFrame("child");
+  later(()=>{
+    magicGame.classList.add("show");
+    setupMagicCanvas();
+    resetMagicGame();
+  },1800);
+}
+
 document.querySelectorAll(".trait").forEach(btn=>btn.addEventListener("click",()=>{
   localStorage.setItem("amoremio.firstTrait",btn.dataset.trait);
   traits.classList.remove("show");
-  showFrame("child");
-  later(()=>end.classList.add("show"),2800);
+  startMagicMiniGame();
 }));
+
+let dragging=false,gestureDistance=0,lastPoint=null,ctx=null,trailFadeTimer=null;
+
+function setupMagicCanvas(){
+  const dpr=Math.min(window.devicePixelRatio||1,2);
+  const r=trail.getBoundingClientRect();
+  trail.width=Math.max(1,Math.floor(r.width*dpr));
+  trail.height=Math.max(1,Math.floor(r.height*dpr));
+  ctx=trail.getContext("2d");
+  ctx.setTransform(dpr,0,0,dpr,0,0);
+  ctx.lineCap="round";
+  ctx.lineJoin="round";
+}
+function clearTrail(){
+  if(!ctx)return;
+  const r=trail.getBoundingClientRect();
+  ctx.clearRect(0,0,r.width,r.height);
+}
+function resetMagicGame(){
+  dragging=false;gestureDistance=0;lastPoint=null;
+  wand.classList.remove("dragging");
+  wand.style.left="17%";
+  wand.style.bottom="5%";
+  wand.style.top="";
+  wand.style.transform="rotate(26deg)";
+  glass.classList.remove("fall");
+  magicSuccess.classList.remove("show");
+  magicFeedback.textContent="Prendi la bacchetta e prova a far cadere il bicchiere.";
+  clearTrail();
+}
+function wandTipPoint(){
+  const r=wand.getBoundingClientRect();
+  return {x:r.left+r.width*.5,y:r.top+4};
+}
+function drawSpark(x,y){
+  if(!ctx)return;
+  const g=ctx.createRadialGradient(x,y,0,x,y,15);
+  g.addColorStop(0,"rgba(255,247,203,.95)");
+  g.addColorStop(.25,"rgba(241,202,112,.75)");
+  g.addColorStop(1,"rgba(241,202,112,0)");
+  ctx.fillStyle=g;
+  ctx.beginPath();
+  ctx.arc(x,y,15,0,Math.PI*2);
+  ctx.fill();
+}
+function beginDrag(e){
+  e.preventDefault();
+  dragging=true;gestureDistance=0;lastPoint={x:e.clientX,y:e.clientY};
+  wand.classList.add("dragging");
+  wand.setPointerCapture?.(e.pointerId);
+}
+function moveDrag(e){
+  if(!dragging)return;
+  e.preventDefault();
+  const rect=magicGame.getBoundingClientRect();
+  const x=Math.max(8,Math.min(rect.width-30,e.clientX-rect.left));
+  const y=Math.max(35,Math.min(rect.height-90,e.clientY-rect.top));
+  wand.style.left=(x-11)+"px";
+  wand.style.top=(y-18)+"px";
+  wand.style.bottom="auto";
+  if(lastPoint){
+    const dx=e.clientX-lastPoint.x,dy=e.clientY-lastPoint.y;
+    gestureDistance+=Math.hypot(dx,dy);
+    const ang=Math.atan2(dy,dx)*180/Math.PI+90;
+    wand.style.transform="rotate("+ang+"deg)";
+    const tip=wandTipPoint();
+    if(ctx){
+      ctx.strokeStyle="rgba(242,215,153,.55)";
+      ctx.lineWidth=4;
+      ctx.beginPath();
+      const pr=trail.getBoundingClientRect();
+      ctx.moveTo(lastPoint.x-pr.left,lastPoint.y-pr.top);
+      ctx.lineTo(e.clientX-pr.left,e.clientY-pr.top);
+      ctx.stroke();
+      drawSpark(tip.x-pr.left,tip.y-pr.top);
+    }
+  }
+  lastPoint={x:e.clientX,y:e.clientY};
+}
+function endDrag(e){
+  if(!dragging)return;
+  dragging=false;
+  wand.classList.remove("dragging");
+  const tip=wandTipPoint();
+  const gr=glass.getBoundingClientRect();
+  const nearGlass=tip.x>gr.left-130 && tip.x<gr.right+90 && tip.y>gr.top-180 && tip.y<gr.bottom+100;
+  if(gestureDistance>180 && nearGlass){
+    glass.classList.add("fall");
+    magicFeedback.textContent="Perfetto.";
+    try{
+      if(audio){
+        const o=audio.createOscillator(),g=audio.createGain();
+        o.type="triangle";o.frequency.setValueAtTime(520,audio.currentTime);
+        o.frequency.exponentialRampToValueAtTime(110,audio.currentTime+.45);
+        g.gain.setValueAtTime(.08,audio.currentTime);
+        g.gain.exponentialRampToValueAtTime(.001,audio.currentTime+.5);
+        o.connect(g).connect(audio.destination);o.start();o.stop(audio.currentTime+.5);
+      }
+    }catch(err){}
+    later(()=>magicSuccess.classList.add("show"),650);
+  }else{
+    magicFeedback.textContent="Quasi… segui l’arco luminoso e avvicina la punta al bicchiere.";
+    clearTimeout(trailFadeTimer);
+    trailFadeTimer=setTimeout(clearTrail,800);
+  }
+}
+wand.addEventListener("pointerdown",beginDrag);
+wand.addEventListener("pointermove",moveDrag);
+wand.addEventListener("pointerup",endDrag);
+wand.addEventListener("pointercancel",endDrag);
+wand.addEventListener("keydown",e=>{
+  if(e.key==="Enter"||e.key===" "){
+    e.preventDefault();
+    glass.classList.add("fall");
+    magicSuccess.classList.add("show");
+  }
+});
+magicContinue.addEventListener("click",()=>{
+  magicSuccess.classList.remove("show");
+  magicGame.classList.remove("show");
+  end.classList.add("show");
+});
+window.addEventListener("resize",()=>{if(magicGame.classList.contains("show"))setupMagicCanvas()});
+
 play.addEventListener("click",start);
 skip.addEventListener("click",jumpToInteraction);
 replay.addEventListener("click",()=>{stopAudio();start()});
