@@ -28,7 +28,7 @@ const deferred=[
   "assets/hogwarts/stairs-hq.png",
   "assets/hogwarts/duel-hq.png",
   "assets/hogwarts/flight-hq.png",
-  "assets/finale/eren-eleonora-magic.webp"
+  "assets/finale/eren-eleonora-magic.png"
 ];
 
 function preload(src,priority){
