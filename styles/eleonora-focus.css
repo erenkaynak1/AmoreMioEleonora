@@ -174,3 +174,102 @@
   .eleonora-focus__copy{bottom:calc(env(safe-area-inset-bottom,0px) + 4%)}
   .eleonora-focus__text{font-size:.94rem;margin-bottom:12px}
 }
+
+
+/* v2: integrate Eleonora into the scene instead of showing her as a UI card */
+.eleonora-presence{
+  top:auto;
+  bottom:-1%;
+  width:clamp(150px,43vw,270px);
+  height:min(58vh,560px);
+  aspect-ratio:auto;
+  overflow:hidden;
+  border:0;
+  border-radius:0;
+  background:transparent;
+  box-shadow:none;
+  opacity:.90;
+  animation:eleonoraCinematicPresence 5.5s ease-in-out infinite alternate;
+  -webkit-mask-image:linear-gradient(to bottom,transparent 0%,#000 10%,#000 73%,transparent 100%),linear-gradient(to right,transparent 0%,#000 18%,#000 82%,transparent 100%);
+  -webkit-mask-composite:source-in;
+  mask-image:linear-gradient(to bottom,transparent 0%,#000 10%,#000 73%,transparent 100%);
+}
+.eleonora-presence.left{left:-3%}
+.eleonora-presence.right{right:-3%}
+.eleonora-presence img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:center 14%;
+  transform:scale(1.025);
+  filter:saturate(.92) contrast(1.03);
+}
+.eleonora-presence::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    radial-gradient(circle at 50% 27%,rgba(244,217,138,.14),transparent 26%),
+    linear-gradient(to top,rgba(3,4,6,.60),transparent 38%);
+}
+.eleonora-presence::before{
+  width:160px;
+  height:160px;
+  top:30%;
+  background:radial-gradient(circle,rgba(246,220,157,.18),transparent 67%);
+  box-shadow:none;
+}
+.eleonora-presence span{display:none}
+
+/* Keep gameplay readable while making her visibly present */
+#owlChapter .eleonora-presence{width:46vw;height:56vh;bottom:7%;opacity:.95}
+#wandShop .eleonora-presence{width:42vw;height:54vh;bottom:5%}
+#magicGame .eleonora-presence{width:39vw;height:48vh;bottom:20%;opacity:.72}
+#stationScene .eleonora-presence{width:38vw;height:49vh;bottom:18%;opacity:.78}
+#platformScene .eleonora-presence{width:38vw;height:50vh;bottom:17%;opacity:.78}
+#trainScene .eleonora-presence{width:46vw;height:60vh;bottom:6%;opacity:.92}
+#arrivalScene .eleonora-presence{width:38vw;height:49vh;bottom:10%;opacity:.78}
+#greatHallScene .eleonora-presence{width:44vw;height:58vh;bottom:3%;opacity:.92}
+#potionsScene .eleonora-presence{width:34vw;height:44vh;bottom:28%;opacity:.68}
+#corridorScene .eleonora-presence{width:40vw;height:52vh;bottom:15%;opacity:.82}
+#spellClassScene .eleonora-presence{width:39vw;height:50vh;bottom:20%;opacity:.78}
+#libraryScene .eleonora-presence{width:39vw;height:51vh;bottom:14%;opacity:.78}
+#stairsScene .eleonora-presence{width:35vw;height:45vh;bottom:30%;opacity:.62}
+#duelScene .eleonora-presence{width:39vw;height:50vh;bottom:18%;opacity:.76}
+#flightScene .eleonora-presence{width:34vw;height:44vh;bottom:28%;opacity:.64}
+
+/* Adult framing: make the present-day Eleonora feel like the visual center of the whole story */
+.eleonora-focus__image{
+  object-position:center 10%;
+  filter:saturate(.94) contrast(1.03);
+}
+.eleonora-focus::before{
+  content:"";
+  position:absolute;
+  z-index:2;
+  inset:0;
+  pointer-events:none;
+  background:
+    radial-gradient(circle at 64% 29%,rgba(244,214,137,.17),transparent 23%),
+    radial-gradient(circle at 67% 35%,rgba(214,231,255,.08),transparent 35%);
+  mix-blend-mode:screen;
+}
+.eleonora-focus__title{max-width:520px}
+.eleonora-focus__text{max-width:510px}
+
+/* tiny environmental reaction: the magical world appears to notice her */
+.eleonora-presence.letter::after,.eleonora-presence.wand::after{
+  animation:eleonoraGlow 2.4s ease-in-out infinite alternate;
+}
+@keyframes eleonoraCinematicPresence{
+  from{transform:translate3d(0,2px,0) scale(1)}
+  to{transform:translate3d(0,-5px,0) scale(1.018)}
+}
+@keyframes eleonoraGlow{
+  from{filter:brightness(.95)}
+  to{filter:brightness(1.13)}
+}
+@media(max-width:430px){
+  .eleonora-presence{width:42vw;height:49vh;top:auto}
+  #owlChapter .eleonora-presence,#trainScene .eleonora-presence,#greatHallScene .eleonora-presence{width:46vw}
+}
