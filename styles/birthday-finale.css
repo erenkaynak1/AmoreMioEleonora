@@ -124,7 +124,7 @@ url("../assets/hogwarts/great-hall-hq.png") center/cover no-repeat}
 }
 .bf-final-envelope{
   position:absolute;
-  z-index:-1;
+  z-index:1;
   left:50%;
   top:31%;
   transform:translate(-50%,-50%) rotate(-3deg);
