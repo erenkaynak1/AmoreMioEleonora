@@ -386,3 +386,15 @@ url("../assets/hogwarts/great-hall-hq.png") center/cover no-repeat}
   from{transform:scale(1.02)}
   to{transform:scale(1.075) translateY(-.5%)}
 }
+
+.bf-counter.ready{
+  cursor:pointer;
+  border-color:#e8cc86;
+  color:#fff0c9;
+  box-shadow:0 0 24px rgba(232,204,134,.28);
+  animation:bfCounterReady 1.2s ease-in-out infinite alternate;
+}
+@keyframes bfCounterReady{
+  from{transform:translateX(-50%) scale(1)}
+  to{transform:translateX(-50%) scale(1.035)}
+}
