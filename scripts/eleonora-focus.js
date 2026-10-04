@@ -107,14 +107,25 @@ function showMoment(key,cb){
   const el=ensureOverlay();
   activeMoment=key;
   continuation=cb||null;
-  el.querySelector(".eleonora-focus__image").src=data.image;
-  el.querySelector(".eleonora-focus__kicker").textContent=data.kicker;
-  el.querySelector(".eleonora-focus__title").textContent=data.title;
-  el.querySelector(".eleonora-focus__text").textContent=data.text;
-  el.querySelector(".eleonora-focus__button").textContent=data.button;
-  el.querySelector(".eleonora-focus__scar").style.display=data.adult?"block":"none";
-  el.classList.add("show");
-  el.setAttribute("aria-hidden","false");
+
+  window.showAssetCurtain?.();
+  const ready=window.preloadAsset
+    ? window.preloadAsset(data.image,"high")
+    : Promise.resolve(data.image);
+
+  ready.finally(()=>{
+    el.querySelector(".eleonora-focus__image").src=data.image;
+    el.querySelector(".eleonora-focus__kicker").textContent=data.kicker;
+    el.querySelector(".eleonora-focus__title").textContent=data.title;
+    el.querySelector(".eleonora-focus__text").textContent=data.text;
+    el.querySelector(".eleonora-focus__button").textContent=data.button;
+    el.querySelector(".eleonora-focus__scar").style.display=data.adult?"block":"none";
+    requestAnimationFrame(()=>{
+      el.classList.add("show");
+      el.setAttribute("aria-hidden","false");
+      window.hideAssetCurtain?.();
+    });
+  });
 }
 
 window.showEleonoraMoment=showMoment;
