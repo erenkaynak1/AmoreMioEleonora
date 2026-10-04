@@ -111,6 +111,8 @@ function startSpellLesson(){
   spellGestureHint.hidden=true;
   voiceCard.hidden=false;
   hxVoicePassed=false;
+  voiceFallback.hidden=true;
+  voiceFeedback.textContent="Tocca il microfono e pronuncia l’incantesimo.";
   resetSpellWand();
   requestAnimationFrame(resizeSpellCanvas);
 }
@@ -129,49 +131,109 @@ function passVoice(){
 if(mysteryContinue)mysteryContinue.addEventListener("click",startSpellLesson);
 
 let recognition=null;
+let voiceSafetyTimer=null;
+
+function normalizeSpellText(s){
+  return (s||"")
+    .toLowerCase()
+    .normalize("NFD").replace(/[\u0300-\u036f]/g,"")
+    .replace(/[^a-z ]/g," ")
+    .replace(/\s+/g," ")
+    .trim();
+}
+function editDistance(a,b){
+  a=normalizeSpellText(a);b=normalizeSpellText(b);
+  const m=a.length,n=b.length,dp=new Array(n+1);
+  for(let j=0;j<=n;j++)dp[j]=j;
+  for(let i=1;i<=m;i++){
+    let prev=dp[0];dp[0]=i;
+    for(let j=1;j<=n;j++){
+      const tmp=dp[j];
+      dp[j]=Math.min(dp[j]+1,dp[j-1]+1,prev+(a[i-1]===b[j-1]?0:1));
+      prev=tmp;
+    }
+  }
+  return dp[n];
+}
+function spellLooksRight(text){
+  const s=normalizeSpellText(text);
+  if(!s)return false;
+  if((/wing|ving|gard/.test(s))&&(/levi|levio|leviosa/.test(s)))return true;
+  if(/wingardium/.test(s)||/leviosa/.test(s))return true;
+  const target="wingardium leviosa";
+  const ratio=editDistance(s,target)/Math.max(s.length,target.length);
+  return ratio<=0.48;
+}
+
 const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
 if(SR){
   recognition=new SR();
-  recognition.lang="it-IT";
-  recognition.interimResults=false;
+  recognition.lang="en-GB";
+  recognition.interimResults=true;
   recognition.continuous=false;
-  recognition.maxAlternatives=3;
+  recognition.maxAlternatives=5;
+
   recognition.onresult=e=>{
     const all=[];
-    for(let i=0;i<e.results.length;i++){
-      for(let j=0;j<e.results[i].length;j++)all.push(e.results[i][j].transcript.toLowerCase());
+    for(let i=e.resultIndex;i<e.results.length;i++){
+      for(let j=0;j<e.results[i].length;j++){
+        all.push(e.results[i][j].transcript);
+      }
     }
     const heard=all.join(" ");
-    if(heard.includes("wingardium")||heard.includes("leviosa")||heard.includes("vingardium")){
+    if(spellLooksRight(heard)){
+      clearTimeout(voiceSafetyTimer);
       voiceFeedback.textContent="Incantesimo riconosciuto.";
+      try{recognition.stop()}catch(err){}
       passVoice();
+    }else if(e.results[e.results.length-1]?.isFinal){
+      voiceFeedback.textContent="Ho sentito «"+heard+"». Riprova lentamente, oppure continua senza microfono.";
+      voiceFallback.hidden=false;
     }else{
-      voiceFeedback.textContent="Quasi. Pronuncia lentamente: “Wingardium Leviosa”.";
+      voiceFeedback.textContent="Ti sto ascoltando…";
     }
   };
+  recognition.onspeechend=()=>{
+    try{recognition.stop()}catch(e){}
+  };
   recognition.onerror=()=>{
+    clearTimeout(voiceSafetyTimer);
     micBtn.classList.remove("listening");
-    voiceFeedback.textContent="Il microfono non collabora. Puoi usare il comando alternativo.";
+    voiceFeedback.textContent="Il microfono non riesce a riconoscere bene la formula. Puoi continuare senza restare bloccata.";
     voiceFallback.hidden=false;
   };
-  recognition.onend=()=>micBtn.classList.remove("listening");
+  recognition.onend=()=>{
+    micBtn.classList.remove("listening");
+    if(!hxVoicePassed)voiceFallback.hidden=false;
+  };
 }else{
   voiceFeedback.textContent="Il riconoscimento vocale non è disponibile su questo browser.";
   voiceFallback.hidden=false;
 }
 
 if(micBtn)micBtn.addEventListener("click",()=>{
-  if(!recognition){voiceFallback.hidden=false;return}
+  if(!recognition){
+    voiceFallback.hidden=false;
+    return;
+  }
+  clearTimeout(voiceSafetyTimer);
   try{
     micBtn.classList.add("listening");
-    voiceFeedback.textContent="Sto ascoltando…";
+    voiceFeedback.textContent="Sto ascoltando… pronuncia «Wingardium Leviosa».";
     recognition.start();
+    voiceSafetyTimer=setTimeout(()=>{
+      if(!hxVoicePassed){
+        voiceFallback.hidden=false;
+        voiceFeedback.textContent="Se il browser non la riconosce, puoi continuare senza microfono.";
+      }
+    },3500);
   }catch(e){
-    recognition.stop?.();
+    voiceFallback.hidden=false;
+    try{recognition.stop()}catch(err){}
   }
 });
 if(voiceFallback)voiceFallback.addEventListener("click",()=>{
-  voiceFeedback.textContent="Incantesimo pronunciato.";
+  voiceFeedback.textContent="Formula accettata.";
   passVoice();
 });
 
