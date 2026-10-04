@@ -276,7 +276,7 @@ repeating-linear-gradient(90deg,#25160f 0 28%,#3b2417 28% 31%,#25160f 31% 62%,#3
 
 </style>
 <link rel="stylesheet" href="hogwarts-extra.css?v=1">
-<link rel="stylesheet" href="styles/hogwarts-chapter.css?v=1">\n</head>
+<link rel="stylesheet" href="styles/hogwarts-chapter.css?v=1">\n<link rel="stylesheet" href="styles/wand-test.css?v=2">\n</head>
 <body>
 <main class="app">
 <section id="intro" class="screen active">
@@ -823,8 +823,10 @@ testWandBtn.addEventListener("click",()=>{
   wandChosen.classList.remove("show");
   wandShop.classList.remove("show");
   magicGame.classList.add("show");
-  setupMagicCanvas();
-  resetMagicGame();
+  requestAnimationFrame(()=>{
+    setupMagicCanvas();
+    resetMagicGame();
+  });
 });
 
 let dragging=false,gestureDistance=0,lastPoint=null,ctx=null,trailFadeTimer=null;
