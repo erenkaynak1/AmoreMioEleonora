@@ -1,0 +1,32 @@
+name: Materialize Hogwarts final HQ
+on:
+  push:
+    branches: ["main"]
+    paths:
+      - ".github/workflows/materialize-hogwarts-final.yml"
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  materialize:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: Download cinematic Hogwarts assets
+        run: |
+          set -e
+          mkdir -p assets/hogwarts
+          curl -L --fail "https://pikaso.cdnpk.net/private/production/5631593928/render.png?token=exp=1791331200~hmac=2c769fb08278b83c36d117fe79e9ddb1b83a60a88acbbcefc500f394013877ac" -o assets/hogwarts/great-hall-hq.png
+          curl -L --fail "https://pikaso.cdnpk.net/private/production/5631594193/render.png?token=exp=1791331200~hmac=f936598a418dd3cb6c8eb0aa133c7ac3fab8ccc04c03f90f899fb87fbfdc265d" -o assets/hogwarts/potions-hq.png
+          curl -L --fail "https://pikaso.cdnpk.net/private/production/5631594515/render.png?token=exp=1791331200~hmac=8a710194f7e48b946e1ae158baa4d8e33af4ee2fc0f94f8e8ada8f689039c5f9" -o assets/hogwarts/corridor-hq.png
+          curl -L --fail "https://pikaso.cdnpk.net/private/production/5631653152/render.png?token=exp=1791331200~hmac=fd9c12d8d6d11b107e540a19af0be14ccc808da1d9eeab984fbac895d84aaf1e" -o assets/hogwarts/duel-hq.png
+          curl -L --fail "https://pikaso.cdnpk.net/private/production/5631653690/render.png?token=exp=1791331200~hmac=ab00d1aee4a458529523439ae3f2251a9f1494a800f71ddd3e9b7057d2957d6a" -o assets/hogwarts/flight-hq.png
+      - name: Commit assets
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/hogwarts
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "Add final cinematic Hogwarts assets"
+          git push
