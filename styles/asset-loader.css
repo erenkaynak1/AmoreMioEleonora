@@ -1,0 +1,17 @@
+.asset-curtain{
+  position:fixed;inset:0;z-index:300;display:grid;place-items:center;
+  background:#020305;color:#d9c7a5;opacity:0;visibility:hidden;pointer-events:none;
+  transition:opacity .22s ease,visibility .22s ease;
+}
+.asset-curtain.show{opacity:1;visibility:visible;pointer-events:auto}
+.asset-curtain i{
+  width:28px;height:28px;border-radius:50%;border:2px solid #d9b56f33;
+  border-top-color:#e6ca88;animation:assetSpin .8s linear infinite;
+}
+.asset-curtain span{
+  position:absolute;top:calc(50% + 34px);font:500 .75rem Georgia,serif;
+  letter-spacing:.12em;text-transform:uppercase;opacity:.75
+}
+.stage.frame-loading{background:#020305}
+.stage.frame-loading .shot{opacity:0!important}
+@keyframes assetSpin{to{transform:rotate(360deg)}}
