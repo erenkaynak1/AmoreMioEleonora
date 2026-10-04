@@ -276,7 +276,7 @@ repeating-linear-gradient(90deg,#25160f 0 28%,#3b2417 28% 31%,#25160f 31% 62%,#3
 
 </style>
 <link rel="stylesheet" href="hogwarts-extra.css?v=1">
-<link rel="stylesheet" href="styles/hogwarts-chapter.css?v=1">\n<link rel="stylesheet" href="styles/wand-test.css?v=2">\n<link rel="stylesheet" href="styles/eleonora-focus.css?v=2">\n</head>
+<link rel="stylesheet" href="styles/hogwarts-chapter.css?v=1">\n<link rel="stylesheet" href="styles/wand-test.css?v=2">\n<link rel="stylesheet" href="styles/eleonora-focus.css?v=2">\n<link rel="stylesheet" href="styles/birthday-finale.css?v=1">\n</head>
 <body>
 <main class="app">
 <section id="intro" class="screen active">
@@ -670,13 +670,13 @@ function start(){
   clearAll();inter.classList.remove("show");traits.classList.remove("show");end.classList.remove("show");magic.classList.remove("show");
   intro.classList.remove("active");pro.classList.add("active");ambience();bar.style.width="0%";showTitle();
   later(()=>bar.style.width="16%",350);
-  later(()=>showFrame("city"),2900);
-  later(()=>bar.style.width="34%",3300);
-  later(()=>showFrame("window"),6200);
-  later(()=>bar.style.width="52%",6600);
-  later(()=>showFrame("nursery"),9500);
-  later(()=>bar.style.width="72%",9900);
-  later(()=>{showFrame("interaction");cap.classList.remove("show");inter.classList.add("show");bar.style.width="100%"},13300);
+  later(()=>showFrame("city"),1400);
+  later(()=>bar.style.width="34%",1750);
+  later(()=>showFrame("window"),3000);
+  later(()=>bar.style.width="52%",3300);
+  later(()=>showFrame("nursery"),4550);
+  later(()=>bar.style.width="72%",4850);
+  later(()=>{showFrame("interaction");cap.classList.remove("show");inter.classList.add("show");bar.style.width="100%"},6900);
 }
 function jumpToInteraction(){clearAll();showFrame("interaction");cap.classList.remove("show");inter.classList.add("show");bar.style.width="100%"}
 function continueAfterChoice(obj){
@@ -684,9 +684,9 @@ function continueAfterChoice(obj){
   inter.classList.remove("show");flash.classList.remove("on");void flash.offsetWidth;flash.classList.add("on");magic.classList.add("show");
   showFrame("sparkles");bar.style.width="0%";
   later(()=>bar.style.width="42%",250);
-  later(()=>showName(),3300);
-  later(()=>bar.style.width="100%",3600);
-  later(()=>{traits.classList.add("show");magic.classList.remove("show")},6200);
+  later(()=>showName(),1500);
+  later(()=>bar.style.width="100%",1750);
+  later(()=>{traits.classList.add("show");magic.classList.remove("show")},2950);
 }
 document.querySelectorAll(".hotspot").forEach(btn=>btn.addEventListener("click",()=>continueAfterChoice(btn.dataset.object)));
 
@@ -698,8 +698,8 @@ function startOwlChapter(){
     cap.classList.remove("show");
     owlChapter.classList.add("show");
     owlSvg.classList.add("fly");
-    later(()=>openWindowBtn.classList.add("show"),3100);
-  },2600);
+    later(()=>openWindowBtn.classList.add("show"),1450);
+  },1250);
 }
 
 document.querySelectorAll(".trait").forEach(btn=>btn.addEventListener("click",()=>{
@@ -1164,7 +1164,8 @@ sortingHat.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.pre
 document.querySelectorAll(".sort-values button").forEach(btn=>btn.addEventListener("click",()=>{
   localStorage.setItem("amoremio.sortingValue",btn.dataset.sort);
   greatHallScene.classList.remove("show");
-  startPotions();
+  if(typeof window.startSpellLesson==="function") window.startSpellLesson();
+  else startPotions();
 }));
 
 function startPotions(){
@@ -1243,5 +1244,5 @@ skip.addEventListener("click",jumpToInteraction);
 replay.addEventListener("click",()=>{stopAudio();start()});
 window.addEventListener("pagehide",stopAudio);
 </script>
-<script src="scripts/hogwarts-chapter.js?v=1"></script>\n<script src="scripts/eleonora-focus.js?v=2"></script>\n</body>
+<script src="scripts/hogwarts-chapter.js?v=2"></script>\n<script src="scripts/eleonora-focus.js?v=2"></script>\n<script src="scripts/birthday-finale.js?v=1"></script>\n</body>
 </html>
