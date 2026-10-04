@@ -1,0 +1,61 @@
+/* Hogwarts extra interactive chapter */
+.extra-scene{position:absolute;inset:0;z-index:40;display:none;overflow:hidden;color:#f7eddd;background:#07080b}
+.extra-scene.show{display:block}
+.extra-scene::after{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;background:linear-gradient(to bottom,rgba(0,0,0,.28),transparent 38%,rgba(0,0,0,.65))}
+.extra-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;transform:scale(1.02);animation:extraDrift 11s ease-in-out infinite alternate}
+.extra-head{position:absolute;z-index:8;top:calc(env(safe-area-inset-top,0px) + 18px);left:50%;transform:translateX(-50%);width:min(92%,560px);text-align:center;text-shadow:0 3px 18px #000}
+.extra-head b{display:block;font:500 clamp(1.55rem,7vw,2.45rem)/1.05 Georgia,serif;color:#f0d59a}
+.extra-head span{display:block;margin-top:7px;color:#e7dccb;font-size:.9rem;line-height:1.4}
+.extra-panel{position:absolute;z-index:9;left:5%;right:5%;bottom:calc(env(safe-area-inset-bottom,0px) + 16px);padding:14px;border:1px solid #d9b56f55;border-radius:16px;background:#07080bd4;backdrop-filter:blur(11px);box-shadow:0 14px 34px #0008}
+.extra-btn{min-height:48px;border:1px solid #d9b56f66;border-radius:999px;background:#17120ee6;color:#f6e7cd;padding:0 18px}
+.extra-btn[disabled]{opacity:.4}
+
+/* Spell lesson */
+#spellLesson{background:#08090d}
+.spell-table{position:absolute;z-index:4;left:-6%;right:-6%;bottom:-2%;height:31%;background:linear-gradient(#3d2a20db,#190f0bdd);clip-path:polygon(0 20%,100% 8%,100% 100%,0 100%);box-shadow:0 -15px 35px #000a}
+.spell-feather{position:absolute;z-index:8;right:20%;bottom:25%;font-size:4.2rem;filter:drop-shadow(0 8px 10px #000a);transition:transform 1.6s cubic-bezier(.18,.75,.2,1),filter .8s}
+.spell-feather.fly{transform:translate(-24vw,-34vh) rotate(24deg) scale(1.08);filter:drop-shadow(0 0 18px #f7da83)}
+.spell-wand{position:absolute;z-index:10;left:13%;bottom:7%;width:20px;height:182px;touch-action:none;transform:rotate(24deg);transform-origin:50% 88%;filter:drop-shadow(0 7px 8px #000b)}
+.spell-wand::before{content:"";position:absolute;left:6px;top:0;width:8px;height:142px;border-radius:8px;background:linear-gradient(90deg,#2b160d,#845536 50%,#241108)}
+.spell-wand::after{content:"";position:absolute;left:3px;bottom:0;width:14px;height:52px;border-radius:8px;background:repeating-linear-gradient(170deg,#3b1e10 0 7px,#774326 7px 12px)}
+.spell-wand.active{filter:drop-shadow(0 0 12px #f0cc73)}
+#spellTrail{position:absolute;inset:0;z-index:7;width:100%;height:100%;pointer-events:none}
+.spell-status{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:10px}
+.spell-chip{padding:9px 8px;border-radius:11px;border:1px solid #ffffff18;background:#ffffff08;text-align:center;font-size:.79rem;color:#cfc5b5}
+.spell-chip.done{border-color:#d9b56f77;color:#f2dcab;background:#d9b56f12}
+.spell-actions{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+.spell-feedback{text-align:center;margin:0 0 10px;font:500 .92rem/1.4 Georgia,serif;color:#eadfce}
+
+/* Library */
+#libraryScene{background:#09080a}
+.library-vignette{position:absolute;inset:0;z-index:4;pointer-events:none;background:radial-gradient(circle at 50% 45%,transparent 35%,#02030599)}
+.book-hotspot{position:absolute;z-index:8;width:44px;height:112px;border:1px solid #b9945f66;border-radius:4px;background:linear-gradient(90deg,#2a1414,#75432f 50%,#1c0f0e);box-shadow:0 7px 16px #0009;touch-action:manipulation;transition:transform .25s,box-shadow .25s}
+.book-hotspot::before{content:"";position:absolute;left:5px;right:5px;top:11px;height:2px;background:#d8b56d88;box-shadow:0 74px 0 #d8b56d66}
+.book-hotspot.b1{left:13%;top:34%;transform:rotate(-2deg)}.book-hotspot.b2{left:36%;top:45%;transform:scale(.86)}.book-hotspot.b3{right:19%;top:30%;transform:rotate(2deg)}.book-hotspot.b4{right:34%;top:55%;transform:scale(.78)}.book-hotspot.b5{left:58%;top:24%;transform:scale(.75)}
+.book-hotspot.wrong{animation:bookShake .32s ease}
+.book-hotspot.correct{box-shadow:0 0 28px #e4ce8b99;transform:translateX(-18px) scale(1.04)}
+.library-clue{position:absolute;z-index:12;inset:0;display:none;place-items:center;padding:24px;background:#030407d8;backdrop-filter:blur(7px)}
+.library-clue.show{display:grid}
+.clue-paper{width:min(90%,460px);padding:24px;border:1px solid #8f744b;border-radius:10px;background:linear-gradient(#eadbb9,#cdb98e);color:#2a2118;box-shadow:0 20px 55px #000b;text-align:center}
+.clue-paper h3{margin:0 0 10px;font:600 1.45rem Georgia,serif}.clue-paper p{font:500 1rem/1.5 Georgia,serif;margin:0 0 16px}
+
+/* Moving stairs */
+#stairsScene{background:#07080b}
+.stairs-game{position:absolute;z-index:9;left:6%;right:6%;bottom:calc(env(safe-area-inset-bottom,0px) + 22px);padding:15px;border:1px solid #d9b56f55;border-radius:16px;background:#08090bd6;backdrop-filter:blur(10px)}
+.timing-track{position:relative;height:28px;border-radius:999px;background:#ffffff12;overflow:hidden;border:1px solid #ffffff16}
+.timing-zone{position:absolute;left:41%;width:18%;top:0;bottom:0;background:#d9b56f33;border-left:1px solid #e8ca83;border-right:1px solid #e8ca83}
+.timing-marker{position:absolute;top:3px;left:0;width:22px;height:22px;border-radius:50%;background:#f1d795;box-shadow:0 0 14px #e5bb5c}
+.stairs-row{display:flex;justify-content:space-between;align-items:center;margin-top:11px;gap:10px}
+.stairs-progress{font:600 .9rem Georgia,serif;color:#e9d9bd}
+.step-token{position:absolute;z-index:7;left:12%;bottom:31%;width:34px;height:34px;border-radius:50%;background:radial-gradient(circle,#f6d98d,#8e642b);box-shadow:0 0 18px #e6bd62;transition:left .55s ease,bottom .55s ease}
+.stairs-scene-flash{position:absolute;inset:0;z-index:6;pointer-events:none;background:radial-gradient(circle,#dbe7ff2a,transparent 42%);opacity:0;transition:opacity .3s}
+.stairs-scene-flash.on{opacity:1}
+.stairs-finish{position:absolute;z-index:12;inset:0;display:none;place-items:center;text-align:center;padding:26px;background:#020407df;backdrop-filter:blur(9px)}
+.stairs-finish.show{display:grid}
+.stairs-finish h2{margin:0 0 10px;font:500 clamp(2rem,8vw,3.2rem) Georgia,serif;color:#dce8ff}
+.stairs-finish p{margin:0 0 17px;color:#e1d7c8;line-height:1.55}
+
+#mysteryContinue{margin-top:18px}
+
+@keyframes extraDrift{from{transform:scale(1.02) translate3d(-.5%,0,0)}to{transform:scale(1.07) translate3d(.7%,-.5%,0)}}
+@keyframes bookShake{0%,100%{transform:translateX(0)}25%{transform:translateX(-7px)}75%{transform:translateX(7px)}}
