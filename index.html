@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#12090d" />
+  <title>Per te, amore mio</title>
+  <style>
+    :root{
+      --bg:#12090d;
+      --bg2:#241018;
+      --text:#fff8f3;
+      --muted:#d8c6ca;
+      --accent:#f2b8c6;
+      --accent2:#e68aa3;
+      --line:rgba(255,255,255,.12);
+    }
+
+    *{box-sizing:border-box}
+    html,body{margin:0;min-height:100%;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+    body{
+      min-height:100svh;
+      overflow:hidden;
+      background:
+        radial-gradient(circle at 50% 25%, rgba(230,138,163,.17), transparent 36%),
+        radial-gradient(circle at 15% 85%, rgba(242,184,198,.08), transparent 30%),
+        linear-gradient(160deg,var(--bg2),var(--bg) 58%);
+    }
+
+    .page{
+      min-height:100svh;
+      display:grid;
+      place-items:center;
+      padding:28px 22px calc(28px + env(safe-area-inset-bottom));
+      position:relative;
+      isolation:isolate;
+    }
+
+    .grain{
+      position:absolute;
+      inset:0;
+      pointer-events:none;
+      opacity:.16;
+      background-image:
+        radial-gradient(circle at 20% 20%, rgba(255,255,255,.18) 0 1px, transparent 1.5px),
+        radial-gradient(circle at 80% 35%, rgba(255,255,255,.12) 0 1px, transparent 1.5px),
+        radial-gradient(circle at 30% 75%, rgba(255,255,255,.11) 0 1px, transparent 1.5px);
+      background-size:120px 120px,170px 170px,145px 145px;
+      z-index:-1;
+    }
+
+    .intro{
+      width:min(100%,520px);
+      text-align:center;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      gap:24px;
+      animation:enter .9s ease both;
+    }
+
+    .eyebrow{
+      margin:0;
+      font-size:.76rem;
+      letter-spacing:.28em;
+      text-transform:uppercase;
+      color:var(--muted);
+    }
+
+    h1{
+      margin:0;
+      font-family:Georgia,"Times New Roman",serif;
+      font-size:clamp(2.25rem,10vw,4.35rem);
+      line-height:.98;
+      font-weight:500;
+      text-wrap:balance;
+      letter-spacing:-.035em;
+      text-shadow:0 8px 30px rgba(0,0,0,.25);
+    }
+
+    h1 em{
+      display:block;
+      margin-top:.22em;
+      color:var(--accent);
+      font-weight:500;
+    }
+
+    .sub{
+      margin:0;
+      max-width:33ch;
+      font-size:1rem;
+      line-height:1.6;
+      color:var(--muted);
+    }
+
+    .play{
+      appearance:none;
+      border:1px solid rgba(255,255,255,.22);
+      color:#251017;
+      background:linear-gradient(135deg,#f8d5de,#eaa2b5);
+      border-radius:999px;
+      min-height:56px;
+      padding:0 34px;
+      font-size:1rem;
+      font-weight:700;
+      letter-spacing:.01em;
+      cursor:pointer;
+      box-shadow:0 10px 32px rgba(230,138,163,.24);
+      transition:transform .18s ease, box-shadow .18s ease, filter .18s ease;
+    }
+
+    .play:active{transform:scale(.975)}
+    .play:focus-visible{outline:3px solid rgba(255,255,255,.8);outline-offset:4px}
+
+    .tiny{
+      font-size:.74rem;
+      color:rgba(255,248,243,.5);
+      letter-spacing:.04em;
+    }
+
+    .heart{
+      width:42px;
+      height:42px;
+      border:1px solid var(--line);
+      border-radius:50%;
+      display:grid;
+      place-items:center;
+      color:var(--accent);
+      font-size:1.05rem;
+      animation:pulse 2.6s ease-in-out infinite;
+      background:rgba(255,255,255,.025);
+      backdrop-filter:blur(8px);
+    }
+
+    @media (hover:hover) and (pointer:fine){
+      .play:hover{
+        transform:translateY(-2px);
+        box-shadow:0 14px 38px rgba(230,138,163,.31);
+        filter:brightness(1.04);
+      }
+    }
+
+    @media (prefers-reduced-motion:reduce){
+      .intro,.heart{animation:none}
+      .play{transition:none}
+    }
+
+    @keyframes enter{
+      from{opacity:0;transform:translateY(16px)}
+      to{opacity:1;transform:translateY(0)}
+    }
+
+    @keyframes pulse{
+      0%,100%{transform:scale(1);opacity:.78}
+      50%{transform:scale(1.08);opacity:1}
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <div class="grain" aria-hidden="true"></div>
+
+    <section class="intro" aria-labelledby="titolo">
+      <div class="heart" aria-hidden="true">♥</div>
+
+      <p class="eyebrow">Per Eleonora</p>
+
+      <h1 id="titolo">
+        Alla donna più bella e speciale del mondo…
+        <em>vuoi giocare con me?</em>
+      </h1>
+
+      <p class="sub">
+        Ho preparato qualcosa solo per te.
+      </p>
+
+      <button class="play" id="playButton" type="button">
+        Giochiamo ♥
+      </button>
+
+      <span class="tiny">Un piccolo regalo fatto con amore.</span>
+    </section>
+  </main>
+
+  <script>
+    const playButton = document.getElementById('playButton');
+    playButton.addEventListener('click', () => {
+      document.dispatchEvent(new CustomEvent('amoremio:start'));
+      playButton.textContent = 'Iniziamo…';
+      playButton.disabled = true;
+    });
+  </script>
+</body>
+</html>
